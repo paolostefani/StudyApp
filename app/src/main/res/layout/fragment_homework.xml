@@ -16,12 +16,22 @@
         android:text="@string/name_label" />
     <EditText android:id="@+id/hwork_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/form_elements_margin"
+        android:text="@string/leader_label" />
+    <EditText android:id="@+id/hwork_leader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/form_elements_margin"
         android:text="@string/subject_label" />
     <Spinner android:id="@+id/hwork_subject"
         android:layout_width="match_parent"
@@ -30,7 +40,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/form_elements_margin"
         android:text="@string/description_label" />
     <EditText android:id="@+id/hwork_description"
         android:layout_width="match_parent"
@@ -40,19 +50,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/form_elements_margin"
         android:text="@string/expiry_label" />
-    <LinearLayout
+    <Button android:id="@+id/hwork_expiry_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView android:id="@+id/hwork_expiry_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:textSize="@dimen/date_time_font_size" />
 
-            android:text="aaa"/>
-        <TextView android:id="@+id/hwork_expiry_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
 </LinearLayout>

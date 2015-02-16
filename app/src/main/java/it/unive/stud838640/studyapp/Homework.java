@@ -13,8 +13,7 @@ public class Homework {
     private String leader; // TODO change String type to Team type
     private ArrayList<Task> tasks;
 
-    public Homework(String name) {
-        this.name = name;
+    public Homework() {
         leader = "You";
         tasks = new ArrayList<>();
     }
