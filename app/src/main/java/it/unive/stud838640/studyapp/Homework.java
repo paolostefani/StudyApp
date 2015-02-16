@@ -14,8 +14,8 @@ public class Homework {
     private ArrayList<Task> tasks;
 
     public Homework() {
-        leader = "You";
         tasks = new ArrayList<>();
+        expiry = new Date();
     }
 
     public String getName() {
@@ -61,6 +61,8 @@ public class Homework {
     public String getLeader() {
         return leader;
     }
+
+    public void setLeader(String leader) { this.leader = leader; }
 
     public ArrayList<Task> getTasks() {
         return tasks;
