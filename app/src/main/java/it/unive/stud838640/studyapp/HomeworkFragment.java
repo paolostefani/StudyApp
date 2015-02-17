@@ -52,9 +52,9 @@ public class HomeworkFragment extends Fragment {
         leaderField = (EditText) rootView.findViewById(R.id.hwork_leader);
         leaderField.setText(homework.getLeader());
         expiryDateField = (Button) rootView.findViewById(R.id.hwork_expiry_date);
-        expiryDateField.setText(DateFormat.format("EEEE, MMM dd, yyyy", homework.getExpiryDate()));
+        expiryDateField.setText(DateFormat.format("EEEE dd MMMM yyyy", homework.getExpiryDate()));
         expiryTimeField = (Button) rootView.findViewById(R.id.hwork_expiry_time);
-        expiryTimeField.setText(DateFormat.format("k, m", homework.getExpiryDate()));
+        expiryTimeField.setText(DateFormat.format("k:m", homework.getExpiryDate()));
         subjectsField = (Spinner) rootView.findViewById(R.id.hwork_subject);
         subjectsField.setAdapter(subjectsAdapter);
 
