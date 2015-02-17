@@ -8,14 +8,14 @@ import java.util.Date;
  */
 public class Homework {
     private String name, description, subject, timeLeft;
-    private Date expiry;
+    private Date expiryDate, expiryTime;
     private int percentage;
     private String leader; // TODO change String type to Team type
     private ArrayList<Task> tasks;
 
     public Homework() {
         tasks = new ArrayList<>();
-        expiry = new Date();
+        expiryDate = new Date();
     }
 
     public String getName() {
@@ -42,12 +42,20 @@ public class Homework {
         this.subject = subject;
     }
 
-    public Date getExpiry() {
-        return expiry;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setExpiry(Date expiry) {
-        this.expiry = expiry;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public Date getExpiryTime() {
+        return expiryTime;
+    }
+
+    public void setExpiryTime(Date expiryTime) {
+        this.expiryTime = expiryTime;
     }
 
     public String getTimeLeft() {

@@ -3,6 +3,7 @@ package it.unive.stud838640.studyapp;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class HomeworkFragment extends Fragment {
     private Homework homework;
     private EditText nameField, leaderField;
-    private Button expiryField;
+    private Button expiryDateField, expiryTimeField;
     private ArrayList<String> subjects;
     private ArrayAdapter<String> subjectsAdapter;
     private Spinner subjectsField;
@@ -49,11 +50,12 @@ public class HomeworkFragment extends Fragment {
 
         nameField = (EditText) rootView.findViewById(R.id.hwork_name);
         leaderField = (EditText) rootView.findViewById(R.id.hwork_leader);
-        expiryField = (Button) rootView.findViewById(R.id.hwork_expiry_date);
-        subjectsField = (Spinner) rootView.findViewById(R.id.hwork_subject);
-
         leaderField.setText(homework.getLeader());
-        expiryField.setText(homework.getExpiry().toString());
+        expiryDateField = (Button) rootView.findViewById(R.id.hwork_expiry_date);
+        expiryDateField.setText(DateFormat.format("EEEE, MMM dd, yyyy", homework.getExpiryDate()));
+        expiryTimeField = (Button) rootView.findViewById(R.id.hwork_expiry_time);
+        expiryTimeField.setText(DateFormat.format("k, m", homework.getExpiryDate()));
+        subjectsField = (Spinner) rootView.findViewById(R.id.hwork_subject);
         subjectsField.setAdapter(subjectsAdapter);
 
         return rootView;
