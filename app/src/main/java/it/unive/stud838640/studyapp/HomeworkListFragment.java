@@ -2,7 +2,10 @@ package it.unive.stud838640.studyapp;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -20,5 +23,11 @@ public class HomeworkListFragment extends ListFragment {
         ArrayAdapter<Homework> hwAdapter = new ArrayAdapter<Homework>(getActivity(),
                 android.R.layout.simple_list_item_1, homeworks);
         setListAdapter(hwAdapter);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Homework hw = (Homework) getListAdapter().getItem(position);
+        Log.d("HomeworkListFragment", hw.getName());
     }
 }
