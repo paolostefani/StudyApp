@@ -73,4 +73,9 @@ public class Homework {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

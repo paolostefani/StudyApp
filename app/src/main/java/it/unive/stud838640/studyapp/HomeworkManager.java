@@ -18,7 +18,7 @@ public class HomeworkManager {
         homeworks = new ArrayList<>();
 
         //TODO temp added homeworks for testing
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             Homework h = new Homework();
             h.setName("Homework " + h.getId());
             h.setDescription("This is Homework # " + h.getId());
@@ -32,7 +32,7 @@ public class HomeworkManager {
 
     }
 
-    public HomeworkManager get(Context context) {
+    public static HomeworkManager get(Context context) {
         if (homeworkManager == null) {
             homeworkManager = new HomeworkManager(context.getApplicationContext());
         }
