@@ -2,10 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/homework_list_shape"
-        android:backgroundTint="#00ff00"/>
+    <Button android:id="@+id/hwork_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:text="aaa"
+        android:background="@drawable/homework_list_shape"/>
 
 </LinearLayout>

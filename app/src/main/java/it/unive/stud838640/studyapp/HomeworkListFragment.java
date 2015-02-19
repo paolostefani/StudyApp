@@ -1,10 +1,14 @@
 package it.unive.stud838640.studyapp;
 
 import android.app.ListFragment;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,14 +24,43 @@ public class HomeworkListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle(R.string.homeworks_title);
         homeworks = HomeworkManager.get(getActivity()).getHomeworks();
-        ArrayAdapter<Homework> hwAdapter = new ArrayAdapter<Homework>(getActivity(),
-                android.R.layout.simple_list_item_1, homeworks);
+        HomeworkAdapter hwAdapter = new HomeworkAdapter(homeworks);
         setListAdapter(hwAdapter);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Homework hw = (Homework) getListAdapter().getItem(position);
+        Homework hw = ((HomeworkAdapter) getListAdapter()).getItem(position);
         Log.d("HomeworkListFragment", hw.getName());
     }
+
+    private class HomeworkAdapter extends ArrayAdapter<Homework> {
+
+        public HomeworkAdapter(ArrayList<Homework> homeworks) {
+            super(getActivity(), 0, homeworks);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getActivity().getLayoutInflater()
+                        .inflate(R.layout.list_item_homework, null);
+            }
+
+            Homework hw = getItem(position);
+            Button hworkButton = (Button) convertView.findViewById(R.id.hwork_button);
+            hworkButton.setText(hw.getId() + "");
+            GradientDrawable bgShape = (GradientDrawable) hworkButton.getBackground();
+            String color = "";
+            if (position % 2 == 0)
+                color = "#00ff00";
+            else
+                color = "#0000ff";
+            bgShape.setColor(Color.parseColor(color));
+
+
+            return convertView;
+        }
+    }
+
 }

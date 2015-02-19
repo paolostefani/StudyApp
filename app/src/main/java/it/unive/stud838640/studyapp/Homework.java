@@ -7,7 +7,8 @@ import java.util.Date;
  * Created by paolo on 13/02/15.
  */
 public class Homework {
-    public static int id; // TODO change this temporary id with database id;
+    public static int lastId;
+    private int id; // TODO change this temporary id with database id;
     private String name, description, subject, timeLeft;
     private Date expiryDate;
     private int percentage;
@@ -17,7 +18,7 @@ public class Homework {
     public Homework() {
         tasks = new ArrayList<>();
         expiryDate = new Date();
-        id++;
+        id = ++lastId;
     }
 
     public int getId() {
