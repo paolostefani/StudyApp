@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class HomeworkListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         Homework hw = ((HomeworkAdapter) getListAdapter()).getItem(position);
         Log.d("HomeworkListFragment", hw.getName());
+        Toast.makeText(getActivity(), hw.getName(), Toast.LENGTH_SHORT).show();
     }
 
     private class HomeworkAdapter extends ArrayAdapter<Homework> {

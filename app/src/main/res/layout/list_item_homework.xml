@@ -9,6 +9,7 @@
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:text="aaa"
+        android:focusable="false"
         android:background="@drawable/homework_list_shape"/>
 
 </LinearLayout>
