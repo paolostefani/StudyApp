@@ -1,18 +1,17 @@
 package it.unive.stud838640.studyapp;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -68,8 +67,9 @@ public class HomeworkListFragment extends Fragment {
             hworkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("HomeworkListFragment", hw.getName());
-                    Toast.makeText(getActivity(), hw.getName(), Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getActivity(), HomeworkActivity.class);
+                    i.putExtra(HomeworkFragment.EXTRA_HOMEWORK_ID, hw.getId());
+                    startActivity(i);
                 }
             });
 

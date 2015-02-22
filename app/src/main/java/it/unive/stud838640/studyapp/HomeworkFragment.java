@@ -18,6 +18,8 @@ import java.util.ArrayList;
  * Created by AccStefani on 16/02/2015.
 */
 public class HomeworkFragment extends Fragment {
+    public static final String EXTRA_HOMEWORK_ID =
+            "it.unive.stud838640.studyapp.homework_id";
     private Homework homework;
     private EditText nameField, leaderField;
     private Button expiryDateField, expiryTimeField;
@@ -25,10 +27,20 @@ public class HomeworkFragment extends Fragment {
     private ArrayAdapter<String> subjectsAdapter;
     private Spinner subjectsField;
 
+    public static HomeworkFragment newInstance(int homeworkId) {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_HOMEWORK_ID, homeworkId);
+        HomeworkFragment fragment = new HomeworkFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        homework = new Homework();
+        int homeworkId = (int) getArguments().getSerializable(EXTRA_HOMEWORK_ID);
+        homework = HomeworkManager.get(getActivity()).getHomework(homeworkId);
+
         homework.setLeader(getActivity().getString(R.string.you));
 
         subjects = new ArrayList<>();
@@ -49,6 +61,7 @@ public class HomeworkFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_homework, container, false);
 
         nameField = (EditText) rootView.findViewById(R.id.hwork_name);
+        nameField.setText(homework.getName());
         leaderField = (EditText) rootView.findViewById(R.id.hwork_leader);
         leaderField.setText(homework.getLeader());
         expiryDateField = (Button) rootView.findViewById(R.id.hwork_expiry_date);
