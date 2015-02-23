@@ -94,6 +94,19 @@
             android:textSize="@dimen/date_time_font_size" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/form_elements_margin"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/time_left_label" />
+    <TextView android:id="@+id/hwork_time_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:minWidth="64sp"
+        android:paddingLeft="8sp" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package it.unive.stud838640.studyapp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -8,6 +9,8 @@ import java.util.Date;
  */
 public class Homework {
     public static int lastId;
+    private final int HOUR_MILLI = 1000 * 3600;
+    private final int DAY_MILLI = HOUR_MILLI * 24;
     private int id; // TODO change this temporary id with database id;
     private String name, description, subject, timeLeft;
     private Date expiryDate;
@@ -58,6 +61,16 @@ public class Homework {
     }
 
     public String getTimeLeft() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(expiryDate);
+        long now = Calendar.getInstance().getTimeInMillis();
+        long timeLeftMilli = cal.getTimeInMillis() - now;
+        float daysF = (float) timeLeftMilli / (float) DAY_MILLI;
+        int days = Math.round(daysF);
+        int hours = Math.round((daysF - days) * 24);
+        String dleft = (days > 0) ? days + " days and " : "";
+        timeLeft = dleft + hours + " hours";
+
         return timeLeft;
     }
 

@@ -23,9 +23,9 @@ public class HomeworkManager {
             h.setName("Homework " + h.getId());
             h.setDescription("This is Homework # " + h.getId());
             h.setLeader(context.getString(R.string.you));
-            (Calendar.getInstance())
-                    .setTimeInMillis(System.currentTimeMillis() + (60000 * 3600 * 24));
-            h.setExpiryDate(Calendar.getInstance().getTime());
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(System.currentTimeMillis() + (1000 * 3600 * 27));
+            h.setExpiryDate(cal.getTime());
             homeworks.add(h);
 
         }

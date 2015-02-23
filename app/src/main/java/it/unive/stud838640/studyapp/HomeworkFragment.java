@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class HomeworkFragment extends Fragment {
     private ArrayList<String> subjects;
     private ArrayAdapter<String> subjectsAdapter;
     private Spinner subjectsField;
+    private TextView timeLeftField;
 
     public static HomeworkFragment newInstance(int homeworkId) {
         Bundle args = new Bundle();
@@ -70,6 +72,9 @@ public class HomeworkFragment extends Fragment {
         expiryTimeField.setText(DateFormat.format("k:m", homework.getExpiryDate()));
         subjectsField = (Spinner) rootView.findViewById(R.id.hwork_subject);
         subjectsField.setAdapter(subjectsAdapter);
+        timeLeftField = (TextView) rootView.findViewById(R.id.hwork_time_left);
+        timeLeftField.setText(homework.getTimeLeft());
+
 
         return rootView;
     }
