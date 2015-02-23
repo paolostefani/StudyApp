@@ -9,7 +9,7 @@
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:layout_margin">10dp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">#ff5090</item>
         <item name="android:background">@drawable/homework_list_shape</item>
     </style>
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -54,15 +55,26 @@ public class HomeworkListFragment extends Fragment {
             }
 
             final Homework hw = getItem(position);
+
             Button hworkButton = (Button) convertView.findViewById(R.id.hwork_button);
-            hworkButton.setText(hw.getId() + "");
+            //hworkButton.setText(hw.getId() + "");
             GradientDrawable bgShape = (GradientDrawable) hworkButton.getBackground();
             String color = "";
             if (position % 2 == 0)
-                color = "#00ff00";
+                color = "#ff3000";
             else
-                color = "#0000ff";
+                color = "#ff2090";
             bgShape.setColor(Color.parseColor(color));
+
+            TextView hworkName = (TextView) convertView.findViewById(R.id.hwork_name);
+            hworkName.setText(hw.getName());
+
+            TextView hworkTimeLeft = (TextView) convertView.findViewById(R.id.hwork_time_left);
+            String[] timeLeft = hw.getTimeLeft().split(",");
+            String d = getResources().getString(R.string.d_day);
+            String h = getResources().getString(R.string.h_hours);
+            hworkTimeLeft.setText(timeLeft[0] + d + " " + timeLeft[1] + h);
+
 
             hworkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
