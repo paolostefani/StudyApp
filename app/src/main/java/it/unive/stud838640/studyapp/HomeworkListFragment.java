@@ -80,7 +80,7 @@ public class HomeworkListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), HomeworkActivity.class);
-                    i.putExtra(HomeworkFragment.EXTRA_HOMEWORK_ID, hw.getId());
+                    i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
                     startActivity(i);
                 }
             });

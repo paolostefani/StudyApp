@@ -8,7 +8,7 @@ public class HomeworkActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
         int homeworkId = (int) getIntent()
-                .getSerializableExtra(HomeworkFragment.EXTRA_HOMEWORK_ID);
-        return HomeworkFragment.newInstance(homeworkId);
+                .getSerializableExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID);
+        return HomeworkDetailsFragment.newInstance(homeworkId);
     }
 }

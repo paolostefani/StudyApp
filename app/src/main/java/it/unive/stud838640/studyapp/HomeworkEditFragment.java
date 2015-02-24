@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by AccStefani on 16/02/2015.
 */
-public class HomeworkFragment extends Fragment {
+public class HomeworkEditFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ID =
             "it.unive.stud838640.studyapp.homework_id";
     private Homework homework;
@@ -29,10 +29,12 @@ public class HomeworkFragment extends Fragment {
     private Spinner subjectsField;
     private TextView timeLeftField;
 
-    public static HomeworkFragment newInstance(int homeworkId) {
+
+
+    public static HomeworkEditFragment newInstance(int homeworkId) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_HOMEWORK_ID, homeworkId);
-        HomeworkFragment fragment = new HomeworkFragment();
+        HomeworkEditFragment fragment = new HomeworkEditFragment();
         fragment.setArguments(args);
         return fragment;
     }
