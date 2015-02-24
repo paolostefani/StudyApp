@@ -19,14 +19,15 @@ public class HomeworkManager {
 
         //TODO temp added homeworks for testing
         for (int i = 0; i < 30; i++) {
-            Homework h = new Homework();
-            h.setName("Homework " + h.getId());
-            h.setDescription("This is Homework # " + h.getId());
-            h.setLeader(context.getString(R.string.you));
+            Homework hw = new Homework();
+            hw.setName("Homework " + hw.getId());
+            hw.setDescription(context.getResources().getString(R.string.lorem_ipsum_short));
+            hw.setLeader(context.getString(R.string.you));
+            hw.setSubject("Algebra");
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(System.currentTimeMillis() + (1000 * 3600 * 27));
-            h.setExpiryDate(cal.getTime());
-            homeworks.add(h);
+            hw.setExpiryDate(cal.getTime());
+            homeworks.add(hw);
 
         }
 

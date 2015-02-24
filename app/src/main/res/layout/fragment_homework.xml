@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_elements_margin"
+        android:layout_marginTop="@dimen/field_elements_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/leader_label" />
     <EditText android:id="@+id/hwork_leader"
@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_elements_margin"
+        android:layout_marginTop="@dimen/field_elements_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/subject_label" />
     <Spinner android:id="@+id/hwork_subject"
@@ -46,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_elements_margin"
+        android:layout_marginTop="@dimen/field_elements_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/description_label" />
     <EditText android:id="@+id/hwork_description"
@@ -57,7 +57,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_elements_margin"
+        android:layout_marginTop="@dimen/field_elements_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/expiry_label" />
 
@@ -97,7 +97,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_elements_margin"
+        android:layout_marginTop="@dimen/field_elements_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/time_left_label" />
     <TextView android:id="@+id/hwork_time_left"

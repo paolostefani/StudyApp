@@ -18,10 +18,20 @@
     <string name="time_label">Ora</string>
     <string name="homeworks_title">Homeworks</string>
     <string name="d_day">d</string>
-    <string name="day">Giorno</string>
-    <string name="days">Giorni</string>
+    <string name="day">giorno</string>
+    <string name="days">giorni</string>
     <string name="h_hours">h</string>
-    <string name="hour">Ora</string>
-    <string name="hours">Ore</string>
+    <string name="hour">ora</string>
+    <string name="hours">ore</string>
+    <string name="and">e</string>
+    <string name="lorem_ipsum"> Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Aliquam efficitur nisi sit amet ultricies
+        tincidunt. Pellentesque elementum, mauris ut varius viverra,
+        leo nisl commodo tellus, vel pulvinar orci orci at risus.
+        Maecenas vehicula diam tempor venenatis fringilla.
+        Praesent nec diam velit.</string>
+    <string name="lorem_ipsum_short"> Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Aliquam efficitur nisi sit amet ultricies
+        tincidunt.</string>
 
 </resources>

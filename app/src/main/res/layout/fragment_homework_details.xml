@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/hwork_name"
+                android:text="@string/name_label"
+                style="@style/title" />
+
+            <TextView
+                android:id="@+id/hwork_description"
+                android:layout_marginTop="@dimen/field_elements_margin"
+                android:text="@string/description_label"
+                android:textStyle="normal"
+                style="@style/field" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/field_elements_margin">
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/homework_list_shape"
+                    android:layout_marginRight="10dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="@string/subject_label"
+                        android:layout_marginTop="0dp"
+                        style="@style/field_label" />
+                    <TextView
+                        android:id="@+id/hwork_subject"
+                        android:text="@string/subject_label"
+                        style="@style/field" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/expiry_label"
+                style="@style/field_label" />
+            <TextView
+                android:id="@+id/hwork_expiry_date"
+                android:text="@string/expiry_label"
+                style="@style/field" />
+
+            <TextView
+                android:text="@string/time_left_label"
+                style="@style/field_label" />
+            <TextView
+                android:id="@+id/hwork_time_left"
+                android:text="@string/time_left_label"
+                style="@style/field" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
