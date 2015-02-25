@@ -12,7 +12,8 @@ public class Homework {
     private final int HOUR_MILLI = 1000 * 3600;
     private final int DAY_MILLI = HOUR_MILLI * 24;
     private int id; // TODO change this temporary id with database id;
-    private String name, description, subject, timeLeft;
+    private String name, description, timeLeft;
+    private SchoolManager.Subject subject;
     private Date expiryDate;
     private int percentage;
     private String leader; // TODO change String type to Team type
@@ -44,11 +45,11 @@ public class Homework {
         this.description = description;
     }
 
-    public String getSubject() {
+    public SchoolManager.Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(SchoolManager.Subject subject) {
         this.subject = subject;
     }
 

@@ -59,11 +59,7 @@ public class HomeworkListFragment extends Fragment {
             Button hworkButton = (Button) convertView.findViewById(R.id.hwork_button);
             //hworkButton.setText(hw.getId() + "");
             GradientDrawable bgShape = (GradientDrawable) hworkButton.getBackground();
-            String color = "";
-            if (position % 2 == 0)
-                color = "#ff3000";
-            else
-                color = "#ff2090";
+            String color = hw.getSubject().color;
             bgShape.setColor(Color.parseColor(color));
 
             TextView hworkName = (TextView) convertView.findViewById(R.id.hwork_name);

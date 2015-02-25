@@ -1,6 +1,8 @@
 package it.unive.stud838640.studyapp;
 
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
@@ -18,7 +20,7 @@ public class HomeworkDetailsFragment extends Fragment {
             "it.unive.stud838640.studyapp.homework_id";
     private Homework hw;
     private TextView nameField, leaderField, descrField,
-            subjectField, expiryDateField, timeLeftField;
+            subjectField, expiryDateField, timeLeftField, subjectCircle;
     private ArrayAdapter<String> subjectsAdapter;
 
     public static HomeworkDetailsFragment newInstance(int homeworkId) {
@@ -47,8 +49,12 @@ public class HomeworkDetailsFragment extends Fragment {
         nameField.setText(hw.getName());
         descrField = (TextView) v.findViewById(R.id.hwork_description);
         descrField.setText(hw.getDescription());
+        subjectCircle = (TextView) v.findViewById(R.id.hwork_subject_circle);
+        GradientDrawable bgShape = (GradientDrawable) subjectCircle.getBackground();
+        String color = hw.getSubject().color;
+        bgShape.setColor(Color.parseColor(color));
         subjectField = (TextView) v.findViewById(R.id.hwork_subject);
-        subjectField.setText(hw.getSubject());
+        subjectField.setText(hw.getSubject().name);
         expiryDateField = (TextView) v.findViewById(R.id.hwork_expiry_date);
         expiryDateField.setText(DateFormat.format("EEEE dd MMMM yyyy\nkk:mm",
                 hw.getExpiryDate()));

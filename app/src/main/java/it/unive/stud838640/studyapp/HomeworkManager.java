@@ -12,10 +12,12 @@ public class HomeworkManager {
     private static HomeworkManager homeworkManager;
     private Context context;
     private ArrayList<Homework> homeworks;
+    private ArrayList<SchoolManager.Subject> subjects;
 
     private HomeworkManager(Context context) {
         this.context = context;
         homeworks = new ArrayList<>();
+        subjects = SchoolManager.get(context).getSchools().get(0).getSubjects();
 
         //TODO temp added homeworks for testing
         for (int i = 0; i < 30; i++) {
@@ -23,7 +25,7 @@ public class HomeworkManager {
             hw.setName("Homework " + hw.getId());
             hw.setDescription(context.getResources().getString(R.string.lorem_ipsum_short));
             hw.setLeader(context.getString(R.string.you));
-            hw.setSubject("Algebra");
+            hw.setSubject(subjects.get(i % subjects.size()));
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(System.currentTimeMillis() + (1000 * 3600 * 27));
             hw.setExpiryDate(cal.getTime());
