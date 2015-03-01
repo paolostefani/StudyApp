@@ -33,5 +33,6 @@
     <string name="lorem_ipsum_short"> Lorem ipsum dolor sit amet, consectetur
         adipiscing elit. Aliquam efficitur nisi sit amet ultricies
         tincidunt.</string>
+    <string name="new_homework">Nuovo Homework</string>
 
 </resources>

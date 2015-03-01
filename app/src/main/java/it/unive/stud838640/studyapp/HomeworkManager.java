@@ -13,19 +13,22 @@ public class HomeworkManager {
     private Context context;
     private ArrayList<Homework> homeworks;
     private ArrayList<SchoolManager.Subject> subjects;
+    private User user;
+    private SchoolManager.School school;
 
     private HomeworkManager(Context context) {
         this.context = context;
         homeworks = new ArrayList<>();
-        subjects = SchoolManager.get(context).getSchools().get(0).getSubjects();
+        user = Profile.get(context).getUser();
+        school = user.getSchool();
 
         //TODO temp added homeworks for testing
         for (int i = 0; i < 30; i++) {
             Homework hw = new Homework();
             hw.setName("Homework " + hw.getId());
             hw.setDescription(context.getResources().getString(R.string.lorem_ipsum_short));
-            hw.setLeader(context.getString(R.string.you));
-            hw.setSubject(subjects.get(i % subjects.size()));
+            hw.setLeader(user.getName());
+            hw.setSubject(school.getSubject((i % school.getSubjects().size()) + 1));
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(System.currentTimeMillis() + (1000 * 3600 * 27));
             hw.setExpiryDate(cal.getTime());

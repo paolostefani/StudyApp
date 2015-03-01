@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +38,6 @@ public class HomeworkDetailsFragment extends Fragment {
         getActivity().setTitle(hw.getName());
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
