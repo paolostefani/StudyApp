@@ -22,6 +22,8 @@ import java.util.ArrayList;
  * Created by paolo on 18/02/15.
  */
 public class HomeworkListFragment extends Fragment {
+    public static final String EXTRA_HOMEWORK_ACTION =
+            "it.unive.stud838640.studyapp.homework_id";
     private ArrayList<Homework> homeworks;
     private GridView hwGridView;
 
@@ -50,8 +52,15 @@ public class HomeworkListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-        // TODO add menu item actions
+        switch (item.getItemId()) {
+            case R.id.menu_item_new_hwork:
+                Intent i = new Intent(getActivity(), HomeworkActivity.class);
+                i.putExtra(EXTRA_HOMEWORK_ACTION, "new");
+                startActivity(i);
+                return  true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class HomeworkAdapter extends ArrayAdapter<Homework> {
@@ -89,7 +98,8 @@ public class HomeworkListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), HomeworkActivity.class);
-                    i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
+                    i.putExtra(EXTRA_HOMEWORK_ACTION, "showdetails");
+                   // i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
                     startActivity(i);
                 }
             });
