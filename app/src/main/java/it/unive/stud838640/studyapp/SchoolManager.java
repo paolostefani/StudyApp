@@ -121,5 +121,10 @@ public class SchoolManager {
             this.color = color;
             id = ++lastSubjectId;
         }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

@@ -9,10 +9,12 @@ public class HomeworkActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         String hwAction = getIntent().
                 getStringExtra(HomeworkListFragment.EXTRA_HOMEWORK_ACTION);
-        if (hwAction.equals("new"))
-            return HomeworkEditFragment.newInstance(-1);
         int homeworkId = (int) getIntent()
-                .getSerializableExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID);
+                .getIntExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, -1);
+
+        if (hwAction.equals("new"))
+            return HomeworkEditFragment.newInstance(homeworkId);
+
         return HomeworkDetailsFragment.newInstance(homeworkId);
     }
 }

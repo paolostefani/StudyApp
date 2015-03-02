@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 public class HomeworkListFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ACTION =
-            "it.unive.stud838640.studyapp.homework_id";
+            "it.unive.stud838640.studyapp.homework_action";
     private ArrayList<Homework> homeworks;
     private GridView hwGridView;
 
@@ -99,7 +99,7 @@ public class HomeworkListFragment extends Fragment {
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), HomeworkActivity.class);
                     i.putExtra(EXTRA_HOMEWORK_ACTION, "showdetails");
-                   // i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
+                    i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
                     startActivity(i);
                 }
             });

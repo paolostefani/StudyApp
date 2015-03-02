@@ -24,7 +24,7 @@ public class HomeworkDetailsFragment extends Fragment {
 
     public static HomeworkDetailsFragment newInstance(int homeworkId) {
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_HOMEWORK_ID, homeworkId);
+        args.putInt(EXTRA_HOMEWORK_ID, homeworkId);
         HomeworkDetailsFragment fragment = new HomeworkDetailsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -33,7 +33,7 @@ public class HomeworkDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int homeworkId = (int) getArguments().getSerializable(EXTRA_HOMEWORK_ID);
+        int homeworkId = (int) getArguments().getInt(EXTRA_HOMEWORK_ID);
         hw = HomeworkManager.get(getActivity()).getHomework(homeworkId);
         getActivity().setTitle(hw.getName());
     }
