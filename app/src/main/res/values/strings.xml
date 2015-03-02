@@ -34,5 +34,8 @@
         adipiscing elit. Aliquam efficitur nisi sit amet ultricies
         tincidunt.</string>
     <string name="new_homework">Nuovo Homework</string>
-
+    <string name="_new">Nuovo</string>
+    <string name="save">Salva</string>
+    <string name="edit">Modifica</string>
+    <string name="cancel">Annulla</string>
 </resources>
