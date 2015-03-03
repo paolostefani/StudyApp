@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="it.unive.stud838640.studyapp" >
 
     <application
@@ -14,7 +15,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeworkActivity"
-            android:label="@string/title_activity_homework" >
+            android:label="@string/title_activity_homework"
+            android:parentActivityName=".HomeworkActivity"
+            tools:ignore="UnusedAttribute">
         </activity>
     </application>
 

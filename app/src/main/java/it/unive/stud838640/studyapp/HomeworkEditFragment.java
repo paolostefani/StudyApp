@@ -2,12 +2,14 @@ package it.unive.stud838640.studyapp;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ public class HomeworkEditFragment extends Fragment {
     private SchoolManager.School school;
     private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
     private Spinner subjectsField;
+    private SchoolManager.Subject selectedSubject;
 
     public static HomeworkEditFragment newInstance(int homeworkId) {
         Bundle args = new Bundle();
@@ -51,6 +54,8 @@ public class HomeworkEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_homework_edit, container, false);
 
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+
         nameField = (EditText) v.findViewById(R.id.hwork_name);
         descriptionField = (EditText) v.findViewById((R.id.hwork_description));
 //        expiryDateField = (Button) v.findViewById(R.id.hwork_expiry_date);
@@ -60,6 +65,19 @@ public class HomeworkEditFragment extends Fragment {
 
         subjectsField = (Spinner) v.findViewById(R.id.hwork_subject);
         subjectsField.setAdapter(subjectsAdapter);
+        selectedSubject = (SchoolManager.Subject) subjectsField.getSelectedItem();
+        subjectsField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedSubject = (SchoolManager.Subject) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return v;
     }
 
@@ -69,11 +87,15 @@ public class HomeworkEditFragment extends Fragment {
         inflater.inflate(R.menu.menu_fragment_homework_edit, menu);
     }
 
+    private long lastClickTime = 0;
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public synchronized boolean onOptionsItemSelected(MenuItem item) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000)
+            return false;
+        lastClickTime = SystemClock.elapsedRealtime();
         switch (item.getItemId()) {
             case R.id.menu_item_cancel:
-                // TODO
+                getActivity().finish();
                 return true;
             case R.id.menu_item_save_hwork:
                 addHomework();
@@ -87,8 +109,8 @@ public class HomeworkEditFragment extends Fragment {
         Homework newHw = new Homework();
         newHw.setName(nameField.getText().toString());
         newHw.setDescription(descriptionField.getText().toString());
-        newHw.setSubject(school.getSubjects().get(0));
+        newHw.setSubject(selectedSubject);
         HomeworkManager.get(getActivity()).getHomeworks().add(newHw);
-
+        getActivity().finish();
     }
 }
