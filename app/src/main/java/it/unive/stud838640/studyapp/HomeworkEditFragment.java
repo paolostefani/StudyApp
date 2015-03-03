@@ -73,10 +73,10 @@ public class HomeworkEditFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_cancel:
-                addHomework();
+                // TODO
                 return true;
             case R.id.menu_item_save_hwork:
-                // TODO
+                addHomework();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -87,6 +87,8 @@ public class HomeworkEditFragment extends Fragment {
         Homework newHw = new Homework();
         newHw.setName(nameField.getText().toString());
         newHw.setDescription(descriptionField.getText().toString());
+        newHw.setSubject(school.getSubjects().get(0));
         HomeworkManager.get(getActivity()).getHomeworks().add(newHw);
+
     }
 }

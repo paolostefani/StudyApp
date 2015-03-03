@@ -26,6 +26,7 @@ public class HomeworkListFragment extends Fragment {
             "it.unive.stud838640.studyapp.homework_action";
     private ArrayList<Homework> homeworks;
     private GridView hwGridView;
+    private HomeworkAdapter hwAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,8 @@ public class HomeworkListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_homework_grid, container, false);
         hwGridView = (GridView) v.findViewById(R.id.hwork_gridview);
         homeworks = HomeworkManager.get(getActivity()).getHomeworks();
-        hwGridView.setAdapter(new HomeworkAdapter(homeworks));
+        hwAdapter = new HomeworkAdapter(homeworks);
+        hwGridView.setAdapter(hwAdapter);
         
         return v;
     }
@@ -61,6 +63,13 @@ public class HomeworkListFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        hwAdapter.notifyDataSetChanged();
+        //hwGridView.invalidateViews();
     }
 
     private class HomeworkAdapter extends ArrayAdapter<Homework> {
