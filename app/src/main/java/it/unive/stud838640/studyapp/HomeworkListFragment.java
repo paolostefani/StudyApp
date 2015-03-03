@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by paolo on 18/02/15.
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class HomeworkListFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ACTION =
             "it.unive.stud838640.studyapp.homework_action";
-    private ArrayList<Homework> homeworks;
+    private List<Homework> homeworks;
     private GridView hwGridView;
     private HomeworkAdapter hwAdapter;
 
@@ -74,7 +74,7 @@ public class HomeworkListFragment extends Fragment {
 
     private class HomeworkAdapter extends ArrayAdapter<Homework> {
 
-        public HomeworkAdapter(ArrayList<Homework> homeworks) {
+        public HomeworkAdapter(List<Homework> homeworks) {
             super(getActivity(), 0, homeworks);
         }
 

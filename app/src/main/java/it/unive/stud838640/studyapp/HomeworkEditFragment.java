@@ -110,7 +110,7 @@ public class HomeworkEditFragment extends Fragment {
         newHw.setName(nameField.getText().toString());
         newHw.setDescription(descriptionField.getText().toString());
         newHw.setSubject(selectedSubject);
-        HomeworkManager.get(getActivity()).getHomeworks().add(newHw);
+        HomeworkManager.get(getActivity()).addHomework(newHw);
         getActivity().finish();
     }
 }

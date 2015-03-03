@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by AccStefani on 18/02/2015.
@@ -45,8 +47,8 @@ public class HomeworkManager {
         return homeworkManager;
     }
 
-    public ArrayList<Homework> getHomeworks() {
-        return homeworks;
+    public List<Homework> getHomeworks() {
+        return Collections.unmodifiableList(homeworks);
     }
 
     public Homework getHomework(int id) {
@@ -55,5 +57,13 @@ public class HomeworkManager {
                 return h;
         }
         return null;
+    }
+
+    public void addHomework(Homework homework) {
+        homeworks.add(homework);
+    }
+
+    public void removeHomework(Homework homework) {
+        homeworks.remove(homework);
     }
 }
