@@ -21,6 +21,7 @@ import android.widget.Spinner;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by AccStefani on 16/02/2015.
@@ -30,6 +31,7 @@ public class HomeworkEditFragment extends Fragment {
             "it.unive.stud838640.studyapp.homework_id";
     private static final String DIALOG_DATE = "date";
     private static int REQUEST_DATE = 0;
+    private static int REQUEST_TIME = 1;
     private Homework hw;
     private EditText nameField, descriptionField;
     private Button expiryDateField, expiryTimeField;
@@ -37,7 +39,8 @@ public class HomeworkEditFragment extends Fragment {
     private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
     private Spinner subjectsField;
     private SchoolManager.Subject selectedSubject;
-    private Date date;
+    private Date expiryDate;
+    private int exYear, exMonth, exDay, exHour, exMinute;
 
     public static HomeworkEditFragment newInstance(int homeworkId) {
         Bundle args = new Bundle();
@@ -64,7 +67,8 @@ public class HomeworkEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_homework_edit, container, false);
 
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+//            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
         nameField = (EditText) v.findViewById(R.id.hwork_name);
         descriptionField = (EditText) v.findViewById((R.id.hwork_description));
@@ -73,14 +77,24 @@ public class HomeworkEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getFragmentManager();
-                DatePickerFragment dateDialog = DatePickerFragment
-                        .newInstance(Calendar.getInstance().getTime());
+                DateTimePickerFragment dateDialog = DateTimePickerFragment
+                        .newInstance(Calendar.getInstance().getTime(), "date");
                 dateDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_DATE);
                 dateDialog.show(fm, DIALOG_DATE);
             }
         });
-//        expiryDateField.setText(DateFormat.format("EEEE dd MMMM yyyy", hw.getExpiryDate()));
-//        expiryTimeField = (Button) v.findViewById(R.id.hwork_expiry_time);
+
+        expiryTimeField = (Button) v.findViewById(R.id.hwork_expiry_time);
+        expiryTimeField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getFragmentManager();
+                DateTimePickerFragment timeDialog = DateTimePickerFragment
+                        .newInstance(Calendar.getInstance().getTime(), "time");
+                timeDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_TIME);
+                timeDialog.show(fm, DIALOG_DATE);
+            }
+        });
 //        expiryTimeField.setText(DateFormat.format("k:m", hw.getExpiryDate()));
 
         subjectsField = (Spinner) v.findViewById(R.id.hwork_subject);
@@ -106,10 +120,25 @@ public class HomeworkEditFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode == REQUEST_DATE) {
-            date = (Date) data
-                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            Date date = (Date) data
+                    .getSerializableExtra(DateTimePickerFragment.EXTRA_DATE);
             expiryDateField.setText(DateFormat
                     .format("EEEE dd MMMM yyyy", date));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            exYear = calendar.get(Calendar.YEAR);
+            exMonth = calendar.get(Calendar.MONTH);
+            exDay = calendar.get(Calendar.DAY_OF_MONTH);
+        }
+        if (requestCode == REQUEST_TIME) {
+            Date date = (Date) data
+                    .getSerializableExtra(DateTimePickerFragment.EXTRA_DATE);
+            expiryTimeField.setText(DateFormat
+                    .getTimeFormat(getActivity()).format(date));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            exHour = calendar.get(Calendar.HOUR);
+            exMinute = calendar.get(Calendar.MINUTE);
         }
     }
 
@@ -142,7 +171,9 @@ public class HomeworkEditFragment extends Fragment {
         newHw.setName(nameField.getText().toString());
         newHw.setDescription(descriptionField.getText().toString());
         newHw.setSubject(selectedSubject);
-        newHw.setExpiryDate(date);
+        expiryDate = new GregorianCalendar(exYear, exMonth, exDay, exHour, exMinute)
+                .getTime();
+        newHw.setExpiryDate(expiryDate);
         HomeworkManager.get(getActivity()).addHomework(newHw);
         getActivity().finish();
     }
