@@ -67,7 +67,7 @@ public class Homework {
         long now = Calendar.getInstance().getTimeInMillis();
         long timeLeftMilli = cal.getTimeInMillis() - now;
         float daysF = (float) timeLeftMilli / (float) DAY_MILLI;
-        int days = Math.round(daysF);
+        int days = (int) daysF;
         int hours = Math.round((daysF - days) * 24);
 //        String dleft = (days > 0) ? days + " days and " : "";
         timeLeft = days + "," + hours;
