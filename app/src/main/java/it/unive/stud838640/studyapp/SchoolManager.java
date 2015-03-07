@@ -107,12 +107,16 @@ public class SchoolManager {
             subjects.add(subject);
         }
 
+        public void addSubject(Subject subject, int index) {
+            subjects.add(index, subject);
+        }
+
         public void removeSubject(Subject subject) {
             subjects.remove(subject);
         }
     }
 
-    public class Subject {
+    public static class Subject {
         public String name, color;
         public final int id; // TODO change this temporary id with database id;
 
