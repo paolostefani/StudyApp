@@ -32,14 +32,15 @@ public class HomeworkEditFragment extends Fragment {
     private static final String DIALOG_DATE = "date";
     private static int REQUEST_DATE = 0;
     private static int REQUEST_TIME = 1;
+    private static final String EX_DATE = "ex_date";
+    private static final String EX_TIME = "ex_time";
     private Homework hw;
     private EditText nameField, descriptionField;
     private Button expiryDateField, expiryTimeField;
     private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
     private Spinner subjectsField;
     private SchoolManager.Subject selectedSubject;
-    private Date expiryDate;
-    private int exYear, exMonth, exDay, exHour, exMinute;
+    private Date expiryDate, exDateDate, exDateTime;
 
     public static HomeworkEditFragment newInstance(int homeworkId) {
         Bundle args = new Bundle();
@@ -60,12 +61,18 @@ public class HomeworkEditFragment extends Fragment {
         subjectsAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, school.getSubjects());
 
-        Calendar calendar = Calendar.getInstance();
-        exYear = calendar.get(Calendar.YEAR);
-        exMonth = calendar.get(Calendar.MONTH);
-        exDay = calendar.get(Calendar.DAY_OF_MONTH);
-        exHour = calendar.get(Calendar.HOUR);
-        exMinute = calendar.get(Calendar.MINUTE);
+        if (savedInstanceState != null) {
+            exDateDate = (Date) savedInstanceState.getSerializable(EX_DATE);
+            exDateTime = (Date) savedInstanceState.getSerializable(EX_TIME);
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(EX_DATE, exDateDate);
+        outState.putSerializable(EX_TIME, exDateTime);
     }
 
     @Override
@@ -78,25 +85,27 @@ public class HomeworkEditFragment extends Fragment {
 
         nameField = (EditText) v.findViewById(R.id.hwork_name);
         descriptionField = (EditText) v.findViewById((R.id.hwork_description));
-        expiryDateField = (Button) v.findViewById(R.id.hwork_expiry_date);
+        expiryDateField = (Button) v.findViewById(R.id.hwork_expiry_date_button);
+        expiryDateField.setText(getDateText(exDateDate));
         expiryDateField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getFragmentManager();
                 DateTimePickerFragment dateDialog = DateTimePickerFragment
-                        .newInstance(getSetDate(), "date");
+                        .newInstance(getSetDate(exDateDate), "date");
                 dateDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_DATE);
                 dateDialog.show(fm, DIALOG_DATE);
             }
         });
 
-        expiryTimeField = (Button) v.findViewById(R.id.hwork_expiry_time);
+        expiryTimeField = (Button) v.findViewById(R.id.hwork_expiry_time_button);
+        expiryTimeField.setText(getTimeText(exDateTime));
         expiryTimeField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getFragmentManager();
                 DateTimePickerFragment timeDialog = DateTimePickerFragment
-                        .newInstance(getSetDate(), "time");
+                        .newInstance(getSetDate(exDateTime), "time");
                 timeDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_TIME);
                 timeDialog.show(fm, DIALOG_DATE);
             }
@@ -126,25 +135,14 @@ public class HomeworkEditFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode == REQUEST_DATE) {
-            Date date = (Date) data
+            exDateDate = (Date) data
                     .getSerializableExtra(DateTimePickerFragment.EXTRA_DATE);
-            expiryDateField.setText(DateFormat
-                    .format("EEEE dd MMMM yyyy", date));
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            exYear = calendar.get(Calendar.YEAR);
-            exMonth = calendar.get(Calendar.MONTH);
-            exDay = calendar.get(Calendar.DAY_OF_MONTH);
+            expiryDateField.setText(getDateText(exDateDate));
         }
         if (requestCode == REQUEST_TIME) {
-            Date date = (Date) data
+            exDateTime = (Date) data
                     .getSerializableExtra(DateTimePickerFragment.EXTRA_DATE);
-            expiryTimeField.setText(DateFormat
-                    .getTimeFormat(getActivity()).format(date));
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            exHour = calendar.get(Calendar.HOUR_OF_DAY);
-            exMinute = calendar.get(Calendar.MINUTE);
+            expiryTimeField.setText(getTimeText(exDateTime));
         }
     }
 
@@ -177,14 +175,44 @@ public class HomeworkEditFragment extends Fragment {
         newHw.setName(nameField.getText().toString());
         newHw.setDescription(descriptionField.getText().toString());
         newHw.setSubject(selectedSubject);
-        expiryDate = getSetDate();
+        expiryDate = getSetExpiryDate(exDateDate, exDateTime);
         newHw.setExpiryDate(expiryDate);
         HomeworkManager.get(getActivity()).addHomework(newHw);
         getActivity().finish();
     }
 
-    private Date getSetDate() {
-        return new GregorianCalendar(exYear, exMonth, exDay, exHour, exMinute)
-                .getTime();
+    private Date getSetExpiryDate(Date date, Date time) {
+        Calendar cal = Calendar.getInstance();
+        if (date != null && time != null) {
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            cal.setTime(time);
+            int hour = cal.get(Calendar.HOUR_OF_DAY);
+            int minute = cal.get(Calendar.MINUTE);
+            return new GregorianCalendar(year, month, day, hour, minute).getTime();
+        }
+        return cal.getTime();
+    }
+
+    private Date getSetDate(Date date) {
+        Calendar cal = Calendar.getInstance();
+        if (date != null)
+            cal.setTime(date);
+        return cal.getTime();
+    }
+
+    private String getDateText(Date date) {
+        if (date != null)
+            return DateFormat.format("EEEE dd MMMM yyyy", date)
+                    .toString();
+        return getString(R.string.date_label);
+    }
+
+    private String getTimeText(Date date) {
+        if (date != null)
+            return DateFormat.getTimeFormat(getActivity()).format(date);
+        return getString(R.string.time_label);
     }
 }

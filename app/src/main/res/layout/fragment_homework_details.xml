@@ -58,7 +58,7 @@
                 android:text="@string/expiry_label"
                 style="@style/field_label" />
             <TextView
-                android:id="@+id/hwork_expiry_date"
+                android:id="@+id/hwork_expiry_date_button"
                 android:text="@string/expiry_label"
                 style="@style/field" />
 

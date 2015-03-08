@@ -42,11 +42,11 @@
                 android:text="@string/expiry_label"
                 style="@style/field_label" />
             <Button
-                android:id="@+id/hwork_expiry_date"
+                android:id="@+id/hwork_expiry_date_button"
                 android:hint="@string/date_label"
                 style="@style/field" />
             <Button
-                android:id="@+id/hwork_expiry_time"
+                android:id="@+id/hwork_expiry_time_button"
                 android:hint="@string/time_label"
                 style="@style/field" />
 
