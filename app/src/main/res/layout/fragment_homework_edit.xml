@@ -34,8 +34,9 @@
             <TextView
                 android:text="@string/subject_label"
                 style="@style/field_label" />
-            <Spinner
-                android:id="@+id/hwork_subject"
+            <Button
+                android:id="@+id/hwork_subject_button"
+                android:hint="@string/select_subject"
                 style="@style/field" />
 
             <TextView
