@@ -17,6 +17,7 @@
         <activity android:name=".HomeworkActivity"
             android:label="@string/title_activity_homework"
             android:parentActivityName=".HomeworkActivity"
+            android:windowSoftInputMode="stateHidden"
             tools:ignore="UnusedAttribute">
         </activity>
     </application>

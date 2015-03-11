@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.Calendar;
@@ -36,7 +35,7 @@ public class HomeworkEditFragment extends Fragment {
     private FragmentManager fragmentManager;
     private Homework hw;
     private EditText nameField, descriptionField, subjectsField;
-    private Button expiryDateField, expiryTimeField;
+    private EditText expiryDateField, expiryTimeField;
     //private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
     private SchoolManager.School school;
     private SchoolManager.Subject selectedSubject;
@@ -85,7 +84,7 @@ public class HomeworkEditFragment extends Fragment {
         fragmentManager = getActivity().getFragmentManager();
         nameField = (EditText) v.findViewById(R.id.hwork_name);
         descriptionField = (EditText) v.findViewById((R.id.hwork_description));
-        expiryDateField = (Button) v.findViewById(R.id.hwork_expiry_date_button);
+        expiryDateField = (EditText) v.findViewById(R.id.hwork_expiry_date);
         expiryDateField.setText(getDateText(exDateDate));
         expiryDateField.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +96,7 @@ public class HomeworkEditFragment extends Fragment {
             }
         });
 
-        expiryTimeField = (Button) v.findViewById(R.id.hwork_expiry_time_button);
+        expiryTimeField = (EditText) v.findViewById(R.id.hwork_expiry_time);
         expiryTimeField.setText(getTimeText(exDateTime));
         expiryTimeField.setOnClickListener(new View.OnClickListener() {
             @Override

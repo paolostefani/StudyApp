@@ -37,19 +37,21 @@
             <EditText
                 android:id="@+id/hwork_subject"
                 android:hint="@string/select_subject"
-                android:focusableInTouchMode="false"
+                android:focusable="false"
                 style="@style/field" />
 
             <TextView
                 android:text="@string/expiry_label"
                 style="@style/field_label" />
-            <Button
-                android:id="@+id/hwork_expiry_date_button"
+            <EditText
+                android:id="@+id/hwork_expiry_date"
                 android:hint="@string/date_label"
+                android:focusable="false"
                 style="@style/field" />
-            <Button
-                android:id="@+id/hwork_expiry_time_button"
+            <EditText
+                android:id="@+id/hwork_expiry_time"
                 android:hint="@string/time_label"
+                android:focusable="false"
                 style="@style/field" />
 
         </LinearLayout>
