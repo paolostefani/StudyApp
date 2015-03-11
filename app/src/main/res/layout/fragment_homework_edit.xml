@@ -34,9 +34,10 @@
             <TextView
                 android:text="@string/subject_label"
                 style="@style/field_label" />
-            <Button
-                android:id="@+id/hwork_subject_button"
+            <EditText
+                android:id="@+id/hwork_subject"
                 android:hint="@string/select_subject"
+                android:focusableInTouchMode="false"
                 style="@style/field" />
 
             <TextView

@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -36,11 +35,12 @@ public class HomeworkEditFragment extends Fragment {
     private static final String EX_TIME = "ex_time";
     private FragmentManager fragmentManager;
     private Homework hw;
-    private EditText nameField, descriptionField;
-    private Button subjectsField, expiryDateField, expiryTimeField;
-    private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
+    private EditText nameField, descriptionField, subjectsField;
+    private Button expiryDateField, expiryTimeField;
+    //private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
+    private SchoolManager.School school;
     private SchoolManager.Subject selectedSubject;
-    private String[] subjectsNames;
+    //private String[] subjectsNames;
     private Date expiryDate, exDateDate, exDateTime;
 
     public static HomeworkEditFragment newInstance(int homeworkId) {
@@ -58,7 +58,7 @@ public class HomeworkEditFragment extends Fragment {
         int homeworkId = (int) getArguments().getInt(EXTRA_HOMEWORK_ID);
         hw = HomeworkManager.get(getActivity()).getHomework(homeworkId);
 
-//        SchoolManager.School school = Profile.get(getActivity()).getUser().getSchool();
+        school = Profile.get(getActivity()).getUser().getSchool();
 //        subjectsAdapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, school.getSubjects());
 
@@ -110,17 +110,12 @@ public class HomeworkEditFragment extends Fragment {
         });
 //        expiryTimeField.setText(DateFormat.format("k:m", hw.getExpiryDate()));
 
-        subjectsField = (Button) v.findViewById(R.id.hwork_subject_button);
-        SchoolManager.School school = Profile.get(getActivity()).getUser().getSchool();
-        int subjectsNumber = school.getSubjects().size();
-        subjectsNames = new String[subjectsNumber];
-        for (int i = 0; i < subjectsNumber; i++)
-            subjectsNames[i] = school.getSubjects().get(i).name;
+        subjectsField = (EditText) v.findViewById(R.id.hwork_subject);
         subjectsField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListDialogFragment subjectsDialog = ListDialogFragment
-                        .newInstance(subjectsNames);
+                SubjectsListDialogFragment subjectsDialog =
+                        SubjectsListDialogFragment.newInstance();
                 subjectsDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_SUBJECT);
                 subjectsDialog.show(fragmentManager, DIALOG_SUBJECTS);
             }
@@ -158,9 +153,10 @@ public class HomeworkEditFragment extends Fragment {
             expiryTimeField.setText(getTimeText(exDateTime));
         }
         if (requestCode == REQUEST_SUBJECT) {
-            int itemWhich = data
-                    .getIntExtra(ListDialogFragment.EXTRA_ITEM_WHICH, 0);
-            subjectsField.setText(subjectsNames[itemWhich]);
+            int subjectId = data
+                    .getIntExtra(SubjectsListDialogFragment.EXTRA_ID, 0);
+            selectedSubject = school.getSubject(subjectId);
+            subjectsField.setText(selectedSubject.name);
         }
     }
 
