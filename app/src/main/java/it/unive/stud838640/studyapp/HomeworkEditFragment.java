@@ -61,18 +61,18 @@ public class HomeworkEditFragment extends Fragment {
 //        subjectsAdapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, school.getSubjects());
 
-        if (savedInstanceState != null) {
-            exDateDate = (Date) savedInstanceState.getSerializable(EX_DATE);
-            exDateTime = (Date) savedInstanceState.getSerializable(EX_TIME);
-        }
+//        if (savedInstanceState != null) {
+//            exDateDate = (Date) savedInstanceState.getSerializable(EX_DATE);
+//            exDateTime = (Date) savedInstanceState.getSerializable(EX_TIME);
+//        }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(EX_DATE, exDateDate);
-        outState.putSerializable(EX_TIME, exDateTime);
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putSerializable(EX_DATE, exDateDate);
+//        outState.putSerializable(EX_TIME, exDateTime);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,32 +82,9 @@ public class HomeworkEditFragment extends Fragment {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
 //            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         fragmentManager = getActivity().getFragmentManager();
+
         nameField = (EditText) v.findViewById(R.id.hwork_name);
         descriptionField = (EditText) v.findViewById((R.id.hwork_description));
-        expiryDateField = (EditText) v.findViewById(R.id.hwork_expiry_date);
-        expiryDateField.setText(getDateText(exDateDate));
-        expiryDateField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DateTimePickerFragment dateDialog = DateTimePickerFragment
-                        .newInstance(getSetDate(exDateDate), "date");
-                dateDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_DATE);
-                dateDialog.show(fragmentManager, DIALOG_DATE);
-            }
-        });
-
-        expiryTimeField = (EditText) v.findViewById(R.id.hwork_expiry_time);
-        expiryTimeField.setText(getTimeText(exDateTime));
-        expiryTimeField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DateTimePickerFragment timeDialog = DateTimePickerFragment
-                        .newInstance(getSetDate(exDateTime), "time");
-                timeDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_TIME);
-                timeDialog.show(fragmentManager, DIALOG_DATE);
-            }
-        });
-//        expiryTimeField.setText(DateFormat.format("k:m", hw.getExpiryDate()));
 
         subjectsField = (EditText) v.findViewById(R.id.hwork_subject);
         subjectsField.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +96,32 @@ public class HomeworkEditFragment extends Fragment {
                 subjectsDialog.show(fragmentManager, DIALOG_SUBJECTS);
             }
         });
+
+        expiryDateField = (EditText) v.findViewById(R.id.hwork_expiry_date);
+//        expiryDateField.setText(getDateText(exDateDate));
+        expiryDateField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateTimePickerFragment dateDialog = DateTimePickerFragment
+                        .newInstance(getSetDate(exDateDate), "date");
+                dateDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_DATE);
+                dateDialog.show(fragmentManager, DIALOG_DATE);
+            }
+        });
+
+        expiryTimeField = (EditText) v.findViewById(R.id.hwork_expiry_time);
+//        expiryTimeField.setText(getTimeText(exDateTime));
+        expiryTimeField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateTimePickerFragment timeDialog = DateTimePickerFragment
+                        .newInstance(getSetDate(exDateTime), "time");
+                timeDialog.setTargetFragment(HomeworkEditFragment.this, REQUEST_TIME);
+                timeDialog.show(fragmentManager, DIALOG_DATE);
+            }
+        });
+//        expiryTimeField.setText(DateFormat.format("k:m", hw.getExpiryDate()));
+
 
 /*        subjectsField.setAdapter(subjectsAdapter);
         selectedSubject = (SchoolManager.Subject) subjectsField.getSelectedItem();
