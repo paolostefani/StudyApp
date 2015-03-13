@@ -33,7 +33,7 @@ public class HomeworkEditFragment extends Fragment {
     private static final String EX_DATE = "ex_date";
     private static final String EX_TIME = "ex_time";
     private FragmentManager fragmentManager;
-    private Homework hw;
+    private Homework homework;
     private EditText nameField, descriptionField, subjectsField;
     private EditText expiryDateField, expiryTimeField;
     //private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
@@ -55,7 +55,7 @@ public class HomeworkEditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         int homeworkId = (int) getArguments().getInt(EXTRA_HOMEWORK_ID);
-        hw = HomeworkManager.get(getActivity()).getHomework(homeworkId);
+        homework = HomeworkManager.get(getActivity()).getHomework(homeworkId);
 
         school = Profile.get(getActivity()).getUser().getSchool();
 //        subjectsAdapter = new ArrayAdapter<>(getActivity(),
@@ -120,7 +120,7 @@ public class HomeworkEditFragment extends Fragment {
                 timeDialog.show(fragmentManager, DIALOG_DATE);
             }
         });
-//        expiryTimeField.setText(DateFormat.format("k:m", hw.getExpiryDate()));
+//        expiryTimeField.setText(DateFormat.format("k:m", homework.getExpiryDate()));
 
 
 /*        subjectsField.setAdapter(subjectsAdapter);
@@ -136,6 +136,18 @@ public class HomeworkEditFragment extends Fragment {
 
             }
         });*/
+
+        if (homework != null) {
+            nameField.setText(homework.getName());
+            descriptionField.setText(homework.getDescription());
+            selectedSubject = homework.getSubject();
+            subjectsField.setText(selectedSubject.name);
+            expiryDate = homework.getExpiryDate();
+            exDateDate = expiryDate;
+            exDateTime = expiryDate;
+            expiryDateField.setText(getDateText(expiryDate));
+            expiryTimeField.setText(getTimeText(expiryDate));
+        }
 
         return v;
     }
@@ -170,31 +182,36 @@ public class HomeworkEditFragment extends Fragment {
 
     private long lastClickTime = 0;
     @Override
-    public synchronized boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (SystemClock.elapsedRealtime() - lastClickTime < 1000)
             return false;
         lastClickTime = SystemClock.elapsedRealtime();
         switch (item.getItemId()) {
             case R.id.menu_item_cancel:
-                getActivity().finish();
+                if (getFragmentManager().getBackStackEntryCount() == 0)
+                    getActivity().finish();
+                else
+                    getFragmentManager().popBackStack();
                 return true;
             case R.id.menu_item_save_hwork:
-                addHomework();
+                if (homework == null) {
+                    homework = new Homework();
+                    HomeworkManager.get(getActivity()).addHomework(homework);
+                }
+                saveHomework(homework);
+                getActivity().finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void addHomework() {
-        Homework newHw = new Homework();
-        newHw.setName(nameField.getText().toString());
-        newHw.setDescription(descriptionField.getText().toString());
-        newHw.setSubject(selectedSubject);
+    private void saveHomework(Homework hw) {
+        hw.setName(nameField.getText().toString());
+        hw.setDescription(descriptionField.getText().toString());
+        hw.setSubject(selectedSubject);
         expiryDate = getSetExpiryDate(exDateDate, exDateTime);
-        newHw.setExpiryDate(expiryDate);
-        HomeworkManager.get(getActivity()).addHomework(newHw);
-        getActivity().finish();
+        hw.setExpiryDate(expiryDate);
     }
 
     private Date getSetExpiryDate(Date date, Date time) {

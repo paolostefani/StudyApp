@@ -1,11 +1,15 @@
 package it.unive.stud838640.studyapp;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,6 +37,7 @@ public class HomeworkDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         int homeworkId = (int) getArguments().getInt(EXTRA_HOMEWORK_ID);
         hw = HomeworkManager.get(getActivity()).getHomework(homeworkId);
         getActivity().setTitle(hw.getName());
@@ -65,5 +70,26 @@ public class HomeworkDetailsFragment extends Fragment {
                 " " + timeLeft[1] + " " + h);
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_fragment_homework_details, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_edit:
+                Fragment editFragment = HomeworkEditFragment.newInstance(hw.getId());
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, editFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
