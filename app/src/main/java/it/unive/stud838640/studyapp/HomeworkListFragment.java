@@ -97,10 +97,11 @@ public class HomeworkListFragment extends Fragment {
             hworkName.setText(hw.getName());
 
             TextView hworkTimeLeft = (TextView) convertView.findViewById(R.id.hwork_time_left);
-            String[] timeLeft = hw.getTimeLeft().split(",");
+            int dLeft = hw.getTimeLeft()[0];
+            int hLeft = hw.getTimeLeft()[1];
             String d = getResources().getString(R.string.d_day);
             String h = getResources().getString(R.string.h_hours);
-            hworkTimeLeft.setText(timeLeft[0] + d + " " + timeLeft[1] + h);
+            hworkTimeLeft.setText(dLeft + d + " " + hLeft + h);
 
 
             hworkButton.setOnClickListener(new View.OnClickListener() {

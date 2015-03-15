@@ -62,12 +62,15 @@ public class HomeworkDetailsFragment extends Fragment {
         expiryDateField.setText(DateFormat.format("EEEE dd MMMM yyyy\nkk:mm",
                 hw.getExpiryDate()));
         TextView hworkTimeLeft = (TextView) v.findViewById(R.id.hwork_time_left);
-        String[] timeLeft = hw.getTimeLeft().split(",");
-        String d = getResources().getString(R.string.day);
-        String h = getResources().getString(R.string.hours);
+        int dLeft = hw.getTimeLeft()[0];
+        int hLeft = hw.getTimeLeft()[1];
+        String d = dLeft > 1 ? getResources().getString(R.string.days)
+                : getResources().getString(R.string.day);
+        String h = hLeft > 1 ? getResources().getString(R.string.hours)
+                : getResources().getString(R.string.hour);
         String and = getResources().getString(R.string.and);
-        hworkTimeLeft.setText(timeLeft[0] + " " + d + " " + and +
-                " " + timeLeft[1] + " " + h);
+        hworkTimeLeft.setText(dLeft + " " + d + " " + and +
+                " " + hLeft + " " + h);
 
         return v;
     }

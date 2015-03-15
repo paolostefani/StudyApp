@@ -193,6 +193,12 @@ public class HomeworkEditFragment extends Fragment {
                 else
                     getFragmentManager().popBackStack();
                 return true;
+            case R.id.menu_item_delete_hwork:
+                if (homework != null) {
+                    HomeworkManager.get(getActivity()).removeHomework(homework);
+                    getActivity().finish();
+                }
+                return true;
             case R.id.menu_item_save_hwork:
                 if (homework == null) {
                     homework = new Homework();

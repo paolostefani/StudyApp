@@ -61,7 +61,7 @@ public class Homework {
         this.expiryDate = expiryDate;
     }
 
-    public String getTimeLeft() {
+    public int[] getTimeLeft() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(expiryDate);
         long now = Calendar.getInstance().getTimeInMillis();
@@ -71,8 +71,8 @@ public class Homework {
         int hours = Math.round((daysF - days) * 24);
 //        String dleft = (days > 0) ? days + " days and " : "";
         timeLeft = days + "," + hours;
-
-        return timeLeft;
+        int[] dh = {days, hours};
+        return dh;
     }
 
     public int getPercentage() {
