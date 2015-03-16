@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+
 /**
  * Created by paolo on 18/02/15.
  */
@@ -29,6 +32,8 @@ public class HomeworkListFragment extends Fragment {
     private List<Homework> homeworks;
     private GridView hwGridView;
     private HomeworkAdapter hwAdapter;
+    private Handler uiCallBack;
+    private UpdateTimeLeft threadUpdateTimeLeft;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,18 @@ public class HomeworkListFragment extends Fragment {
         homeworks = HomeworkManager.get(getActivity()).getHomeworks();
         hwAdapter = new HomeworkAdapter(homeworks);
         hwGridView.setAdapter(hwAdapter);
-        
+
+        uiCallBack = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                hwAdapter.notifyDataSetChanged();
+                Log.i("aaa", "BAU!!!");
+            }
+        };
+
+        threadUpdateTimeLeft = new UpdateTimeLeft();
+        threadUpdateTimeLeft.start();
+
         return v;
     }
 
@@ -72,6 +88,12 @@ public class HomeworkListFragment extends Fragment {
         super.onResume();
         hwAdapter.notifyDataSetChanged();
         //hwGridView.invalidateViews();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        threadUpdateTimeLeft.interrupt();
     }
 
     private class HomeworkAdapter extends ArrayAdapter<Homework> {
@@ -125,6 +147,18 @@ public class HomeworkListFragment extends Fragment {
         }
     }
 
-    private class UpdateTimeLeftTask extends AsyncTask
+    private class UpdateTimeLeft extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                uiCallBack.sendEmptyMessage(0);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                }
+                ;
+            }
+        }
+    }
 
 }
