@@ -12,7 +12,7 @@ public class Homework {
     private final int HOUR_MILLI = 1000 * 3600;
     private final int DAY_MILLI = HOUR_MILLI * 24;
     private int id; // TODO change this temporary id with database id;
-    private String name, description, timeLeft;
+    private String name, description;
     private SchoolManager.Subject subject;
     private Date expiryDate;
     private int percentage;
@@ -69,8 +69,10 @@ public class Homework {
         float daysF = (float) timeLeftMilli / (float) DAY_MILLI;
         int days = (int) daysF;
         int hours = Math.round((daysF - days) * 24);
+        days = days < 0 ? 0 : days;
+        hours = hours < 0 ? 0 : hours;
 //        String dleft = (days > 0) ? days + " days and " : "";
-        timeLeft = days + "," + hours;
+//        timeLeft = days + "," + hours;
         int[] dh = {days, hours};
         return dh;
     }

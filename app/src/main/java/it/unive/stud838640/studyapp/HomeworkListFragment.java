@@ -3,6 +3,7 @@ package it.unive.stud838640.studyapp;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -99,10 +100,15 @@ public class HomeworkListFragment extends Fragment {
             TextView hworkTimeLeft = (TextView) convertView.findViewById(R.id.hwork_time_left);
             int dLeft = hw.getTimeLeft()[0];
             int hLeft = hw.getTimeLeft()[1];
-            String d = getResources().getString(R.string.d_day);
-            String h = getResources().getString(R.string.h_hours);
-            hworkTimeLeft.setText(dLeft + d + " " + hLeft + h);
-
+            if (dLeft == 0 && hLeft == 0) {
+                hworkTimeLeft.setTypeface(null, Typeface.BOLD);
+                hworkTimeLeft.setText(getResources().getString(R.string.expired));
+            }
+            else {
+                String d = getResources().getString(R.string.d_day);
+                String h = getResources().getString(R.string.h_hours);
+                hworkTimeLeft.setText(dLeft + d + " " + hLeft + h);
+            }
 
             hworkButton.setOnClickListener(new View.OnClickListener() {
                 @Override

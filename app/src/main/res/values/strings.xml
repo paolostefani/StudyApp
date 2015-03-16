@@ -40,4 +40,5 @@
     <string name="cancel">Annulla</string>
     <string name="delete">Elimina Homework</string>
     <string name="select_subject">Scegli una materia..</string>
+    <string name="expired">Scaduto</string>
 </resources>

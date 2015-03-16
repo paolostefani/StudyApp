@@ -64,13 +64,19 @@ public class HomeworkDetailsFragment extends Fragment {
         TextView hworkTimeLeft = (TextView) v.findViewById(R.id.hwork_time_left);
         int dLeft = hw.getTimeLeft()[0];
         int hLeft = hw.getTimeLeft()[1];
-        String d = dLeft > 1 ? getResources().getString(R.string.days)
-                : getResources().getString(R.string.day);
-        String h = hLeft > 1 ? getResources().getString(R.string.hours)
-                : getResources().getString(R.string.hour);
-        String and = getResources().getString(R.string.and);
-        hworkTimeLeft.setText(dLeft + " " + d + " " + and +
-                " " + hLeft + " " + h);
+        if (dLeft == 0 && hLeft == 0) {
+            hworkTimeLeft.setTextColor(Color.parseColor("#d77777"));
+            hworkTimeLeft.setText(getResources().getString(R.string.expired));
+        }
+        else {
+            String d = dLeft > 1 ? getResources().getString(R.string.days)
+                    : getResources().getString(R.string.day);
+            String h = hLeft > 1 ? getResources().getString(R.string.hours)
+                    : getResources().getString(R.string.hour);
+            String and = getResources().getString(R.string.and);
+            hworkTimeLeft.setText(dLeft + " " + d + " " + and +
+                    " " + hLeft + " " + h);
+        }
 
         return v;
     }
