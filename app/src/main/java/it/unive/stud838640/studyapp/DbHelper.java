@@ -1,5 +1,6 @@
 package it.unive.stud838640.studyapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,4 +24,25 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DbStrings.TableHomeworks.SQL_DELETE_TABLE_HOMEWORKS);
         this.onCreate(db);
     }
+
+    // Homeworks table
+    public long addHomework(Homework homework) {
+        ContentValues values = new ContentValues();
+        values.put(DbStrings.TableHomeworks.COLUMN_NAME_NAME,
+                homework.getName());
+        values.put(DbStrings.TableHomeworks.COLUMN_NAME_DESCRIPTION,
+                homework.getDescription());
+        values.put(DbStrings.TableHomeworks.COLUMN_NAME_OWNER,
+                homework.getOwner());
+        values.put(DbStrings.TableHomeworks.COLUMN_NAME_SUBJECT,
+                homework.getSubject().id);
+        values.put(DbStrings.TableHomeworks.COLUMN_NAME_EXPIRY_DATE,
+                homework.getExpiryDate().getTime());
+        values.put(DbStrings.TableHomeworks.COLUMN_NAME_PERCENTAGE,
+                homework.getPercentage());
+        return getWritableDatabase().insert(DbStrings.TableHomeworks.TABLE_NAME,
+                null, values);
+    }
+
+
 }
