@@ -7,19 +7,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by paolo on 22/03/15.
  */
-public class StudyappDbHelper extends SQLiteOpenHelper {
+public class DbHelper extends SQLiteOpenHelper {
 
-    public StudyappDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DbHelper(Context context) {
+        super(context, DbStrings.DATABASE_NAME, null, DbStrings.DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(DbStrings.TableHomeworks.SQL_CREATE_TABLE_HOMEWORKS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL(DbStrings.TableHomeworks.SQL_DELETE_TABLE_HOMEWORKS);
+        this.onCreate(db);
     }
 }
