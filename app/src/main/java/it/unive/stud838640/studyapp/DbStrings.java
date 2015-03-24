@@ -12,19 +12,29 @@ public final class DbStrings {
 
     public static abstract class TableHomeworks implements BaseColumns {
         public static final String TABLE_NAME = "homeworks";
+        public static final String COLUMN_NAME_NAME = "name";
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_EXPIRY_DATE = "expiry_date";
-        public static final String COLUMN_NAME_COMPLETED = "completed";
+        public static final String COLUMN_NAME_PERCENTAGE = "completed";
         public static final String COLUMN_NAME_OWNER = "owner";
         public static final String COLUMN_NAME_SUBJECT = "subject";
+        public static final String[] COLUMNS = { "_ID", COLUMN_NAME_NAME,
+                COLUMN_NAME_DESCRIPTION, COLUMN_NAME_EXPIRY_DATE, COLUMN_NAME_PERCENTAGE,
+                COLUMN_NAME_OWNER, COLUMN_NAME_SUBJECT};
+
         public static final String SQL_CREATE_TABLE_HOMEWORKS =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                  _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME_DESCRIPTION + " TEXT, " +
                 COLUMN_NAME_EXPIRY_DATE + " INTEGER, " +
-                COLUMN_NAME_COMPLETED + " INTEGER, " +
-                COLUMN_NAME_OWNER + " TEXT, " +
-                COLUMN_NAME_SUBJECT + " INTEGER)";
+                COLUMN_NAME_PERCENTAGE + " INTEGER, " +
+                COLUMN_NAME_OWNER + " INTEGER, " +
+                COLUMN_NAME_SUBJECT + " INTEGER, " +
+                "FOREIGN KEY (" + COLUMN_NAME_OWNER + ") REFERENCES " +
+                TableUsers.TABLE_NAME + "(" + TableUsers._ID + "), " +
+                "FOREIGN KEY (" + COLUMN_NAME_SUBJECT + ") REFERENCES " +
+                TableSubjects.TABLE_NAME + "(" + TableSubjects._ID + "));";
+
         public static final String SQL_DELETE_TABLE_HOMEWORKS =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
@@ -49,7 +59,7 @@ public final class DbStrings {
         public static final String COLUMN_NAME_TYPE = "type";
     }
 
-    public static abstract class TablesSubjects implements BaseColumns {
+    public static abstract class TableSubjects implements BaseColumns {
         public static final String TABLE_NAME = "subjects";
         public static final String COLUMN_NAME_NAME = "string";
         public static final String COLUMN_NAME_COLOR = "color";

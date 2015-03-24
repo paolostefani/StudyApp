@@ -2,6 +2,7 @@ package it.unive.stud838640.studyapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -25,7 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    // Homeworks table
+    /***** Homeworks table *****/
     public long addHomework(Homework homework) {
         ContentValues values = new ContentValues();
         values.put(DbStrings.TableHomeworks.COLUMN_NAME_NAME,
@@ -33,7 +34,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(DbStrings.TableHomeworks.COLUMN_NAME_DESCRIPTION,
                 homework.getDescription());
         values.put(DbStrings.TableHomeworks.COLUMN_NAME_OWNER,
-                homework.getOwner());
+                homework.getOwner().getId());
         values.put(DbStrings.TableHomeworks.COLUMN_NAME_SUBJECT,
                 homework.getSubject().id);
         values.put(DbStrings.TableHomeworks.COLUMN_NAME_EXPIRY_DATE,
@@ -44,5 +45,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 null, values);
     }
 
+    public Homework getHomework(Long id) {
+        Cursor cursor = getReadableDatabase().query(DbStrings.TableHomeworks.TABLE_NAME,
+                );
+    }
 
 }

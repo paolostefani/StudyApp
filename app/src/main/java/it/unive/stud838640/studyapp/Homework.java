@@ -11,12 +11,12 @@ public class Homework {
     public static int lastId;
     private final int HOUR_MILLI = 1000 * 3600;
     private final int DAY_MILLI = HOUR_MILLI * 24;
-    private int id; // TODO change this temporary id with database id;
+    private long id; // TODO change this temporary id with database id;
     private String name, description;
     private SchoolManager.Subject subject;
     private Date expiryDate;
     private int percentage;
-    private String leader; // TODO change String type to Team type
+    private User owner; // TODO change String type to Team type
     private ArrayList<Task> tasks;
 
     public Homework() {
@@ -25,7 +25,7 @@ public class Homework {
         id = ++lastId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -81,11 +81,13 @@ public class Homework {
         return percentage;
     }
 
-    public String getLeader() {
-        return leader;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setLeader(String leader) { this.leader = leader; }
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public ArrayList<Task> getTasks() {
         return tasks;
