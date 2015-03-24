@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.profile;
 
 import android.content.Context;
 

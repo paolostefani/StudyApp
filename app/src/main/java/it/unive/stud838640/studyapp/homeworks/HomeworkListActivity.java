@@ -1,6 +1,8 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 import android.app.Fragment;
+
+import it.unive.stud838640.studyapp.SingleFragmentActivity;
 
 /**
  * Created by paolo on 18/02/15.

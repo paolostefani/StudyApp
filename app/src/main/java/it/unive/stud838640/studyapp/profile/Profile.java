@@ -1,6 +1,8 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.profile;
 
 import android.content.Context;
+
+import it.unive.stud838640.studyapp.R;
 
 /**
  * Created by paolo on 28/02/15.

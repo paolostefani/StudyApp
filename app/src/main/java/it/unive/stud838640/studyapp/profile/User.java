@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.profile;
 
 /**
  * Created by paolo on 26/02/15.

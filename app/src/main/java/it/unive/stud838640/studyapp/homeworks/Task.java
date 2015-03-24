@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 /**
  * Created by paolo on 15/02/15.

@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import it.unive.stud838640.studyapp.R;
 
 
 /**

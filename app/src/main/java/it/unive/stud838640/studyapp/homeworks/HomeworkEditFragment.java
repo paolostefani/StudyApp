@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -18,6 +18,11 @@ import android.widget.EditText;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import it.unive.stud838640.studyapp.DateTimePickerFragment;
+import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.profile.Profile;
+import it.unive.stud838640.studyapp.profile.SchoolManager;
 
 /**
  * Created by AccStefani on 16/02/2015.

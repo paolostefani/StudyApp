@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
+
+import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.profile.Profile;
+import it.unive.stud838640.studyapp.profile.SchoolManager;
 
 /**
  * Created by AccStefani on 11/03/2015.

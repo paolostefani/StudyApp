@@ -1,8 +1,11 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import it.unive.stud838640.studyapp.profile.SchoolManager;
+import it.unive.stud838640.studyapp.profile.User;
 
 /**
  * Created by paolo on 13/02/15.
@@ -27,6 +30,10 @@ public class Homework {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

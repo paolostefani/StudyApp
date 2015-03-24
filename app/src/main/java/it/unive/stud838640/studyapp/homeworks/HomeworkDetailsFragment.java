@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import it.unive.stud838640.studyapp.R;
 
 /**
  * Created by AccStefani on 16/02/2015.

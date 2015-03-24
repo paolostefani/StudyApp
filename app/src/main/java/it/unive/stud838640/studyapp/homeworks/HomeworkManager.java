@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp;
+package it.unive.stud838640.studyapp.homeworks;
 
 import android.content.Context;
 
@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
+import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.profile.Profile;
+import it.unive.stud838640.studyapp.profile.SchoolManager;
+import it.unive.stud838640.studyapp.profile.User;
 
 /**
  * Created by AccStefani on 18/02/2015.
