@@ -6,11 +6,13 @@ package it.unive.stud838640.studyapp.profile;
 public class User {
     private long id;
     private String name;
-    private SchoolManager.School school;
+    private School school;
 
-    public User(String name, SchoolManager.School school) {
-        this.name = name;
-        this.school = school;
+    public User() {
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {
@@ -25,11 +27,11 @@ public class User {
         this.name = name;
     }
 
-    public SchoolManager.School getSchool() {
+    public School getSchool() {
         return school;
     }
 
-    public void setSchool(SchoolManager.School school) {
+    public void setSchool(School school) {
         this.school = school;
     }
 }

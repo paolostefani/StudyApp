@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import it.unive.stud838640.studyapp.profile.SchoolManager;
+import it.unive.stud838640.studyapp.profile.School;
 import it.unive.stud838640.studyapp.profile.User;
 
 /**
@@ -16,7 +16,7 @@ public class Homework {
     private final int DAY_MILLI = HOUR_MILLI * 24;
     private long id; // TODO change this temporary id with database id;
     private String name, description;
-    private SchoolManager.Subject subject;
+    private School.Subject subject;
     private Date expiryDate;
     private int percentage;
     private User owner; // TODO change String type to Team type
@@ -52,11 +52,11 @@ public class Homework {
         this.description = description;
     }
 
-    public SchoolManager.Subject getSubject() {
+    public School.Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(SchoolManager.Subject subject) {
+    public void setSubject(School.Subject subject) {
         this.subject = subject;
     }
 
@@ -84,6 +84,10 @@ public class Homework {
         return dh;
     }
 
+    public void setPercentage(int percentage) {
+        this.percentage = percentage;
+    }
+
     public int getPercentage() {
         return percentage;
     }
@@ -98,6 +102,14 @@ public class Homework {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public void removeTask(Task task) {
+        tasks.remove(task);
     }
 
     @Override
