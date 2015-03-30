@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
@@ -51,32 +50,30 @@ public class HomeworksDataMapper implements BaseColumns{
 
     /***********************************************/
 
-    private SQLiteOpenHelper dbHelper;
-    private SQLiteDatabase db;
     private Context context;
+    private SQLiteDatabase dbR, dbW;
     UsersDataMapper usersDataMapper;
     SubjectsDataMapper subjectsDataMapper;
     TasksDataMapper tasksDataMapper;
 
 
-    public HomeworksDataMapper(Context context, SQLiteOpenHelper dbHelper) {
-        this.dbHelper = dbHelper;
+    public HomeworksDataMapper(Context context) {
         this.context = context;
-        usersDataMapper = new UsersDataMapper(context, dbHelper);
-        subjectsDataMapper = new SubjectsDataMapper(context, dbHelper);
-        tasksDataMapper = new TasksDataMapper(context, dbHelper);
+        dbR = DbHelper.get(context).getReadableDb();
+        dbW = DbHelper.get(context).getWriteableDb();
+        usersDataMapper = new UsersDataMapper(context);
+        subjectsDataMapper = new SubjectsDataMapper(context);
+        tasksDataMapper = new TasksDataMapper(context);
     }
 
 
     public Cursor getAllHomeworksCursor() {
-        db = dbHelper.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return dbR.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
     public List<Homework> getAllHomeworks() {
         List<Homework> homeworks = new ArrayList<>();
 
-        db = dbHelper.getReadableDatabase();
         Cursor cursor = getAllHomeworksCursor();
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
@@ -88,28 +85,24 @@ public class HomeworksDataMapper implements BaseColumns{
     }
 
     public Homework getHomeworkById(long id) {
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+        Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
         return getHomework(cursor);
     }
 
     public long addHomework(Homework homework) {
         ContentValues values = getContentValues(homework);
-        db = dbHelper.getWritableDatabase();
-        return db.insert(TABLE_NAME, null, values);
+        return dbW.insert(TABLE_NAME, null, values);
     }
 
     public long updateHomework(Homework homework) {
         ContentValues values = getContentValues(homework);
-        db = dbHelper.getWritableDatabase();
-        return db.update(TABLE_NAME, values,
+        return dbW.update(TABLE_NAME, values,
                 _ID + " = " + homework.getId(), null);
     }
 
     public void deleteHomework(Homework homework) {
-        db = dbHelper.getWritableDatabase();
-        db.delete(TABLE_NAME, _ID + " = " + homework.getId(), null);
+        dbW.delete(TABLE_NAME, _ID + " = " + homework.getId(), null);
     }
 
     private ContentValues getContentValues(Homework homework) {

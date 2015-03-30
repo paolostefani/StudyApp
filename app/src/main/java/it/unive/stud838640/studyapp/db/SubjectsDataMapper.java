@@ -38,13 +38,13 @@ public class SubjectsDataMapper implements BaseColumns{
 
     /***********************************************/
 
-    private SQLiteOpenHelper dbHelper;
-    private SQLiteDatabase db;
     private Context context;
+    private SQLiteDatabase dbR, dbW;
 
-    public SubjectsDataMapper(Context context, SQLiteOpenHelper dbHelper) {
-        this.dbHelper = dbHelper;
+    public SubjectsDataMapper(Context context) {
         this.context = context;
+        dbR = DbHelper.get(context).getReadableDb();
+        dbW = DbHelper.get(context).getWriteableDb();
     }
 
 

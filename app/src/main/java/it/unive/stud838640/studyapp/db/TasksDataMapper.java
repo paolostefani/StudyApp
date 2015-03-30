@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
@@ -42,25 +41,23 @@ public class TasksDataMapper implements BaseColumns{
 
     /***********************************************/
 
-    private SQLiteOpenHelper dbHelper;
-    private SQLiteDatabase db;
     private Context context;
+    private SQLiteDatabase dbR, dbW;
 
-    public TasksDataMapper(Context context, SQLiteOpenHelper dbHelper) {
-        this.dbHelper = dbHelper;
+    public TasksDataMapper(Context context) {
         this.context = context;
+        dbR = DbHelper.get(context).getReadableDb();
+        dbW = DbHelper.get(context).getWriteableDb();
     }
 
     public Cursor getAllTasksCursor() {
-        db = dbHelper.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return dbR.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
     public List<Task> getTasksByHomework(Homework homework) {
         List<Task> tasks = new ArrayList<>();
 
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+        Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                  COLUMN_NAME_HOMEWORK + " = " + homework.getId(), null);
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
@@ -70,28 +67,24 @@ public class TasksDataMapper implements BaseColumns{
     }
 
     public Task getTaskById(long id) {
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+        Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
         return getTask(cursor);
     }
 
     public long addTask(Task task, Homework homework) {
         ContentValues values = getContentValues(task, homework);
-        db = dbHelper.getWritableDatabase();
-        return db.insert(TABLE_NAME, null, values);
+        return dbW.insert(TABLE_NAME, null, values);
     }
 
     public long updateTask(Task task, Homework homework) {
         ContentValues values = getContentValues(task, homework);
-        db = dbHelper.getWritableDatabase();
-        return db.update(TABLE_NAME, values,
+        return dbW.update(TABLE_NAME, values,
                 _ID + " = " + task.getId(), null);
     }
 
     public void deleteTask(Task task) {
-        db = dbHelper.getWritableDatabase();
-        db.delete(TABLE_NAME, _ID + " = " + task.getId(), null);
+        dbW.delete(TABLE_NAME, _ID + " = " + task.getId(), null);
     }
 
     private ContentValues getContentValues(Task task, Homework homework) {

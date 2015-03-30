@@ -36,15 +36,15 @@ public class UsersDataMapper implements BaseColumns{
 
     /***********************************************/
 
-    private SQLiteOpenHelper dbHelper;
-    private SQLiteDatabase db;
     private Context context;
+    private SQLiteDatabase dbR, dbW;
     private SchoolsDataMapper schoolsDataMapper;
 
-    public UsersDataMapper(Context context, SQLiteOpenHelper dbHelper) {
-        this.dbHelper = dbHelper;
+    public UsersDataMapper(Context context) {
         this.context = context;
-        schoolsDataMapper = new SchoolsDataMapper(context, dbHelper);
+        dbR = DbHelper.get(context).getReadableDb();
+        dbW = DbHelper.get(context).getWriteableDb();
+        schoolsDataMapper = new SchoolsDataMapper(context);
     }
 
 

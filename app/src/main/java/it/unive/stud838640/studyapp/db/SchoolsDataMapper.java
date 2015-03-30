@@ -41,6 +41,8 @@ public class SchoolsDataMapper implements BaseColumns{
     SubjectsDataMapper subjectsDataMapper;
 
     public SchoolsDataMapper(Context context, SQLiteOpenHelper dbHelper) {
+        dbR = DbHelper.get(context).getReadableDb();
+        dbW = DbHelper.get(context).getWriteableDb();
         this.dbHelper = dbHelper;
         this.context = context;
         subjectsDataMapper = new SubjectsDataMapper(context, dbHelper);
