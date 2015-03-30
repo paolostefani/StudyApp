@@ -69,6 +69,8 @@ public class UsersDataMapper implements BaseColumns{
         db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
+        if (cursor.getCount() == 0)
+            return null;
         return getUser(cursor);
     }
 

@@ -2,9 +2,12 @@ package it.unive.stud838640.studyapp.profile;
 
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import it.unive.stud838640.studyapp.db.DbHelper;
+import it.unive.stud838640.studyapp.db.SchoolsDataMapper;
+import it.unive.stud838640.studyapp.db.SubjectsDataMapper;
 
 /**
  * Created by paolo on 24/02/15.
@@ -12,30 +15,42 @@ import java.util.List;
 public class SchoolManager {
     private static SchoolManager schoolManager;
     private Context context;
-    private ArrayList<School> schools;
+    private List<School> schools;
     private static int lastSchoolId, lastSubjectId;
+    private SchoolsDataMapper schoolsDataMapper;
+    private SubjectsDataMapper subjectsDataMapper;
 
-    private SchoolManager(Context context) {
+    private SchoolManager(Context context, DbHelper dbHelper) {
         this.context = context;
-        schools = new ArrayList<>();
-        schools.add(new School("E.Fermi", "Liceo Scientifico"));
-        schools.get(0).addSubject(new School.Subject("Matematica", "#d77777"));
-        schools.get(0).addSubject(new School.Subject("Fisica", "#bf56ac"));
-        schools.get(0).addSubject(new School.Subject("Storia","#6ba5ac"));
-        schools.get(0).addSubject(new School.Subject("Filosofia", "#dfa566"));
-        schools.get(0).addSubject(new School.Subject("Latino", "#5aa573"));
-        schools.add(new School("Algarotti", "Liceo Turistico"));
-        schools.get(1).addSubject(new School.Subject("Storia", "#dfa566"));
-        schools.get(1).addSubject(new School.Subject("Inglese", "#e08d55"));
-        schools.get(1).addSubject(new School.Subject("Russo", "#5aa573"));
-        schools.get(1).addSubject(new School.Subject("Tedesco", "#d77777"));
-        schools.get(1).addSubject(new School.Subject("Economia Turistica", "#6ba5ac"));
+        schoolsDataMapper = new SchoolsDataMapper(context, dbHelper);
+        subjectsDataMapper = new SubjectsDataMapper(context, dbHelper);
 
+        schools = schoolsDataMapper.getAllSchools();
+        if (schools.isEmpty()) {
+
+            // Default Schools
+            School school = new School("E.Fermi", "Liceo Scientifico");
+            addSchool(school);
+            addSubject(new School.Subject("Matematica", "#d77777"), school);
+            addSubject(new School.Subject("Matematica", "#d77777"), school);
+            addSubject(new School.Subject("Fisica", "#bf56ac"), school);
+            addSubject(new School.Subject("Storia", "#6ba5ac"), school);
+            addSubject(new School.Subject("Filosofia", "#dfa566"), school);
+            addSubject(new School.Subject("Latino", "#5aa573"), school);
+
+            school = new School("Algarotti", "Liceo Turistico");
+            addSubject(new School.Subject("Storia", "#dfa566"), school);
+            addSubject(new School.Subject("Inglese", "#e08d55"), school);
+            addSubject(new School.Subject("Russo", "#5aa573"), school);
+            addSubject(new School.Subject("Tedesco", "#d77777"), school);
+            addSubject(new School.Subject("Economia Turistica", "#6ba5ac"), school);
+        }
     }
 
-    public static SchoolManager get(Context context) {
+    public static SchoolManager get(Context context, DbHelper dbHelper) {
         if (schoolManager == null)
-            schoolManager = new SchoolManager(context.getApplicationContext());
+            schoolManager = new SchoolManager(context.getApplicationContext(),
+                    dbHelper);
         return schoolManager;
     }
 
@@ -43,7 +58,7 @@ public class SchoolManager {
         return Collections.unmodifiableList(schools);
     }
 
-    public School getSchool(int id) {
+    public School getSchool(long id) {
         for (School s : schools) {
             if (s.getId() == id)
                 return s;
@@ -53,10 +68,30 @@ public class SchoolManager {
 
     public void addSchool(School school) {
         schools.add(school);
+        school.setId(schoolsDataMapper.addSchool(school));
     }
 
     public void removeSchool(School school) {
         schools.remove(school);
+        schoolsDataMapper.deleteSchool(school);
+    }
+
+    public void updateSchool(School school) {
+        schoolsDataMapper.updateSchool(school);
+    }
+
+    public void addSubject(School.Subject subject, School school) {
+        school.addSubject(subject);
+        subjectsDataMapper.addSubject(subject, school);
+    }
+
+    public void removeSubject(School.Subject subject, School school) {
+        school.removeSubject(subject);
+        subjectsDataMapper.deleteSubject(subject);
+    }
+
+    public void updateSubject(School.Subject subject, School school) {
+        subjectsDataMapper.updateSubject(subject, school);
     }
 
 }

@@ -2,14 +2,14 @@ package it.unive.stud838640.studyapp.homeworks;
 
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.db.DbHelper;
+import it.unive.stud838640.studyapp.db.HomeworksDataMapper;
+import it.unive.stud838640.studyapp.db.TasksDataMapper;
 import it.unive.stud838640.studyapp.profile.Profile;
-import it.unive.stud838640.studyapp.profile.SchoolManager;
+import it.unive.stud838640.studyapp.profile.School;
 import it.unive.stud838640.studyapp.profile.User;
 
 /**
@@ -18,36 +18,27 @@ import it.unive.stud838640.studyapp.profile.User;
 public class HomeworkManager {
     private static HomeworkManager homeworkManager;
     private Context context;
-    private ArrayList<Homework> homeworks;
-    private ArrayList<SchoolManager.Subject> subjects;
+    private List<Homework> homeworks;
+    private List<School.Subject> subjects;
     private User user;
-    private SchoolManager.School school;
+    private DbHelper dbHelper;
+    private HomeworksDataMapper homeworksDataMapper;
+    private TasksDataMapper tasksDataMapper;
 
-    private HomeworkManager(Context context) {
+    private HomeworkManager(Context context, DbHelper dbHelper) {
         this.context = context;
-        homeworks = new ArrayList<>();
-        user = Profile.get(context).getUser();
-        school = user.getSchool();
+        this.dbHelper = dbHelper;
+        homeworksDataMapper = new HomeworksDataMapper(context, dbHelper);
+        tasksDataMapper = new TasksDataMapper(context, dbHelper);
+        user = Profile.get(context, dbHelper).getUser();
 
-        //TODO temp added homeworks for testing
-        for (int i = 0; i < 30; i++) {
-            Homework hw = new Homework();
-            hw.setName("Homework " + hw.getId());
-            hw.setDescription(context.getResources().getString(R.string.lorem_ipsum_short));
-            hw.setLeader(user.getName());
-            hw.setSubject(school.getSubject((i % school.getSubjects().size()) + 1));
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(System.currentTimeMillis() + (1000 * 3600 * 27));
-            hw.setExpiryDate(cal.getTime());
-            homeworks.add(hw);
-
-        }
-
+        homeworks = homeworksDataMapper.getAllHomeworks();
     }
 
-    public static HomeworkManager get(Context context) {
+    public static HomeworkManager get(Context context, DbHelper dbHelper) {
         if (homeworkManager == null) {
-            homeworkManager = new HomeworkManager(context.getApplicationContext());
+            homeworkManager = new HomeworkManager(context.getApplicationContext(),
+                    dbHelper);
         }
         return homeworkManager;
     }
@@ -56,7 +47,7 @@ public class HomeworkManager {
         return Collections.unmodifiableList(homeworks);
     }
 
-    public Homework getHomework(int id) {
+    public Homework getHomework(long id) {
         for (Homework h : homeworks) {
             if (id == h.getId())
                 return h;
@@ -66,9 +57,30 @@ public class HomeworkManager {
 
     public void addHomework(Homework homework) {
         homeworks.add(homework);
+        homeworksDataMapper.addHomework(homework);
     }
 
     public void removeHomework(Homework homework) {
         homeworks.remove(homework);
+        homeworksDataMapper.deleteHomework(homework);
     }
+
+    public void updateHomework(Homework homework) {
+        homeworksDataMapper.updateHomework(homework);
+    }
+
+    public void addTask(Task task, Homework homework) {
+        homework.addTask(task);
+        tasksDataMapper.addTask(task, homework);
+    }
+
+    public void removeTask(Task task, Homework homework) {
+        homework.removeTask(task);
+        tasksDataMapper.deleteTask(task);
+    }
+
+    public void updateTask(Task task, Homework homework) {
+        tasksDataMapper.updateTask(task, homework);
+    }
+
 }
