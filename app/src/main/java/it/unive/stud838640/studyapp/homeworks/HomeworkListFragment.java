@@ -55,7 +55,7 @@ public class HomeworkListFragment extends Fragment {
         uiCallBack = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                hwAdapter.notifyDataSetChanged();
+                //hwAdapter.notifyDataSetChanged();
                 Log.i("aaa", "BAU!!!");
             }
         };

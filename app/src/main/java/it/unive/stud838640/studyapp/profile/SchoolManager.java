@@ -43,6 +43,7 @@ public class SchoolManager {
             addSubject(new School.Subject("Russo", "#5aa573"), school);
             addSubject(new School.Subject("Tedesco", "#d77777"), school);
             addSubject(new School.Subject("Economia Turistica", "#6ba5ac"), school);
+            addSchool(school);
         }
     }
 

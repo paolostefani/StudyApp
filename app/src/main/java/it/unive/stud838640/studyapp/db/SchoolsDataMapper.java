@@ -100,6 +100,7 @@ public class SchoolsDataMapper implements BaseColumns{
         for (School.Subject sub : subjects) {
             s.addSubject(sub);
         }
+        cursor.close();
         return s;
     }
 

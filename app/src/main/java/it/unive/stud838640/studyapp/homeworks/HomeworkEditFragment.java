@@ -172,10 +172,8 @@ public class HomeworkEditFragment extends Fragment {
                 }
                 return true;
             case R.id.menu_item_save_hwork:
-                if (homework == null) {
+                if (homework == null)
                     homework = new Homework();
-                    HomeworkManager.get(getActivity()).addHomework(homework);
-                }
                 saveHomework(homework);
                 getActivity().finish();
                 return true;
@@ -188,8 +186,10 @@ public class HomeworkEditFragment extends Fragment {
         hw.setName(nameField.getText().toString());
         hw.setDescription(descriptionField.getText().toString());
         hw.setSubject(selectedSubject);
+        hw.setOwner(Profile.get(getActivity()).getUser());
         expiryDate = getSetExpiryDate(exDateDate, exDateTime);
         hw.setExpiryDate(expiryDate);
+        HomeworkManager.get(getActivity()).addHomework(hw);
     }
 
     private Date getSetExpiryDate(Date date, Date time) {

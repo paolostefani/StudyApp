@@ -14,15 +14,17 @@ public class Profile {
     private static Profile profile;
     private User user;
     private UsersDataMapper usersDataMapper;
+    private List<School> schools;
 
     private Profile(Context context) {
         usersDataMapper = new UsersDataMapper(context);
+        schools = SchoolManager.get(context).getSchools();
         List<User> users = usersDataMapper.getAllUsers();
 
         if (users.isEmpty()) {
             user = new User();
             user.setName(context.getString(R.string.you));
-            user.setSchool(SchoolManager.get(context).getSchools().get(0));
+            user.setSchool(schools.get(0));
             usersDataMapper.addUser(user);
         }
         else
