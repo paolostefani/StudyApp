@@ -14,7 +14,7 @@ import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
 import it.unive.stud838640.studyapp.profile.Profile;
-import it.unive.stud838640.studyapp.profile.SchoolManager;
+import it.unive.stud838640.studyapp.profile.School;
 
 /**
  * Created by AccStefani on 11/03/2015.
@@ -23,7 +23,7 @@ public class SubjectsListDialogFragment extends DialogFragment {
     public static final String EXTRA_ID =
             "it.unive.stud838640.studyapp.subjectId";
 
-    private List<SchoolManager.Subject> subjects;
+    private List<School.Subject> subjects;
     private String title;
 
     public static SubjectsListDialogFragment newInstance() {
@@ -31,7 +31,7 @@ public class SubjectsListDialogFragment extends DialogFragment {
         return fragment;
     }
 
-    private void sendResult(int resultCode, int subjectId) {
+    private void sendResult(int resultCode, long subjectId) {
         if (getTargetFragment() == null)
             return;
         Intent i = new Intent();
@@ -46,13 +46,13 @@ public class SubjectsListDialogFragment extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title)
-                .setAdapter(new ArrayAdapter<SchoolManager.Subject>(getActivity(),
+                .setAdapter(new ArrayAdapter<School.Subject>(getActivity(),
                         android.R.layout.simple_list_item_1, subjects), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ListView lw = ((AlertDialog) dialog).getListView();
-                        SchoolManager.Subject subject = (SchoolManager.Subject) lw.getAdapter().getItem(which);
-                        sendResult(Activity.RESULT_OK, subject.id);
+                        School.Subject subject = (School.Subject) lw.getAdapter().getItem(which);
+                        sendResult(Activity.RESULT_OK, subject.getId());
                     }
                 })
                 .create();

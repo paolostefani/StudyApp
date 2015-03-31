@@ -22,7 +22,7 @@ import java.util.GregorianCalendar;
 import it.unive.stud838640.studyapp.DateTimePickerFragment;
 import it.unive.stud838640.studyapp.R;
 import it.unive.stud838640.studyapp.profile.Profile;
-import it.unive.stud838640.studyapp.profile.SchoolManager;
+import it.unive.stud838640.studyapp.profile.School;
 
 /**
  * Created by AccStefani on 16/02/2015.
@@ -41,15 +41,14 @@ public class HomeworkEditFragment extends Fragment {
     private Homework homework;
     private EditText nameField, descriptionField, subjectsField;
     private EditText expiryDateField, expiryTimeField;
-    //private ArrayAdapter<SchoolManager.Subject> subjectsAdapter;
-    private SchoolManager.School school;
-    private SchoolManager.Subject selectedSubject;
+    private School school;
+    private School.Subject selectedSubject;
     //private String[] subjectsNames;
     private Date expiryDate, exDateDate, exDateTime;
 
-    public static HomeworkEditFragment newInstance(int homeworkId) {
+    public static HomeworkEditFragment newInstance(long homeworkId) {
         Bundle args = new Bundle();
-        args.putInt(EXTRA_HOMEWORK_ID, homeworkId);
+        args.putLong(EXTRA_HOMEWORK_ID, homeworkId);
         HomeworkEditFragment fragment = new HomeworkEditFragment();
         fragment.setArguments(args);
         return fragment;
@@ -59,25 +58,11 @@ public class HomeworkEditFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        int homeworkId = (int) getArguments().getInt(EXTRA_HOMEWORK_ID);
+        long homeworkId = getArguments().getLong(EXTRA_HOMEWORK_ID);
         homework = HomeworkManager.get(getActivity()).getHomework(homeworkId);
-
         school = Profile.get(getActivity()).getUser().getSchool();
-//        subjectsAdapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_1, school.getSubjects());
-
-//        if (savedInstanceState != null) {
-//            exDateDate = (Date) savedInstanceState.getSerializable(EX_DATE);
-//            exDateTime = (Date) savedInstanceState.getSerializable(EX_TIME);
-//        }
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putSerializable(EX_DATE, exDateDate);
-//        outState.putSerializable(EX_TIME, exDateTime);
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,7 +88,6 @@ public class HomeworkEditFragment extends Fragment {
         });
 
         expiryDateField = (EditText) v.findViewById(R.id.hwork_expiry_date);
-//        expiryDateField.setText(getDateText(exDateDate));
         expiryDateField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +99,6 @@ public class HomeworkEditFragment extends Fragment {
         });
 
         expiryTimeField = (EditText) v.findViewById(R.id.hwork_expiry_time);
-//        expiryTimeField.setText(getTimeText(exDateTime));
         expiryTimeField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,28 +108,12 @@ public class HomeworkEditFragment extends Fragment {
                 timeDialog.show(fragmentManager, DIALOG_DATE);
             }
         });
-//        expiryTimeField.setText(DateFormat.format("k:m", homework.getExpiryDate()));
-
-
-/*        subjectsField.setAdapter(subjectsAdapter);
-        selectedSubject = (SchoolManager.Subject) subjectsField.getSelectedItem();
-        subjectsField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSubject = (SchoolManager.Subject) parent.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
 
         if (homework != null) {
             nameField.setText(homework.getName());
             descriptionField.setText(homework.getDescription());
             selectedSubject = homework.getSubject();
-            subjectsField.setText(selectedSubject.name);
+            subjectsField.setText(selectedSubject.getName());
             expiryDate = homework.getExpiryDate();
             exDateDate = expiryDate;
             exDateTime = expiryDate;
@@ -175,7 +142,7 @@ public class HomeworkEditFragment extends Fragment {
             int subjectId = data
                     .getIntExtra(SubjectsListDialogFragment.EXTRA_ID, 0);
             selectedSubject = school.getSubject(subjectId);
-            subjectsField.setText(selectedSubject.name);
+            subjectsField.setText(selectedSubject.getName());
         }
     }
 

@@ -23,7 +23,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
-import it.unive.stud838640.studyapp.db.DbHelper;
 
 
 /**
@@ -37,21 +36,19 @@ public class HomeworkListFragment extends Fragment {
     private HomeworkAdapter hwAdapter;
     private Handler uiCallBack;
     private UpdateTimeLeft threadUpdateTimeLeft;
-    private DbHelper dbHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         getActivity().setTitle(R.string.homeworks_title);
-        dbHelper = new DbHelper(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_homework_grid, container, false);
         hwGridView = (GridView) v.findViewById(R.id.hwork_gridview);
-        homeworks = HomeworkManager.get(getActivity(), dbHelper).getHomeworks();
+        homeworks = HomeworkManager.get(getActivity()).getHomeworks();
         hwAdapter = new HomeworkAdapter(homeworks);
         hwGridView.setAdapter(hwAdapter);
 

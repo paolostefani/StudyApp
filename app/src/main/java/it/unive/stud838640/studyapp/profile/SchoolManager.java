@@ -5,7 +5,6 @@ import android.content.Context;
 import java.util.Collections;
 import java.util.List;
 
-import it.unive.stud838640.studyapp.db.DbHelper;
 import it.unive.stud838640.studyapp.db.SchoolsDataMapper;
 import it.unive.stud838640.studyapp.db.SubjectsDataMapper;
 
@@ -20,10 +19,10 @@ public class SchoolManager {
     private SchoolsDataMapper schoolsDataMapper;
     private SubjectsDataMapper subjectsDataMapper;
 
-    private SchoolManager(Context context, DbHelper dbHelper) {
+    private SchoolManager(Context context) {
         this.context = context;
-        schoolsDataMapper = new SchoolsDataMapper(context, dbHelper);
-        subjectsDataMapper = new SubjectsDataMapper(context, dbHelper);
+        schoolsDataMapper = new SchoolsDataMapper(context);
+        subjectsDataMapper = new SubjectsDataMapper(context);
 
         schools = schoolsDataMapper.getAllSchools();
         if (schools.isEmpty()) {
@@ -47,10 +46,9 @@ public class SchoolManager {
         }
     }
 
-    public static SchoolManager get(Context context, DbHelper dbHelper) {
+    public static SchoolManager get(Context context) {
         if (schoolManager == null)
-            schoolManager = new SchoolManager(context.getApplicationContext(),
-                    dbHelper);
+            schoolManager = new SchoolManager(context.getApplicationContext());
         return schoolManager;
     }
 

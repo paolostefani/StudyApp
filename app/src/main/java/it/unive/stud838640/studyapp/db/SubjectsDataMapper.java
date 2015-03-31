@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
@@ -49,15 +48,13 @@ public class SubjectsDataMapper implements BaseColumns{
 
 
     public Cursor getAllSubjectsCursor() {
-        db = dbHelper.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return dbR.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
     public List<School.Subject> getSubjectsBySchool(School school) {
         List<School.Subject> subjects = new ArrayList<>();
 
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+        Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                  COLUMN_NAME_SCHOOL + " = " + school.getId(), null);
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
@@ -67,28 +64,24 @@ public class SubjectsDataMapper implements BaseColumns{
     }
 
     public School.Subject getSubjectById(long id) {
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+        Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
         return getSubject(cursor);
     }
 
     public long addSubject(School.Subject subject, School school) {
         ContentValues values = getContentValues(subject, school);
-        db = dbHelper.getWritableDatabase();
-        return db.insert(TABLE_NAME, null, values);
+        return dbW.insert(TABLE_NAME, null, values);
     }
 
     public long updateSubject(School.Subject subject, School school) {
         ContentValues values = getContentValues(subject, school);
-        db = dbHelper.getWritableDatabase();
-        return db.update(TABLE_NAME, values,
+        return dbW.update(TABLE_NAME, values,
                 _ID + " = " + subject.getId(), null);
     }
 
     public void deleteSubject(School.Subject subject) {
-        db = dbHelper.getWritableDatabase();
-        db.delete(TABLE_NAME, _ID + " = " + subject.getId(), null);
+        dbW.delete(TABLE_NAME, _ID + " = " + subject.getId(), null);
     }
 
     private ContentValues getContentValues(School.Subject subject, School school) {

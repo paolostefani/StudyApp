@@ -56,10 +56,10 @@ public class HomeworkDetailsFragment extends Fragment {
         descrField.setText(hw.getDescription());
         subjectCircle = (TextView) v.findViewById(R.id.hwork_subject_circle);
         GradientDrawable bgShape = (GradientDrawable) subjectCircle.getBackground();
-        String color = hw.getSubject().color;
+        String color = hw.getSubject().getColor();
         bgShape.setColor(Color.parseColor(color));
         subjectField = (TextView) v.findViewById(R.id.hwork_subject);
-        subjectField.setText(hw.getSubject().name);
+        subjectField.setText(hw.getSubject().getName());
         expiryDateField = (TextView) v.findViewById(R.id.hwork_expiry_date_button);
         expiryDateField.setText(DateFormat.format("EEEE dd MMMM yyyy\nkk:mm",
                 hw.getExpiryDate()));

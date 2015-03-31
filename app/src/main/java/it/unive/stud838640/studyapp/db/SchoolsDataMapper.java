@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
@@ -35,29 +34,25 @@ public class SchoolsDataMapper implements BaseColumns{
 
     /***********************************************/
 
-    private SQLiteOpenHelper dbHelper;
-    private SQLiteDatabase db;
     private Context context;
+    SQLiteDatabase dbR, dbW;
     SubjectsDataMapper subjectsDataMapper;
 
-    public SchoolsDataMapper(Context context, SQLiteOpenHelper dbHelper) {
+    public SchoolsDataMapper(Context context) {
         dbR = DbHelper.get(context).getReadableDb();
         dbW = DbHelper.get(context).getWriteableDb();
-        this.dbHelper = dbHelper;
         this.context = context;
-        subjectsDataMapper = new SubjectsDataMapper(context, dbHelper);
+        subjectsDataMapper = new SubjectsDataMapper(context);
     }
 
 
     public Cursor getAllSchoolsCursor() {
-        db = dbHelper.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return dbR.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
     public List<School> getAllSchools() {
         List<School> schools = new ArrayList<>();
 
-        db = dbHelper.getReadableDatabase();
         Cursor cursor = getAllSchoolsCursor();
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
@@ -69,28 +64,24 @@ public class SchoolsDataMapper implements BaseColumns{
     }
 
     public School getSchoolById(long id) {
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+        Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
         return getSchool(cursor);
     }
 
     public long addSchool(School school) {
         ContentValues values = getContentValues(school);
-        db = dbHelper.getWritableDatabase();
-        return db.insert(TABLE_NAME, null, values);
+        return dbW.insert(TABLE_NAME, null, values);
     }
 
     public long updateSchool(School school) {
         ContentValues values = getContentValues(school);
-        db = dbHelper.getWritableDatabase();
-        return db.update(TABLE_NAME, values,
+        return dbW.update(TABLE_NAME, values,
                 _ID + " = " + school.getId(), null);
     }
 
     public void deleteSchool(School school) {
-        db = dbHelper.getWritableDatabase();
-        db.delete(TABLE_NAME, _ID + " = " + school.getId(), null);
+        dbW.delete(TABLE_NAME, _ID + " = " + school.getId(), null);
     }
 
     private ContentValues getContentValues(School school) {

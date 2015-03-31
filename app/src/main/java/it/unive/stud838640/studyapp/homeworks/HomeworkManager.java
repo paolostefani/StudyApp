@@ -5,7 +5,6 @@ import android.content.Context;
 import java.util.Collections;
 import java.util.List;
 
-import it.unive.stud838640.studyapp.db.DbHelper;
 import it.unive.stud838640.studyapp.db.HomeworksDataMapper;
 import it.unive.stud838640.studyapp.db.TasksDataMapper;
 import it.unive.stud838640.studyapp.profile.Profile;
@@ -21,24 +20,21 @@ public class HomeworkManager {
     private List<Homework> homeworks;
     private List<School.Subject> subjects;
     private User user;
-    private DbHelper dbHelper;
     private HomeworksDataMapper homeworksDataMapper;
     private TasksDataMapper tasksDataMapper;
 
-    private HomeworkManager(Context context, DbHelper dbHelper) {
+    private HomeworkManager(Context context) {
         this.context = context;
-        this.dbHelper = dbHelper;
-        homeworksDataMapper = new HomeworksDataMapper(context, dbHelper);
-        tasksDataMapper = new TasksDataMapper(context, dbHelper);
-        user = Profile.get(context, dbHelper).getUser();
+        homeworksDataMapper = new HomeworksDataMapper(context);
+        tasksDataMapper = new TasksDataMapper(context);
+        user = Profile.get(context).getUser();
 
         homeworks = homeworksDataMapper.getAllHomeworks();
     }
 
-    public static HomeworkManager get(Context context, DbHelper dbHelper) {
+    public static HomeworkManager get(Context context) {
         if (homeworkManager == null) {
-            homeworkManager = new HomeworkManager(context.getApplicationContext(),
-                    dbHelper);
+            homeworkManager = new HomeworkManager(context.getApplicationContext());
         }
         return homeworkManager;
     }
