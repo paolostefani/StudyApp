@@ -34,7 +34,7 @@ public class HomeworksDataMapper implements BaseColumns{
     public static final String SQL_CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_NAME_NAME + " TEXT " +
+                    COLUMN_NAME_NAME + " TEXT, " +
                     COLUMN_NAME_DESCRIPTION + " TEXT, " +
                     COLUMN_NAME_EXPIRY_DATE + " INTEGER, " +
                     COLUMN_NAME_PERCENTAGE + " INTEGER, " +
@@ -79,14 +79,16 @@ public class HomeworksDataMapper implements BaseColumns{
             homeworks.add(getHomework(cursor));
         }
         cursor.close();
-
         return homeworks;
     }
 
     public Homework getHomeworkById(long id) {
         Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
-        return getHomework(cursor);
+        cursor.moveToFirst();
+        Homework h = getHomework(cursor);
+        cursor.close();
+        return h;
     }
 
     public long addHomework(Homework homework) {
@@ -120,13 +122,13 @@ public class HomeworksDataMapper implements BaseColumns{
         hw.setId(cursor.getLong(cursor.getColumnIndex(_ID)));
         hw.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME_NAME)));
         hw.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DESCRIPTION)));
-        long date = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_EXPIRY_DATE)));
+        long date = (cursor.getLong(cursor.getColumnIndex(COLUMN_NAME_EXPIRY_DATE)));
         hw.setExpiryDate(new Date(date));
         hw.setPercentage(cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_PERCENTAGE)));
         long userId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_OWNER)));
         hw.setOwner(usersDataMapper.getUserById(userId));
         long subjectId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT)));
-        hw.setOwner(usersDataMapper.getUserById(subjectId));
+        hw.setSubject(subjectsDataMapper.getSubjectById(subjectId));
         List<Task> tasks = tasksDataMapper.getTasksByHomework(hw);
         for (Task t : tasks) {
             hw.addTask(t);

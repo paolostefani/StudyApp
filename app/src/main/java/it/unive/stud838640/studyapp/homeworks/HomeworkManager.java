@@ -53,7 +53,7 @@ public class HomeworkManager {
 
     public void addHomework(Homework homework) {
         homeworks.add(homework);
-        homeworksDataMapper.addHomework(homework);
+        homework.setId(homeworksDataMapper.addHomework(homework));
     }
 
     public void removeHomework(Homework homework) {
@@ -67,7 +67,7 @@ public class HomeworkManager {
 
     public void addTask(Task task, Homework homework) {
         homework.addTask(task);
-        tasksDataMapper.addTask(task, homework);
+        task.setId(tasksDataMapper.addTask(task, homework));
     }
 
     public void removeTask(Task task, Homework homework) {

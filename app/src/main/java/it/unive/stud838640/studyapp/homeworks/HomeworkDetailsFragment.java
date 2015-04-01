@@ -28,9 +28,9 @@ public class HomeworkDetailsFragment extends Fragment {
             subjectField, expiryDateField, timeLeftField, subjectCircle;
     private ArrayAdapter<String> subjectsAdapter;
 
-    public static HomeworkDetailsFragment newInstance(int homeworkId) {
+    public static HomeworkDetailsFragment newInstance(long homeworkId) {
         Bundle args = new Bundle();
-        args.putInt(EXTRA_HOMEWORK_ID, homeworkId);
+        args.putLong(EXTRA_HOMEWORK_ID, homeworkId);
         HomeworkDetailsFragment fragment = new HomeworkDetailsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -40,7 +40,7 @@ public class HomeworkDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        int homeworkId = (int) getArguments().getInt(EXTRA_HOMEWORK_ID);
+        long homeworkId = getArguments().getLong(EXTRA_HOMEWORK_ID);
         hw = HomeworkManager.get(getActivity()).getHomework(homeworkId);
         getActivity().setTitle(hw.getName());
     }

@@ -66,7 +66,10 @@ public class SubjectsDataMapper implements BaseColumns{
     public School.Subject getSubjectById(long id) {
         Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
-        return getSubject(cursor);
+        cursor.moveToFirst();
+        School.Subject s = getSubject(cursor);
+        cursor.close();
+        return s;
     }
 
     public long addSubject(School.Subject subject, School school) {

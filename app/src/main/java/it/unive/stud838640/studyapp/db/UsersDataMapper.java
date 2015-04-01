@@ -58,6 +58,7 @@ public class UsersDataMapper implements BaseColumns{
         while (cursor.moveToNext()) {
             users.add(getUser(cursor));
         }
+        cursor.close();
         return users;
     }
 
@@ -66,7 +67,10 @@ public class UsersDataMapper implements BaseColumns{
                 _ID + " = " + id, null);
         if (cursor.getCount() == 0)
             return null;
-        return getUser(cursor);
+        cursor.moveToFirst();
+        User u = getUser(cursor);
+        cursor.close();
+        return u;
     }
 
     public long addUser(User user) {

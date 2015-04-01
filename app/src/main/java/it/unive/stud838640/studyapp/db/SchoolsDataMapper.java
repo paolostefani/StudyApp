@@ -58,7 +58,6 @@ public class SchoolsDataMapper implements BaseColumns{
             schools.add(getSchool(cursor));
         }
         cursor.close();
-
         return schools;
     }
 
@@ -66,7 +65,9 @@ public class SchoolsDataMapper implements BaseColumns{
         Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
         cursor.moveToFirst();
-        return getSchool(cursor);
+        School s = getSchool(cursor);
+        cursor.close();
+        return s;
     }
 
     public long addSchool(School school) {

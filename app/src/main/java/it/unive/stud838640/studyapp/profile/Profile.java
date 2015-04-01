@@ -25,7 +25,7 @@ public class Profile {
             user = new User();
             user.setName(context.getString(R.string.you));
             user.setSchool(schools.get(0));
-            usersDataMapper.addUser(user);
+            user.setId(usersDataMapper.addUser(user));
         }
         else
             user = users.get(0);

@@ -11,10 +11,9 @@ import it.unive.stud838640.studyapp.profile.User;
  * Created by paolo on 13/02/15.
  */
 public class Homework {
-    public static int lastId;
     private final int HOUR_MILLI = 1000 * 3600;
     private final int DAY_MILLI = HOUR_MILLI * 24;
-    private long id; // TODO change this temporary id with database id;
+    private long id;
     private String name, description;
     private School.Subject subject;
     private Date expiryDate;
@@ -25,7 +24,6 @@ public class Homework {
     public Homework() {
         tasks = new ArrayList<>();
         expiryDate = new Date();
-        id = ++lastId;
     }
 
     public long getId() {

@@ -139,8 +139,8 @@ public class HomeworkEditFragment extends Fragment {
             expiryTimeField.setText(getTimeText(exDateTime));
         }
         if (requestCode == REQUEST_SUBJECT) {
-            int subjectId = data
-                    .getIntExtra(SubjectsListDialogFragment.EXTRA_ID, 0);
+            long subjectId = data
+                    .getLongExtra(SubjectsListDialogFragment.EXTRA_ID, 0);
             selectedSubject = school.getSubject(subjectId);
             subjectsField.setText(selectedSubject.getName());
         }
@@ -172,9 +172,12 @@ public class HomeworkEditFragment extends Fragment {
                 }
                 return true;
             case R.id.menu_item_save_hwork:
-                if (homework == null)
+                boolean isNew = false;
+                if (homework == null) {
+                    isNew = true;
                     homework = new Homework();
-                saveHomework(homework);
+                }
+                saveHomework(homework, isNew);
                 getActivity().finish();
                 return true;
             default:
@@ -182,14 +185,17 @@ public class HomeworkEditFragment extends Fragment {
         }
     }
 
-    private void saveHomework(Homework hw) {
+    private void saveHomework(Homework hw, boolean isNew) {
         hw.setName(nameField.getText().toString());
         hw.setDescription(descriptionField.getText().toString());
         hw.setSubject(selectedSubject);
         hw.setOwner(Profile.get(getActivity()).getUser());
         expiryDate = getSetExpiryDate(exDateDate, exDateTime);
         hw.setExpiryDate(expiryDate);
-        HomeworkManager.get(getActivity()).addHomework(hw);
+        if (isNew)
+            HomeworkManager.get(getActivity()).addHomework(homework);
+        else
+            HomeworkManager.get(getActivity()).updateHomework(homework);
     }
 
     private Date getSetExpiryDate(Date date, Date time) {

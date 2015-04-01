@@ -11,8 +11,8 @@ public class HomeworkActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         String hwAction = getIntent().
                 getStringExtra(HomeworkListFragment.EXTRA_HOMEWORK_ACTION);
-        int homeworkId = (int) getIntent()
-                .getIntExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, -1);
+        long homeworkId = getIntent()
+                .getLongExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, -1);
 
         if (hwAction.equals("new"))
             return HomeworkEditFragment.newInstance(homeworkId);

@@ -31,7 +31,6 @@ public class SchoolManager {
             School school = new School("E.Fermi", "Liceo Scientifico");
             addSchool(school);
             addSubject(new School.Subject("Matematica", "#d77777"), school);
-            addSubject(new School.Subject("Matematica", "#d77777"), school);
             addSubject(new School.Subject("Fisica", "#bf56ac"), school);
             addSubject(new School.Subject("Storia", "#6ba5ac"), school);
             addSubject(new School.Subject("Filosofia", "#dfa566"), school);
@@ -81,7 +80,7 @@ public class SchoolManager {
 
     public void addSubject(School.Subject subject, School school) {
         school.addSubject(subject);
-        subjectsDataMapper.addSubject(subject, school);
+        subject.setId(subjectsDataMapper.addSubject(subject, school))   ;
     }
 
     public void removeSubject(School.Subject subject, School school) {
