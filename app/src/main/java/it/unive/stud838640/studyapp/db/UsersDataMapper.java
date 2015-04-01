@@ -55,7 +55,6 @@ public class UsersDataMapper implements BaseColumns{
         List<User> users = new ArrayList<>();
 
         Cursor cursor = getAllUsersCursor();
-        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             users.add(getUser(cursor));
         }

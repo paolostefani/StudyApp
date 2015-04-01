@@ -54,7 +54,6 @@ public class SchoolsDataMapper implements BaseColumns{
         List<School> schools = new ArrayList<>();
 
         Cursor cursor = getAllSchoolsCursor();
-        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             schools.add(getSchool(cursor));
         }
@@ -66,6 +65,7 @@ public class SchoolsDataMapper implements BaseColumns{
     public School getSchoolById(long id) {
         Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                 _ID + " = " + id, null);
+        cursor.moveToFirst();
         return getSchool(cursor);
     }
 
@@ -100,7 +100,6 @@ public class SchoolsDataMapper implements BaseColumns{
         for (School.Subject sub : subjects) {
             s.addSubject(sub);
         }
-        cursor.close();
         return s;
     }
 

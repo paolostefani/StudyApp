@@ -75,7 +75,6 @@ public class HomeworksDataMapper implements BaseColumns{
         List<Homework> homeworks = new ArrayList<>();
 
         Cursor cursor = getAllHomeworksCursor();
-        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             homeworks.add(getHomework(cursor));
         }

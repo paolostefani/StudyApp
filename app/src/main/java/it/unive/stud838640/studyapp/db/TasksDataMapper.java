@@ -59,10 +59,10 @@ public class TasksDataMapper implements BaseColumns{
 
         Cursor cursor = dbR.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
                  COLUMN_NAME_HOMEWORK + " = " + homework.getId(), null);
-        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             tasks.add(getTask(cursor));
         }
+        cursor.close();
         return tasks;
     }
 
