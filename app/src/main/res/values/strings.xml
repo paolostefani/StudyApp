@@ -24,6 +24,7 @@
     <string name="hour">ora</string>
     <string name="hours">ore</string>
     <string name="and">e</string>
+    <string name="subjects">Materie</string>
     <string name="lorem_ipsum"> Lorem ipsum dolor sit amet, consectetur
         adipiscing elit. Aliquam efficitur nisi sit amet ultricies
         tincidunt. Pellentesque elementum, mauris ut varius viverra,
@@ -41,4 +42,6 @@
     <string name="delete">Elimina Homework</string>
     <string name="select_subject">Scegli una materia..</string>
     <string name="expired">Scaduto</string>
+    <string name="color_label">Colore</string>
+    <string name="select_color">Scegli un colore..</string>
 </resources>

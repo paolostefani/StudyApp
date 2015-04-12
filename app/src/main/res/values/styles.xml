@@ -13,6 +13,14 @@
         <item name="android:background">@drawable/homework_list_shape</item>
     </style>
 
+    <style name="ColorButton">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textColor">#ff5090</item>
+        <item name="android:background">@drawable/homework_list_shape</item>
+    </style>
+
     <style name="title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.profile.SubjectListActivity;
 
 
 /**
@@ -76,10 +77,13 @@ public class HomeworkListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_hwork:
-                Intent i = new Intent(getActivity(), HomeworkActivity.class);
-                i.putExtra(EXTRA_HOMEWORK_ACTION, "new");
-                startActivity(i);
+                Intent i1 = new Intent(getActivity(), HomeworkActivity.class);
+                i1.putExtra(EXTRA_HOMEWORK_ACTION, "new");
+                startActivity(i1);
                 return  true;
+            case R.id.temp_menu_item_subjects:
+                Intent i2 = new Intent(getActivity(), SubjectListActivity.class);
+                startActivity(i2);
             default:
                 return super.onOptionsItemSelected(item);
         }

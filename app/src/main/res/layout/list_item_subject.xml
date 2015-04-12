@@ -2,18 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/subject_label"
-        android:textSize="20sp"/>
-    <TextView
-        android:id="@+id/hwork_subject_circle"
+        android:id="@+id/subject_color"
+        android:layout_margin="@dimen/field_elements_margin"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:background="@drawable/homework_list_shape"
         android:layout_marginRight="10dp"/>
+    <TextView
+        android:id="@+id/subject_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/field_elements_margin"
+        android:hint="@string/subject_label"
+        android:textSize="20sp"/>
 
 </LinearLayout>

@@ -4,4 +4,8 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/new_homework"
         android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/temp_menu_item_subjects"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="@string/subjects"
+        android:showAsAction="ifRoom|withText" />
 </menu>

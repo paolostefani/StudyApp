@@ -18,11 +18,13 @@ public class SchoolManager {
     private static int lastSchoolId, lastSubjectId;
     private SchoolsDataMapper schoolsDataMapper;
     private SubjectsDataMapper subjectsDataMapper;
+    private String[] subjectColors;
 
     private SchoolManager(Context context) {
         this.context = context;
         schoolsDataMapper = new SchoolsDataMapper(context);
         subjectsDataMapper = new SubjectsDataMapper(context);
+        setSubjectColors();
 
         schools = schoolsDataMapper.getAllSchools();
         if (schools.isEmpty()) {
@@ -90,6 +92,24 @@ public class SchoolManager {
 
     public void updateSubject(School.Subject subject, School school) {
         subjectsDataMapper.updateSubject(subject, school);
+    }
+
+    public String[] getSubjectColors() {
+        return subjectColors;
+    }
+
+    private void setSubjectColors() {
+        subjectColors = new String[9];
+        subjectColors[0] = "#d77777";
+        subjectColors[1] = "#bf56ac";
+        subjectColors[2] = "#6ba5ac";
+        subjectColors[3] = "#dfa566";
+        subjectColors[4] = "#5aa573";
+        subjectColors[5] = "#5aa573";
+        subjectColors[6] = "#5aa573";
+        subjectColors[7] = "#5aa573";
+        subjectColors[8] = "#5aa573";
+
     }
 
 }

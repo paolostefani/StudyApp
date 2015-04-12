@@ -20,6 +20,12 @@
             android:windowSoftInputMode="stateHidden"
             tools:ignore="UnusedAttribute">
         </activity>
+        <activity android:name=".profile.SubjectListActivity"
+            android:label="@string/subjects"
+            android:parentActivityName=".homeworks.HomeworkActivity"
+            android:windowSoftInputMode="stateHidden"
+            tools:ignore="UnusedAttribute">
+        </activity>
     </application>
 
 </manifest>
