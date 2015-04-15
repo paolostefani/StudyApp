@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -91,7 +92,10 @@ public class HomeworkListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hwAdapter.notifyDataSetChanged();
+        hwAdapter.swapItems(HomeworkManager.get(getActivity()).getHomeworks());
+
+        //hwAdapter.notifyDataSetChanged();
+        Log.i("aaa", "BAU!!!");
         //hwGridView.invalidateViews();
     }
 
@@ -102,9 +106,11 @@ public class HomeworkListFragment extends Fragment {
     }
 
     private class HomeworkAdapter extends ArrayAdapter<Homework> {
+        private List<Homework> homeworks;
 
         public HomeworkAdapter(List<Homework> homeworks) {
             super(getActivity(), 0, homeworks);
+            this.homeworks = homeworks;
         }
 
         @Override
@@ -114,12 +120,13 @@ public class HomeworkListFragment extends Fragment {
                         .inflate(R.layout.list_item_homework, null);
             }
 
-            final Homework hw = getItem(position);
+            final Homework hw = homeworks.get(position);
 
             Button hworkButton = (Button) convertView.findViewById(R.id.hwork_button);
             //hworkButton.setText(hw.getId() + "");
             GradientDrawable bgShape = (GradientDrawable) hworkButton.getBackground();
             String color = hw.getSubject().getColor();
+            Log.i("aaa", color);
             bgShape.setColor(Color.parseColor(color));
 
             TextView hworkName = (TextView) convertView.findViewById(R.id.hwork_name);
@@ -149,6 +156,11 @@ public class HomeworkListFragment extends Fragment {
             });
 
             return convertView;
+        }
+
+        public void swapItems(List<Homework> homeworks) {
+            this.homeworks = homeworks;
+            notifyDataSetChanged();
         }
     }
 

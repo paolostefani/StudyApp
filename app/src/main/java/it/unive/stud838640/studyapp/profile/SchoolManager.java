@@ -7,6 +7,8 @@ import java.util.List;
 
 import it.unive.stud838640.studyapp.db.SchoolsDataMapper;
 import it.unive.stud838640.studyapp.db.SubjectsDataMapper;
+import it.unive.stud838640.studyapp.homeworks.Homework;
+import it.unive.stud838640.studyapp.homeworks.HomeworkManager;
 
 /**
  * Created by paolo on 24/02/15.
@@ -91,6 +93,8 @@ public class SchoolManager {
     }
 
     public void updateSubject(School.Subject subject, School school) {
+        school.getSubject(subject.getId());
+        List<Homework> hws = HomeworkManager.get(context).getHomeworks();
         subjectsDataMapper.updateSubject(subject, school);
     }
 
