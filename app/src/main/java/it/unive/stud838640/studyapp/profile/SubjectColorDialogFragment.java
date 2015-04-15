@@ -1,14 +1,19 @@
 package it.unive.stud838640.studyapp.profile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 
 import it.unive.stud838640.studyapp.R;
 
@@ -32,8 +37,25 @@ public class SubjectColorDialogFragment extends DialogFragment {
         Intent i = new Intent();
         i.putExtra(EXTRA_COLOR, color);
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, i);
+        Log.i("Select: ", color);
+        this.dismiss();
     }
 
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View v = getActivity().getLayoutInflater()
+                .inflate(R.layout.dialog_color, null);
+        GridView colorGridView = (GridView) v.findViewById(R.id.color_gridview);
+        colors = SchoolManager.get(getActivity()).getSubjectColors();
+        ColorAdapter colorAdapter = new ColorAdapter(colors);
+        colorGridView.setAdapter(colorAdapter);
+
+        title = getString(R.string.select_color);
+        return new AlertDialog.Builder(getActivity())
+                .setView(v)
+                .setTitle(title)
+                .create();
+    }
 
     private class ColorAdapter extends ArrayAdapter<String> {
 

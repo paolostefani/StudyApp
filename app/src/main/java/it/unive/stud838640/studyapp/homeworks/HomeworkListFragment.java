@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,7 +56,7 @@ public class HomeworkListFragment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 //hwAdapter.notifyDataSetChanged();
-                Log.i("aaa", "BAU!!!");
+                //Log.i("aaa", "BAU!!!");
             }
         };
 
