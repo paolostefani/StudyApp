@@ -52,7 +52,6 @@ public class HomeworksDataMapper implements BaseColumns{
     SubjectsDataMapper subjectsDataMapper;
     TasksDataMapper tasksDataMapper;
 
-
     public HomeworksDataMapper(Context context) {
         this.context = context;
         dbR = DbHelper.get(context).getReadableDb();
@@ -61,14 +60,12 @@ public class HomeworksDataMapper implements BaseColumns{
         tasksDataMapper = new TasksDataMapper(context);
     }
 
-
     public Cursor getAllHomeworksCursor() {
         return dbR.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
     public List<Homework> getAllHomeworks() {
         List<Homework> homeworks = new ArrayList<>();
-
         Cursor cursor = getAllHomeworksCursor();
         while (cursor.moveToNext()) {
             homeworks.add(getHomework(cursor));
@@ -107,7 +104,7 @@ public class HomeworksDataMapper implements BaseColumns{
         values.put(COLUMN_NAME_DESCRIPTION, homework.getDescription());
         values.put(COLUMN_NAME_EXPIRY_DATE, homework.getExpiryDate().getTime());
         values.put(COLUMN_NAME_PERCENTAGE, homework.getPercentage());
-        values.put(COLUMN_NAME_SUBJECT_ID, homework.getSubject().getId());
+        values.put(COLUMN_NAME_SUBJECT_ID, homework.getSubjectId());
         return values;
     }
 
@@ -119,7 +116,7 @@ public class HomeworksDataMapper implements BaseColumns{
         long date = (cursor.getLong(cursor.getColumnIndex(COLUMN_NAME_EXPIRY_DATE)));
         hw.setExpiryDate(new Date(date));
         hw.setPercentage(cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_PERCENTAGE)));
-        long subjectId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT_ID)));
+        hw.setSubjectId(); = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT_ID)));
         hw.setSubject(Profile.get(context).getUser().getSchool().getSubject(subjectId));
         List<Task> tasks = tasksDataMapper.getTasksByHomework(hw);
         for (Task t : tasks) {

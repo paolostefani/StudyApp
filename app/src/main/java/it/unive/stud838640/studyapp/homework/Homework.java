@@ -1,11 +1,9 @@
 package it.unive.stud838640.studyapp.homework;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
-
-import it.unive.stud838640.studyapp.profile.School;
-import it.unive.stud838640.studyapp.profile.User;
+import java.util.List;
 
 /**
  * Created by paolo on 13/02/15.
@@ -15,14 +13,12 @@ public class Homework {
     private final int DAY_MILLI = HOUR_MILLI * 24;
     private long id;
     private String name, description;
-    private School.Subject subject;
+    private long subjectId;
     private Date expiryDate;
     private int percentage;
-    private User owner; // TODO change String type to Team type
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
 
     public Homework() {
-        tasks = new ArrayList<>();
         expiryDate = new Date();
     }
 
@@ -50,12 +46,12 @@ public class Homework {
         this.description = description;
     }
 
-    public School.Subject getSubject() {
-        return subject;
+    public long getSubjectId() {
+        return subjectId;
     }
 
-    public void setSubject(School.Subject subject) {
-        this.subject = subject;
+    public void setSubjectId(long subjectId) {
+        this.subjectId = subjectId;
     }
 
     public Date getExpiryDate() {
@@ -90,16 +86,8 @@ public class Homework {
         return percentage;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    public List<Task> getTasks() {
+        return Collections.unmodifiableList(tasks);
     }
 
     public void addTask(Task task) {
