@@ -8,21 +8,21 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name=".homeworks.HomeworkListActivity">
+        <activity android:name=".homework.HomeworkListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".homeworks.HomeworkActivity"
+        <activity android:name=".homework.HomeworkActivity"
             android:label="@string/title_activity_homework"
-            android:parentActivityName=".homeworks.HomeworkActivity"
+            android:parentActivityName=".homework.HomeworkActivity"
             android:windowSoftInputMode="stateHidden"
             tools:ignore="UnusedAttribute">
         </activity>
-        <activity android:name=".profile.SubjectListActivity"
+        <activity android:name=".subject.SubjectListActivity"
             android:label="@string/subjects"
-            android:parentActivityName=".homeworks.HomeworkActivity"
+            android:parentActivityName=".homework.HomeworkActivity"
             android:windowSoftInputMode="stateHidden"
             tools:ignore="UnusedAttribute">
         </activity>

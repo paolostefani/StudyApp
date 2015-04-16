@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.profile;
+package it.unive.stud838640.studyapp.subject;
 
 import android.content.Context;
 
@@ -9,67 +9,54 @@ import it.unive.stud838640.studyapp.db.SchoolsDataMapper;
 import it.unive.stud838640.studyapp.db.SubjectsDataMapper;
 import it.unive.stud838640.studyapp.homework.Homework;
 import it.unive.stud838640.studyapp.homework.HomeworkManager;
+import it.unive.stud838640.studyapp.profile.School;
 
 /**
  * Created by paolo on 24/02/15.
  */
-public class SchoolManager {
-    private static SchoolManager schoolManager;
+public class SubjectManager {
+    private static SubjectManager subjectManager;
     private Context context;
-    private List<School> schools;
-    private static int lastSchoolId, lastSubjectId;
-    private SchoolsDataMapper schoolsDataMapper;
+    private List<Subject> subjects;
     private SubjectsDataMapper subjectsDataMapper;
     private String[] subjectColors;
 
-    private SchoolManager(Context context) {
+    private SubjectManager(Context context) {
         this.context = context;
-        schoolsDataMapper = new SchoolsDataMapper(context);
         subjectsDataMapper = new SubjectsDataMapper(context);
         setSubjectColors();
-
-        schools = schoolsDataMapper.getAllSchools();
-        if (schools.isEmpty()) {
-
-            // Default Schools
-            School school = new School("E.Fermi", "Liceo Scientifico");
-            addSchool(school);
-            addSubject(new School.Subject("Matematica", "#d77777"), school);
-            addSubject(new School.Subject("Fisica", "#bf56ac"), school);
-            addSubject(new School.Subject("Storia", "#6ba5ac"), school);
-            addSubject(new School.Subject("Filosofia", "#dfa566"), school);
-            addSubject(new School.Subject("Latino", "#5aa573"), school);
-
-            school = new School("Algarotti", "Liceo Turistico");
-            addSubject(new School.Subject("Storia", "#dfa566"), school);
-            addSubject(new School.Subject("Inglese", "#e08d55"), school);
-            addSubject(new School.Subject("Russo", "#5aa573"), school);
-            addSubject(new School.Subject("Tedesco", "#d77777"), school);
-            addSubject(new School.Subject("Economia Turistica", "#6ba5ac"), school);
-            addSchool(school);
+        subjects = subjectsDataMapper.getAllSubjects();
+        if (subjects.isEmpty()) {
+            addSubject(new Subject("Matematica", "#d77777"));
+            addSubject(new Subject("Fisica", "#bf56ac"));
+            addSubject(new Subject("Storia", "#6ba5ac"));
+            addSubject(new Subject("Filosofia", "#dfa566"));
+            addSubject(new Subject("Latino", "#5aa573"));
+            addSubject(new Subject("Inglese", "#e08d55"));
         }
     }
 
-    public static SchoolManager get(Context context) {
-        if (schoolManager == null)
-            schoolManager = new SchoolManager(context.getApplicationContext());
-        return schoolManager;
+    public static SubjectManager get(Context context) {
+        if (subjectManager == null)
+            subjectManager = new SubjectManager(context.getApplicationContext());
+        return subjectManager;
     }
 
-    public List<School> getSchools() {
-        return Collections.unmodifiableList(schools);
+    public List<Subject> getSubjects() {
+        return Collections.unmodifiableList(subjects);
     }
 
-    public School getSchool(long id) {
-        for (School s : schools) {
+    public Subject getSubject(long id) {
+        for (Subject s : subjects) {
             if (s.getId() == id)
                 return s;
         }
         return null;
     }
 
-    public void addSchool(School school) {
-        schools.add(school);
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+        subject.setId(subjectsDataMapper.addSubject(subject));
         school.setId(schoolsDataMapper.addSchool(school));
     }
 
@@ -84,7 +71,7 @@ public class SchoolManager {
 
     public void addSubject(School.Subject subject, School school) {
         school.addSubject(subject);
-        subject.setId(subjectsDataMapper.addSubject(subject, school))   ;
+        ;
     }
 
     public void removeSubject(School.Subject subject, School school) {

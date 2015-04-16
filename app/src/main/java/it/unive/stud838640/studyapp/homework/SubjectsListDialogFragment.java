@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.homeworks;
+package it.unive.stud838640.studyapp.homework;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +17,7 @@ import it.unive.stud838640.studyapp.profile.Profile;
 import it.unive.stud838640.studyapp.profile.School;
 
 /**
- * Created by AccStefani on 11/03/2015.
+ * Created by paolo on 11/03/2015.
  */
 public class SubjectsListDialogFragment extends DialogFragment {
     public static final String EXTRA_ID =

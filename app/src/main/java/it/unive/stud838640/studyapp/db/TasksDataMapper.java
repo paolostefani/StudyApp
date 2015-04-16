@@ -9,8 +9,8 @@ import android.provider.BaseColumns;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unive.stud838640.studyapp.homeworks.Homework;
-import it.unive.stud838640.studyapp.homeworks.Task;
+import it.unive.stud838640.studyapp.homework.Homework;
+import it.unive.stud838640.studyapp.homework.Task;
 
 /**
  * Created by paolo on 28/03/15.

@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.homeworks;
+package it.unive.stud838640.studyapp.homework;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -23,7 +23,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
-import it.unive.stud838640.studyapp.profile.SubjectListActivity;
+import it.unive.stud838640.studyapp.subject.SubjectListActivity;
 
 
 /**

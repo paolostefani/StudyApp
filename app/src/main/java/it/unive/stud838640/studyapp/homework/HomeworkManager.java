@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.homeworks;
+package it.unive.stud838640.studyapp.homework;
 
 import android.content.Context;
 
@@ -12,7 +12,7 @@ import it.unive.stud838640.studyapp.profile.School;
 import it.unive.stud838640.studyapp.profile.User;
 
 /**
- * Created by AccStefani on 18/02/2015.
+ * Created by paolo on 18/02/2015.
  */
 public class HomeworkManager {
     private static HomeworkManager homeworkManager;

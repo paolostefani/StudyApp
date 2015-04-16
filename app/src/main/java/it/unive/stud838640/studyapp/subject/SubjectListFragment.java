@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.profile;
+package it.unive.stud838640.studyapp.subject;
 
 import android.app.ListFragment;
 import android.graphics.Color;
@@ -14,9 +14,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.profile.Profile;
+import it.unive.stud838640.studyapp.profile.School;
 
 /**
- * Created by AccStefani on 07/04/2015.
+ * Created by paolo on 07/04/2015.
  */
 public class SubjectListFragment extends ListFragment {
     private static final String DIALOG_SUBJECT = "subject";

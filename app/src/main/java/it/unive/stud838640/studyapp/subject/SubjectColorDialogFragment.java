@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.profile;
+package it.unive.stud838640.studyapp.subject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.profile.SchoolManager;
 
 /**
  * Created by paolo on 11/04/15.

@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.homeworks;
+package it.unive.stud838640.studyapp.homework;
 
 import android.app.Fragment;
 

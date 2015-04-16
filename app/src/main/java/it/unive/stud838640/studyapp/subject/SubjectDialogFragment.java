@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.profile;
+package it.unive.stud838640.studyapp.subject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.profile.Profile;
+import it.unive.stud838640.studyapp.profile.School;
+import it.unive.stud838640.studyapp.profile.SchoolManager;
 
 /**
  * Created by paolo on 10/04/15.

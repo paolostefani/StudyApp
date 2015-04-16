@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.homeworks;
+package it.unive.stud838640.studyapp.homework;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 import it.unive.stud838640.studyapp.R;
 
 /**
- * Created by AccStefani on 16/02/2015.
+ * Created by paolo on 16/02/2015.
 */
 public class HomeworkDetailsFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ID =

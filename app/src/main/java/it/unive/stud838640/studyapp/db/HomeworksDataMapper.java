@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import it.unive.stud838640.studyapp.homeworks.Homework;
-import it.unive.stud838640.studyapp.homeworks.Task;
+import it.unive.stud838640.studyapp.homework.Homework;
+import it.unive.stud838640.studyapp.homework.Task;
+import it.unive.stud838640.studyapp.profile.Profile;
 
 /**
  * Created by paolo on 28/03/15.
@@ -25,11 +26,10 @@ public class HomeworksDataMapper implements BaseColumns{
     public static final String COLUMN_NAME_DESCRIPTION = "description";
     public static final String COLUMN_NAME_EXPIRY_DATE = "expiry_date";
     public static final String COLUMN_NAME_PERCENTAGE = "completed";
-    public static final String COLUMN_NAME_OWNER = "owner";
-    public static final String COLUMN_NAME_SUBJECT = "subject";
+    public static final String COLUMN_NAME_SUBJECT_ID = "subject";
     public static final String[] COLUMNS = { "_ID", COLUMN_NAME_NAME,
             COLUMN_NAME_DESCRIPTION, COLUMN_NAME_EXPIRY_DATE, COLUMN_NAME_PERCENTAGE,
-            COLUMN_NAME_OWNER, COLUMN_NAME_SUBJECT};
+            COLUMN_NAME_SUBJECT_ID};
 
     public static final String SQL_CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -38,11 +38,8 @@ public class HomeworksDataMapper implements BaseColumns{
                     COLUMN_NAME_DESCRIPTION + " TEXT, " +
                     COLUMN_NAME_EXPIRY_DATE + " INTEGER, " +
                     COLUMN_NAME_PERCENTAGE + " INTEGER, " +
-                    COLUMN_NAME_OWNER + " INTEGER, " +
-                    COLUMN_NAME_SUBJECT + " INTEGER, " +
-                    "FOREIGN KEY (" + COLUMN_NAME_OWNER + ") REFERENCES " +
-                    UsersDataMapper.TABLE_NAME + "(" + UsersDataMapper._ID + "), " +
-                    "FOREIGN KEY (" + COLUMN_NAME_SUBJECT + ") REFERENCES " +
+                    COLUMN_NAME_SUBJECT_ID + " INTEGER, " +
+                    "FOREIGN KEY (" + COLUMN_NAME_SUBJECT_ID + ") REFERENCES " +
                     SubjectsDataMapper.TABLE_NAME + "(" + SubjectsDataMapper._ID + "));";
 
     public static final String SQL_DELETE_TABLE =
@@ -52,7 +49,6 @@ public class HomeworksDataMapper implements BaseColumns{
 
     private Context context;
     private SQLiteDatabase dbR, dbW;
-    UsersDataMapper usersDataMapper;
     SubjectsDataMapper subjectsDataMapper;
     TasksDataMapper tasksDataMapper;
 
@@ -61,7 +57,6 @@ public class HomeworksDataMapper implements BaseColumns{
         this.context = context;
         dbR = DbHelper.get(context).getReadableDb();
         dbW = DbHelper.get(context).getWriteableDb();
-        usersDataMapper = new UsersDataMapper(context);
         subjectsDataMapper = new SubjectsDataMapper(context);
         tasksDataMapper = new TasksDataMapper(context);
     }
@@ -112,8 +107,7 @@ public class HomeworksDataMapper implements BaseColumns{
         values.put(COLUMN_NAME_DESCRIPTION, homework.getDescription());
         values.put(COLUMN_NAME_EXPIRY_DATE, homework.getExpiryDate().getTime());
         values.put(COLUMN_NAME_PERCENTAGE, homework.getPercentage());
-        values.put(COLUMN_NAME_OWNER, homework.getOwner().getId());
-        values.put(COLUMN_NAME_SUBJECT, homework.getSubject().getId());
+        values.put(COLUMN_NAME_SUBJECT_ID, homework.getSubject().getId());
         return values;
     }
 
@@ -125,10 +119,8 @@ public class HomeworksDataMapper implements BaseColumns{
         long date = (cursor.getLong(cursor.getColumnIndex(COLUMN_NAME_EXPIRY_DATE)));
         hw.setExpiryDate(new Date(date));
         hw.setPercentage(cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_PERCENTAGE)));
-        long userId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_OWNER)));
-        hw.setOwner(usersDataMapper.getUserById(userId));
-        long subjectId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT)));
-        hw.setSubject(subjectsDataMapper.getSubjectById(subjectId));
+        long subjectId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT_ID)));
+        hw.setSubject(Profile.get(context).getUser().getSchool().getSubject(subjectId));
         List<Task> tasks = tasksDataMapper.getTasksByHomework(hw);
         for (Task t : tasks) {
             hw.addTask(t);

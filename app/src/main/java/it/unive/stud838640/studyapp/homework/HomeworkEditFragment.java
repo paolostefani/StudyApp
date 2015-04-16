@@ -1,4 +1,4 @@
-package it.unive.stud838640.studyapp.homeworks;
+package it.unive.stud838640.studyapp.homework;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -25,7 +25,7 @@ import it.unive.stud838640.studyapp.profile.Profile;
 import it.unive.stud838640.studyapp.profile.School;
 
 /**
- * Created by AccStefani on 16/02/2015.
+ * Created by paolo on 16/02/2015.
 */
 public class HomeworkEditFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ID =
