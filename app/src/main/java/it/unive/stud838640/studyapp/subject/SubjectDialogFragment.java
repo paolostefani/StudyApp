@@ -6,14 +6,14 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import it.unive.stud838640.studyapp.R;
-import it.unive.stud838640.studyapp.profile.Profile;
-import it.unive.stud838640.studyapp.profile.School;
-import it.unive.stud838640.studyapp.profile.SchoolManager;
 
 /**
  * Created by paolo on 10/04/15.
@@ -23,8 +23,10 @@ public class SubjectDialogFragment extends DialogFragment {
             "it.unive.stud838640.studyapp.subject_id";
     private static final String DIALOG_COLOR = "color";
     private static final int REQUEST_COLOR = 0;
-    private School.Subject subject;
+    private Subject subject;
+    private SubjectManager subjectManager;
     private String title;
+    GradientDrawable bgColorButton;
 
     public static SubjectDialogFragment newInstance(long subjectId) {
         Bundle args = new Bundle();
@@ -36,20 +38,16 @@ public class SubjectDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        subjectManager = SubjectManager.get(getActivity());
         long subjectId = getArguments().getLong(EXTRA_SUBJECT_ID);
-        subject = Profile.get(getActivity()).getUser().getSchool()
-                .getSubject(subjectId);
+        subject = subjectManager.getSubject(subjectId);
         View v = getActivity().getLayoutInflater()
                 .inflate(R.layout.dialog_subject, null);
 
         final EditText nameField = (EditText) v.findViewById(R.id.subject_name);
-        if (subject != null) {
-            nameField.setText(subject.getName());
-            title = subject.getName();
-        }
 
-        final EditText colorField = (EditText) v.findViewById(R.id.subject_color);
-        colorField.setOnClickListener(new View.OnClickListener() {
+        final Button colorButton = (Button) v.findViewById(R.id.subject_color);
+        colorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SubjectColorDialogFragment colorDialog = SubjectColorDialogFragment
@@ -58,6 +56,13 @@ public class SubjectDialogFragment extends DialogFragment {
                 colorDialog.show(getActivity().getFragmentManager(), DIALOG_COLOR);
             }
         });
+        bgColorButton = (GradientDrawable) colorButton.getBackground();
+
+        if (subject != null) {
+            title = subject.getName();
+            nameField.setText(subject.getName());
+            bgColorButton.setColor(Color.parseColor(subject.getColor()));
+        }
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
@@ -67,10 +72,7 @@ public class SubjectDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 subject.setName(nameField.getText().toString());
-                                School school = Profile.get(getActivity())
-                                        .getUser().getSchool();
-                                SchoolManager.get(getActivity())
-                                        .updateSubject(subject, school);
+                                subjectManager.updateSubject(subject);
                                 getTargetFragment().onResume();
                             }
                         })
@@ -85,6 +87,7 @@ public class SubjectDialogFragment extends DialogFragment {
         if (requestCode == REQUEST_COLOR) {
             String color = data.getStringExtra(SubjectColorDialogFragment.EXTRA_COLOR);
             subject.setColor(color);
+            bgColorButton.setColor(Color.parseColor(color));
         }
     }
 }

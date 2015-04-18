@@ -5,11 +5,7 @@ import android.content.Context;
 import java.util.Collections;
 import java.util.List;
 
-import it.unive.stud838640.studyapp.db.SchoolsDataMapper;
 import it.unive.stud838640.studyapp.db.SubjectsDataMapper;
-import it.unive.stud838640.studyapp.homework.Homework;
-import it.unive.stud838640.studyapp.homework.HomeworkManager;
-import it.unive.stud838640.studyapp.profile.School;
 
 /**
  * Created by paolo on 24/02/15.
@@ -57,32 +53,15 @@ public class SubjectManager {
     public void addSubject(Subject subject) {
         subjects.add(subject);
         subject.setId(subjectsDataMapper.addSubject(subject));
-        school.setId(schoolsDataMapper.addSchool(school));
     }
 
-    public void removeSchool(School school) {
-        schools.remove(school);
-        schoolsDataMapper.deleteSchool(school);
-    }
-
-    public void updateSchool(School school) {
-        schoolsDataMapper.updateSchool(school);
-    }
-
-    public void addSubject(School.Subject subject, School school) {
-        school.addSubject(subject);
-        ;
-    }
-
-    public void removeSubject(School.Subject subject, School school) {
-        school.removeSubject(subject);
+    public void removeSubject(Subject subject) {
+        subjects.remove(subject);
         subjectsDataMapper.deleteSubject(subject);
     }
 
-    public void updateSubject(School.Subject subject, School school) {
-        school.getSubject(subject.getId());
-        List<Homework> hws = HomeworkManager.get(context).getHomeworks();
-        subjectsDataMapper.updateSubject(subject, school);
+    public void updateSubject(Subject subject) {
+        subjectsDataMapper.updateSubject(subject);
     }
 
     public String[] getSubjectColors() {

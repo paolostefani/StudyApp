@@ -9,7 +9,6 @@ import android.provider.BaseColumns;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unive.stud838640.studyapp.profile.School;
 import it.unive.stud838640.studyapp.subject.Subject;
 
 /**
@@ -68,22 +67,22 @@ public class SubjectsDataMapper implements BaseColumns{
         return s;
     }
 
-    public long addSubject(School.Subject subject, School school) {
-        ContentValues values = getContentValues(subject, school);
+    public long addSubject(Subject subject) {
+        ContentValues values = getContentValues(subject);
         return dbW.insert(TABLE_NAME, null, values);
     }
 
-    public long updateSubject(School.Subject subject, School school) {
-        ContentValues values = getContentValues(subject, school);
+    public long updateSubject(Subject subject) {
+        ContentValues values = getContentValues(subject);
         return dbW.update(TABLE_NAME, values,
                 _ID + " = " + subject.getId(), null);
     }
 
-    public void deleteSubject(School.Subject subject) {
+    public void deleteSubject(Subject subject) {
         dbW.delete(TABLE_NAME, _ID + " = " + subject.getId(), null);
     }
 
-    private ContentValues getContentValues(School.Subject subject, School school) {
+    private ContentValues getContentValues(Subject subject) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_NAME, subject.getName());
         values.put(COLUMN_NAME_COLOR, subject.getColor());

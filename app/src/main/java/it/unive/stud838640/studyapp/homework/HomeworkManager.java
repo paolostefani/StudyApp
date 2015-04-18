@@ -7,28 +7,19 @@ import java.util.List;
 
 import it.unive.stud838640.studyapp.db.HomeworksDataMapper;
 import it.unive.stud838640.studyapp.db.TasksDataMapper;
-import it.unive.stud838640.studyapp.profile.Profile;
-import it.unive.stud838640.studyapp.profile.School;
-import it.unive.stud838640.studyapp.profile.User;
 
 /**
  * Created by paolo on 18/02/2015.
  */
 public class HomeworkManager {
     private static HomeworkManager homeworkManager;
-    private Context context;
     private List<Homework> homeworks;
-    private List<School.Subject> subjects;
-    private User user;
     private HomeworksDataMapper homeworksDataMapper;
     private TasksDataMapper tasksDataMapper;
 
     private HomeworkManager(Context context) {
-        this.context = context;
         homeworksDataMapper = new HomeworksDataMapper(context);
         tasksDataMapper = new TasksDataMapper(context);
-        user = Profile.get(context).getUser();
-
         homeworks = homeworksDataMapper.getAllHomeworks();
     }
 
@@ -78,5 +69,4 @@ public class HomeworkManager {
     public void updateTask(Task task, Homework homework) {
         tasksDataMapper.updateTask(task, homework);
     }
-
 }

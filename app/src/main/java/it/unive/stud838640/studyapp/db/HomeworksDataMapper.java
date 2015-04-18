@@ -12,7 +12,7 @@ import java.util.List;
 
 import it.unive.stud838640.studyapp.homework.Homework;
 import it.unive.stud838640.studyapp.homework.Task;
-import it.unive.stud838640.studyapp.profile.Profile;
+import it.unive.stud838640.studyapp.subject.SubjectManager;
 
 /**
  * Created by paolo on 28/03/15.
@@ -104,7 +104,7 @@ public class HomeworksDataMapper implements BaseColumns{
         values.put(COLUMN_NAME_DESCRIPTION, homework.getDescription());
         values.put(COLUMN_NAME_EXPIRY_DATE, homework.getExpiryDate().getTime());
         values.put(COLUMN_NAME_PERCENTAGE, homework.getPercentage());
-        values.put(COLUMN_NAME_SUBJECT_ID, homework.getSubjectId());
+        values.put(COLUMN_NAME_SUBJECT_ID, homework.getSubject().getId());
         return values;
     }
 
@@ -116,8 +116,8 @@ public class HomeworksDataMapper implements BaseColumns{
         long date = (cursor.getLong(cursor.getColumnIndex(COLUMN_NAME_EXPIRY_DATE)));
         hw.setExpiryDate(new Date(date));
         hw.setPercentage(cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_PERCENTAGE)));
-        hw.setSubjectId(); = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT_ID)));
-        hw.setSubject(Profile.get(context).getUser().getSchool().getSubject(subjectId));
+        long subjectId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT_ID)));
+        hw.setSubject(SubjectManager.get(context).getSubject(subjectId));
         List<Task> tasks = tasksDataMapper.getTasksByHomework(hw);
         for (Task t : tasks) {
             hw.addTask(t);

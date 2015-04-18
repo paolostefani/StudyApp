@@ -24,9 +24,7 @@ public class HomeworkDetailsFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ID =
             "it.unive.stud838640.studyapp.homework_id";
     private Homework hw;
-    private TextView nameField, leaderField, descrField,
-            subjectField, expiryDateField, timeLeftField, subjectCircle;
-    private ArrayAdapter<String> subjectsAdapter;
+    private TextView nameField, descrField, subjectField, expiryDateField, subjectCircle;
 
     public static HomeworkDetailsFragment newInstance(long homeworkId) {
         Bundle args = new Bundle();

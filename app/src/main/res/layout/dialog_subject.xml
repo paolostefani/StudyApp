@@ -16,14 +16,20 @@
         android:hint="@string/name_label"
         style="@style/field" />
 
-    <TextView
-        android:text="@string/color_label"
-        style="@style/field_label" />
-    <EditText
-        android:id="@+id/subject_color"
-        android:hint="@string/select_color"
-        android:focusableInTouchMode="false"
-        android:editable="false"
-        style="@style/field" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        <TextView
+            android:text="@string/color_label"
+            android:layout_marginTop="0dp"
+            style="@style/field_label" />
+        <Button
+            android:id="@+id/subject_color"
+            android:layout_margin="@dimen/field_elements_margin"
+            android:layout_marginRight="10dp"
+            style="@style/ColorButton"/>
+    </LinearLayout>
 
 </LinearLayout>

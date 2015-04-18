@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import it.unive.stud838640.studyapp.R;
-import it.unive.stud838640.studyapp.profile.SchoolManager;
 
 /**
  * Created by paolo on 11/04/15.
@@ -24,7 +23,7 @@ import it.unive.stud838640.studyapp.profile.SchoolManager;
 public class SubjectColorDialogFragment extends DialogFragment {
     public static final String EXTRA_COLOR =
             "it.unive.stud838640.studyapp.subjectColor";
-    private String[] colors;
+    private SubjectManager subjectManager;
     private String title;
 
     public static SubjectColorDialogFragment newInstance() {
@@ -44,11 +43,11 @@ public class SubjectColorDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        subjectManager = SubjectManager.get(getActivity());
         View v = getActivity().getLayoutInflater()
                 .inflate(R.layout.dialog_color, null);
         GridView colorGridView = (GridView) v.findViewById(R.id.color_gridview);
-        colors = SchoolManager.get(getActivity()).getSubjectColors();
-        ColorAdapter colorAdapter = new ColorAdapter(colors);
+        ColorAdapter colorAdapter = new ColorAdapter(subjectManager.getSubjectColors());
         colorGridView.setAdapter(colorAdapter);
 
         title = getString(R.string.select_color);

@@ -126,7 +126,6 @@ public class HomeworkListFragment extends Fragment {
             //hworkButton.setText(hw.getId() + "");
             GradientDrawable bgShape = (GradientDrawable) hworkButton.getBackground();
             String color = hw.getSubject().getColor();
-            Log.i("aaa", color);
             bgShape.setColor(Color.parseColor(color));
 
             TextView hworkName = (TextView) convertView.findViewById(R.id.hwork_name);

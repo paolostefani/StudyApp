@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import it.unive.stud838640.studyapp.subject.Subject;
+
 /**
  * Created by paolo on 13/02/15.
  */
@@ -13,7 +15,7 @@ public class Homework {
     private final int DAY_MILLI = HOUR_MILLI * 24;
     private long id;
     private String name, description;
-    private long subjectId;
+    private Subject subject;
     private Date expiryDate;
     private int percentage;
     private List<Task> tasks;
@@ -46,12 +48,12 @@ public class Homework {
         this.description = description;
     }
 
-    public long getSubjectId() {
-        return subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubjectId(long subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public Date getExpiryDate() {

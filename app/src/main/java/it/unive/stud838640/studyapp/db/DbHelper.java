@@ -51,18 +51,14 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SchoolsDataMapper.SQL_CREATE_TABLE);
         db.execSQL(SubjectsDataMapper.SQL_CREATE_TABLE);
-        db.execSQL(UsersDataMapper.SQL_CREATE_TABLE);
         db.execSQL(HomeworksDataMapper.SQL_CREATE_TABLE);
         db.execSQL(TasksDataMapper.SQL_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SchoolsDataMapper.SQL_DELETE_TABLE);
         db.execSQL(SubjectsDataMapper.SQL_DELETE_TABLE);
-        db.execSQL(UsersDataMapper.SQL_DELETE_TABLE);
         db.execSQL(HomeworksDataMapper.SQL_DELETE_TABLE);
         db.execSQL(TasksDataMapper.SQL_DELETE_TABLE);
         this.onCreate(db);
