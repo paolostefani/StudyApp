@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,7 @@ import it.unive.stud838640.studyapp.subject.SubjectListActivity;
 public class HomeworkListFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ACTION =
             "it.unive.stud838640.studyapp.homework_action";
+    private HomeworkManager homeworkManager;
     private List<Homework> homeworks;
     private GridView hwGridView;
     private HomeworkAdapter hwAdapter;
@@ -43,16 +45,60 @@ public class HomeworkListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         getActivity().setTitle(R.string.homeworks_title);
+        homeworkManager = HomeworkManager.get(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_homework_grid, container, false);
         hwGridView = (GridView) v.findViewById(R.id.hwork_gridview);
-        homeworks = HomeworkManager.get(getActivity()).getHomeworks();
+        homeworks = homeworkManager.getHomeworks();
         hwAdapter = new HomeworkAdapter(homeworks);
         hwGridView.setAdapter(hwAdapter);
 
+        // Contextual Action Bar implementation
+        hwGridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
+        hwGridView.setMultiChoiceModeListener(new GridView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.contextual_menu_fragment_homework_list, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_item_delete_hwork:
+                        for (int i = 0; i < hwAdapter.getCount(); i++) {
+                            if (hwGridView.isItemChecked(i))
+                                homeworkManager.removeHomework(hwAdapter.getItem(i));
+                        }
+                        mode.finish();
+                        hwAdapter.notifyDataSetChanged();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
+
+        // Periodic update Homework list thread
         uiCallBack = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -60,7 +106,6 @@ public class HomeworkListFragment extends Fragment {
                 //Log.i("aaa", "BAU!!!");
             }
         };
-
         threadUpdateTimeLeft = new UpdateTimeLeft();
         threadUpdateTimeLeft.start();
 
