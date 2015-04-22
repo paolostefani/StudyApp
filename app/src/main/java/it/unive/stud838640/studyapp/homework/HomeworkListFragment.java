@@ -16,8 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -55,6 +55,17 @@ public class HomeworkListFragment extends Fragment {
         homeworks = homeworkManager.getHomeworks();
         hwAdapter = new HomeworkAdapter(homeworks);
         hwGridView.setAdapter(hwAdapter);
+        hwGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("ITEM CLICK", "ARGH!!!");
+                Homework hw = (Homework) hwAdapter.getItem(position);
+                Intent i = new Intent(getActivity(), HomeworkActivity.class);
+                i.putExtra(EXTRA_HOMEWORK_ACTION, "showdetails");
+                i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
+                startActivity(i);
+            }
+        });
 
         // Contextual Action Bar implementation
         hwGridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -167,7 +178,7 @@ public class HomeworkListFragment extends Fragment {
 
             final Homework hw = homeworks.get(position);
 
-            Button hworkButton = (Button) convertView.findViewById(R.id.hwork_button);
+            TextView hworkButton = (TextView) convertView.findViewById(R.id.hwork_button);
             //hworkButton.setText(hw.getId() + "");
             GradientDrawable bgShape = (GradientDrawable) hworkButton.getBackground();
             String color = hw.getSubject().getColor();
@@ -189,7 +200,7 @@ public class HomeworkListFragment extends Fragment {
                 hworkTimeLeft.setText(dLeft + d + " " + hLeft + h);
             }
 
-            hworkButton.setOnClickListener(new View.OnClickListener() {
+/*            hworkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), HomeworkActivity.class);
@@ -198,6 +209,14 @@ public class HomeworkListFragment extends Fragment {
                     startActivity(i);
                 }
             });
+
+            hworkButton.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.i("LONG CLICK", "ARGH!!!");
+                    return true;
+                }
+            });*/
 
             return convertView;
         }
