@@ -37,7 +37,7 @@
                     android:id="@+id/hwork_subject_circle"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/homework_list_shape"
+                    android:background="@drawable/homework_list_shape_normal"
                     android:layout_marginRight="10dp"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
