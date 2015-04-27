@@ -44,4 +44,8 @@
     <string name="expired">Scaduto</string>
     <string name="color_label">Colore</string>
     <string name="select_color">Scegli un colore..</string>
+    <string-array name="drawer_menu_array">
+        <item>Homework</item>
+        <item>Materie</item>
+    </string-array>
 </resources>
