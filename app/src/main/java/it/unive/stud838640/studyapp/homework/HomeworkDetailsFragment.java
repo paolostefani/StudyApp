@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import it.unive.stud838640.studyapp.R;
@@ -93,7 +92,7 @@ public class HomeworkDetailsFragment extends Fragment {
             case R.id.menu_item_edit:
                 Fragment editFragment = HomeworkEditFragment.newInstance(hw.getId());
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, editFragment);
+                transaction.replace(R.id.content_frame, editFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
                 return true;
