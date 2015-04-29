@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/content_frame"
+    <it.unive.stud838640.studyapp.SlidingTabLayout
+        android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/background_floating_material_light"/>
 
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111" />
+        android:layout_weight="1"/>
 
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>

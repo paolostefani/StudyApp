@@ -3,7 +3,7 @@ package it.unive.stud838640.studyapp.subject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -53,7 +53,7 @@ public class SubjectDialogFragment extends DialogFragment {
                 SubjectColorDialogFragment colorDialog = SubjectColorDialogFragment
                         .newInstance();
                 colorDialog.setTargetFragment(SubjectDialogFragment.this, REQUEST_COLOR);
-                colorDialog.show(getActivity().getFragmentManager(), DIALOG_COLOR);
+                colorDialog.show(getActivity().getSupportFragmentManager(), DIALOG_COLOR);
             }
         });
         bgColorButton = (GradientDrawable) colorButton.getBackground();

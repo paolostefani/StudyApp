@@ -1,6 +1,5 @@
 package it.unive.stud838640.studyapp.homework;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -24,13 +23,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
-import it.unive.stud838640.studyapp.subject.SubjectListActivity;
-
 
 /**
  * Created by paolo on 18/02/15.
  */
-public class HomeworkListFragment extends Fragment {
+public class HomeworkListFragment extends android.support.v4.app.Fragment {
     public static final String EXTRA_HOMEWORK_ACTION =
             "it.unive.stud838640.studyapp.homework_action";
     private HomeworkManager homeworkManager;
@@ -137,9 +134,6 @@ public class HomeworkListFragment extends Fragment {
                 i1.putExtra(EXTRA_HOMEWORK_ACTION, "new");
                 startActivity(i1);
                 return  true;
-            case R.id.temp_menu_item_subjects:
-                Intent i2 = new Intent(getActivity(), SubjectListActivity.class);
-                startActivity(i2);
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -1,6 +1,6 @@
 package it.unive.stud838640.studyapp.subject;
 
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -146,6 +146,6 @@ public class SubjectListFragment extends ListFragment {
         SubjectDialogFragment subjectDialog = SubjectDialogFragment
                 .newInstance(subjectId);
         subjectDialog.setTargetFragment(this, SUBJECT_TARGET);
-        subjectDialog.show(getActivity().getFragmentManager(), DIALOG_SUBJECT);
+        subjectDialog.show(getActivity().getSupportFragmentManager(), DIALOG_SUBJECT);
     }
 }
