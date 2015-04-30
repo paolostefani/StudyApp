@@ -25,8 +25,9 @@ public class SubjectDialogFragment extends DialogFragment {
     private static final int REQUEST_COLOR = 0;
     private Subject subject;
     private SubjectManager subjectManager;
-    private String title;
-    GradientDrawable bgColorButton;
+    private String title, subjectColor;
+    private boolean isSubjectNew;
+    private GradientDrawable bgColorButton;
 
     public static SubjectDialogFragment newInstance(long subjectId) {
         Bundle args = new Bundle();
@@ -59,9 +60,13 @@ public class SubjectDialogFragment extends DialogFragment {
         bgColorButton = (GradientDrawable) colorButton.getBackground();
 
         if (subject != null) {
+            isSubjectNew = false;
             title = subject.getName();
             nameField.setText(subject.getName());
-            bgColorButton.setColor(Color.parseColor(subject.getColor()));
+            subjectColor = subject.getColor();
+            bgColorButton.setColor(Color.parseColor(subjectColor));
+        } else {
+            isSubjectNew = true;
         }
 
         return new AlertDialog.Builder(getActivity())
@@ -71,8 +76,15 @@ public class SubjectDialogFragment extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                subject.setName(nameField.getText().toString());
-                                subjectManager.updateSubject(subject);
+                                String name = nameField.getText().toString();
+                                if (isSubjectNew)
+                                    subject = new Subject("","");
+                                subject.setName(name);
+                                subject.setColor(subjectColor);
+                                if (isSubjectNew)
+                                    subjectManager.addSubject(subject);
+                                else
+                                    subjectManager.updateSubject(subject);
                                 getTargetFragment().onResume();
                             }
                         })
@@ -85,9 +97,8 @@ public class SubjectDialogFragment extends DialogFragment {
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode == REQUEST_COLOR) {
-            String color = data.getStringExtra(SubjectColorDialogFragment.EXTRA_COLOR);
-            subject.setColor(color);
-            bgColorButton.setColor(Color.parseColor(color));
+            subjectColor = data.getStringExtra(SubjectColorDialogFragment.EXTRA_COLOR);
+            bgColorButton.setColor(Color.parseColor(subjectColor));
         }
     }
 }

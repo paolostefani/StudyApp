@@ -23,11 +23,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.Updateable;
 
 /**
  * Created by paolo on 18/02/15.
  */
-public class HomeworkListFragment extends android.support.v4.app.Fragment {
+public class HomeworkListFragment extends android.support.v4.app.Fragment
+        implements Updateable {
     public static final String EXTRA_HOMEWORK_ACTION =
             "it.unive.stud838640.studyapp.homework_action";
     private HomeworkManager homeworkManager;
@@ -41,7 +43,6 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().setTitle(R.string.homeworks_title);
         homeworkManager = HomeworkManager.get(getActivity());
     }
 
@@ -153,6 +154,11 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment {
     public void onDestroy() {
         super.onDestroy();
         threadUpdateTimeLeft.interrupt();
+    }
+
+    @Override
+    public void update() {
+        hwAdapter.swapItems(HomeworkManager.get(getActivity()).getHomeworks());
     }
 
     private class HomeworkAdapter extends ArrayAdapter<Homework> {

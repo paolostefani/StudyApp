@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import it.unive.stud838640.studyapp.homework.HomeworkListFragment;
 import it.unive.stud838640.studyapp.subject.SubjectListFragment;
@@ -20,12 +21,29 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(viewPager);
+        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                viewPager.getAdapter().notifyDataSetChanged();
+                Log.i("ONPAGESELECTED", "AI");
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -58,6 +76,16 @@ public class MainActivity extends FragmentActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return tabTitles[position];
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            if (object instanceof Updateable) {
+                Updateable f = (Updateable) object;
+                if (f != null)
+                    f.update();
+            }
+            return super.getItemPosition(object);
         }
     }
 }

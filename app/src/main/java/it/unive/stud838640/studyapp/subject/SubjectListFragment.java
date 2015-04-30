@@ -34,7 +34,6 @@ public class SubjectListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().setTitle(R.string.subjects);
         subjectManager = SubjectManager.get(getActivity());
         subjectAdapter = new SubjectAdapter(subjectManager.getSubjects());
         setListAdapter(subjectAdapter);
