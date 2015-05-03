@@ -11,6 +11,7 @@
     <string name="time_left_label">Tempo rimasto</string>
     <string name="leader_label">Leader</string>
     <string name="task_label">Task</string>
+    <string name="tasks_label">Tasks</string>
     <string name="you">Tu</string>
     <string name="create">Crea</string>
     <string name="homework">Homework</string>
@@ -48,4 +49,5 @@
         <item>Homework</item>
         <item>Materie</item>
     </string-array>
+    <string name="add_task">Aggiungi un task..</string>
 </resources>

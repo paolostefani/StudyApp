@@ -15,47 +15,74 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
 
-            <TextView
-                android:text="@string/name_label"
-                style="@style/field_label" />
-            <EditText
-                android:id="@+id/hwork_name"
-                android:hint="@string/name_label"
-                style="@style/field" />
+            <LinearLayout
+                android:id="@+id/fields_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/name_label"
+                    style="@style/field_label" />
+                <EditText
+                    android:id="@+id/hwork_name"
+                    android:hint="@string/name_label"
+                    style="@style/field" />
+
+                <TextView
+                    android:text="@string/description_label"
+                    style="@style/field_label" />
+                <EditText
+                    android:id="@+id/hwork_description"
+                    android:hint="@string/description_label"
+                    style="@style/field" />
+
+                <TextView
+                    android:text="@string/subject_label"
+                    style="@style/field_label" />
+                <EditText
+                    android:id="@+id/hwork_subject"
+                    android:hint="@string/select_subject"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    style="@style/field" />
+
+                <TextView
+                    android:text="@string/expiry_label"
+                    style="@style/field_label" />
+                <EditText
+                    android:id="@+id/hwork_expiry_date"
+                    android:hint="@string/date_label"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    style="@style/field" />
+                <EditText
+                    android:id="@+id/hwork_expiry_time"
+                    android:hint="@string/time_label"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    style="@style/field" />
+
+                <TextView
+                    android:text="@string/tasks_label"
+                    style="@style/field_label" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@string/description_label"
-                style="@style/field_label" />
-            <EditText
-                android:id="@+id/hwork_description"
-                android:hint="@string/description_label"
-                style="@style/field" />
+                android:id="@+id/add_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/add_task"
+                android:drawableLeft="@drawable/ic_add_black_36dp"/>
 
-            <TextView
-                android:text="@string/subject_label"
-                style="@style/field_label" />
-            <EditText
-                android:id="@+id/hwork_subject"
-                android:hint="@string/select_subject"
-                android:focusableInTouchMode="false"
-                android:editable="false"
-                style="@style/field" />
-
-            <TextView
-                android:text="@string/expiry_label"
-                style="@style/field_label" />
-            <EditText
-                android:id="@+id/hwork_expiry_date"
-                android:hint="@string/date_label"
-                android:focusableInTouchMode="false"
-                android:editable="false"
-                style="@style/field" />
-            <EditText
-                android:id="@+id/hwork_expiry_time"
-                android:hint="@string/time_label"
-                android:focusableInTouchMode="false"
-                android:editable="false"
-                style="@style/field" />
+        </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

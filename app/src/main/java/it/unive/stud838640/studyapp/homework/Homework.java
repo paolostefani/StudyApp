@@ -1,5 +1,6 @@
 package it.unive.stud838640.studyapp.homework;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Homework {
 
     public Homework() {
         expiryDate = new Date();
+        tasks = new ArrayList<>();
     }
 
     public long getId() {

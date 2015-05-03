@@ -14,10 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import it.unive.stud838640.studyapp.DateTimePickerFragment;
 import it.unive.stud838640.studyapp.R;
@@ -43,6 +47,10 @@ public class HomeworkEditFragment extends Fragment {
     private Subject selectedSubject;
     private SubjectManager subjectManager;
     private Date expiryDate, exDateDate, exDateTime;
+    private TextView addTaskField;
+    private List<Task> tasks;
+    private List<EditText> taskFieldList;
+    private LinearLayout fieldsLayout;
     private boolean isHomeworkNew;
 
     public static HomeworkEditFragment newInstance(long homeworkId) {
@@ -65,7 +73,7 @@ public class HomeworkEditFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_homework_edit, container, false);
 
@@ -120,10 +128,41 @@ public class HomeworkEditFragment extends Fragment {
             exDateTime = expiryDate;
             expiryDateField.setText(getDateText(expiryDate));
             expiryTimeField.setText(getTimeText(expiryDate));
+            tasks = homework.getTasks();
         }
-        else
+        else {
             isHomeworkNew = true;
+            tasks = new ArrayList<>();
+        }
+
+        fieldsLayout = (LinearLayout) v.findViewById(R.id.fields_layout);
+        taskFieldList = new ArrayList<>();
+        for (Task t : tasks) {
+            addTaskEditText(inflater, t.getName());
+        }
+
+        addTaskField = (TextView) v.findViewById(R.id.add_task);
+        addTaskField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et = addTaskEditText(inflater, "");
+                et.setHint(getActivity().getResources()
+                        .getString(R.string.task_label) + " " + taskFieldList.size());
+            }
+        });
+
         return v;
+    }
+
+    private EditText addTaskEditText(LayoutInflater inflater, String taskName) {
+        if (taskFieldList == null)
+            taskFieldList = new ArrayList<>();
+        View taskListItem = inflater.inflate(R.layout.list_item_edit_task, null);
+        EditText et = (EditText) taskListItem.findViewById(R.id.task_name);
+        et.setText(taskName);
+        taskFieldList.add(et);
+        fieldsLayout.addView(taskListItem);
+        return et;
     }
 
     @Override
@@ -199,10 +238,28 @@ public class HomeworkEditFragment extends Fragment {
         hw.setSubject(selectedSubject);
         expiryDate = getSetExpiryDate(exDateDate, exDateTime);
         hw.setExpiryDate(expiryDate);
-        if (isNew)
+        if (isNew) {
             homeworkManager.addHomework(homework);
-        else
+            for (int i = 0; i < taskFieldList.size(); i++) {
+                Task t = new Task();
+                t.setName(taskFieldList.get(i).getText().toString());
+                t.setDescription("");
+                homeworkManager.addTask(t, homework);
+            }
+        }
+        else {
             homeworkManager.updateHomework(homework);
+            for (int i = 0; i < tasks.size(); i++) {
+                tasks.get(i).setName(taskFieldList.get(i).getText().toString());
+                homeworkManager.updateTask(tasks.get(i), homework);
+            }
+            for (int i = tasks.size(); i < taskFieldList.size(); i++) {
+                Task t = new Task();
+                t.setName(taskFieldList.get(i).getText().toString());
+                t.setDescription("");
+                homeworkManager.addTask(t, homework);
+            }
+        }
     }
 
     private Date getSetExpiryDate(Date date, Date time) {
