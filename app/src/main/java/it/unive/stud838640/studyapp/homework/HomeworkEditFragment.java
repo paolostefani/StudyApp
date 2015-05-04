@@ -243,7 +243,6 @@ public class HomeworkEditFragment extends Fragment {
             for (int i = 0; i < taskFieldList.size(); i++) {
                 Task t = new Task();
                 t.setName(taskFieldList.get(i).getText().toString());
-                t.setDescription("");
                 homeworkManager.addTask(t, homework);
             }
         }
@@ -256,7 +255,6 @@ public class HomeworkEditFragment extends Fragment {
             for (int i = tasks.size(); i < taskFieldList.size(); i++) {
                 Task t = new Task();
                 t.setName(taskFieldList.get(i).getText().toString());
-                t.setDescription("");
                 homeworkManager.addTask(t, homework);
             }
         }

@@ -28,7 +28,7 @@ public class TasksDataMapper implements BaseColumns{
     public static final String SQL_CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_NAME_NAME + " TEXT " +
+                    COLUMN_NAME_NAME + " TEXT, " +
                     COLUMN_NAME_DESCRIPTION + " TEXT, " +
                     COLUMN_NAME_COMPLETED + " INTEGER, " +
                     COLUMN_NAME_HOMEWORK + " INTEGER, " +
