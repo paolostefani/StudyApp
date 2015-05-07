@@ -8,6 +8,8 @@
     <EditText
         android:id="@+id/task_name"
         android:text="Task"
+        android:inputType="text"
+        android:maxLength="30"
         style="@style/field"/>
 
 </LinearLayout>

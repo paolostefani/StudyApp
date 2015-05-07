@@ -6,4 +6,5 @@
     android:columnWidth="120dp"
     android:gravity="center"
     android:numColumns="auto_fit"
-    android:stretchMode="spacingWidthUniform"/>
+    android:stretchMode="spacingWidthUniform"
+    android:listSelector="@android:color/transparent" />

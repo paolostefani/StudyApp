@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/task_completed"
+        android:inputType="text"
         android:layout_centerInParent="true"
         android:text="Task"
         style="@style/field" />

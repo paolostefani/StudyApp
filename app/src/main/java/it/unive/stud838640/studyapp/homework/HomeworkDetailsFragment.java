@@ -12,7 +12,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
 
@@ -24,6 +30,9 @@ public class HomeworkDetailsFragment extends Fragment {
             "it.unive.stud838640.studyapp.homework_id";
     private Homework hw;
     private TextView nameField, descrField, subjectField, expiryDateField, subjectCircle;
+    private List<Task> tasks;
+    private List<TextView> taskFieldList;
+    private LinearLayout fieldsLayout;
 
     public static HomeworkDetailsFragment newInstance(long homeworkId) {
         Bundle args = new Bundle();
@@ -39,6 +48,7 @@ public class HomeworkDetailsFragment extends Fragment {
         setHasOptionsMenu(true);
         long homeworkId = getArguments().getLong(EXTRA_HOMEWORK_ID);
         hw = HomeworkManager.get(getActivity()).getHomework(homeworkId);
+        tasks = hw.getTasks();
         getActivity().setTitle(hw.getName());
     }
 
@@ -77,8 +87,45 @@ public class HomeworkDetailsFragment extends Fragment {
                     " " + hLeft + " " + h);
         }
 
+        fieldsLayout = (LinearLayout) v.findViewById(R.id.fields_layout);
+        taskFieldList = new ArrayList<>();
+        for (Task t : tasks) {
+            addTaskEditText(inflater, t);
+        }
+
+        if (tasks.size() == 0) {
+            Task t = new Task();
+            t.setName(hw.getName());
+            tasks.add(t);
+            addTaskEditText(inflater, t);
+        }
+
         return v;
     }
+
+    private TextView addTaskEditText(LayoutInflater inflater, Task task) {
+        if (taskFieldList == null)
+            taskFieldList = new ArrayList<>();
+        View taskListItem = inflater.inflate(R.layout.list_item_task, null);
+        TextView tv = (TextView) taskListItem.findViewById(R.id.task_name);
+        tv.setText(task.getName());
+        taskFieldList.add(tv);
+        fieldsLayout.addView(taskListItem);
+
+        final Task t = task;
+        CheckBox taskCompleted = (CheckBox) taskListItem.findViewById(R.id.task_completed);
+        taskCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                t.setCompleted(isChecked);
+                //
+                // hw.setPercentage(t.);
+            }
+        });
+
+        return tv;
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
