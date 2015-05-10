@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,7 +30,9 @@ public class HomeworkDetailsFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ID =
             "it.unive.stud838640.studyapp.homework_id";
     private Homework hw;
-    private TextView nameField, descrField, subjectField, expiryDateField, subjectCircle;
+    private HomeworkManager homeworkManager;
+    private TextView nameField, descrField, subjectField, expiryDateField,
+            subjectCircle, completionField;
     private List<Task> tasks;
     private List<TextView> taskFieldList;
     private LinearLayout fieldsLayout;
@@ -47,7 +50,8 @@ public class HomeworkDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         long homeworkId = getArguments().getLong(EXTRA_HOMEWORK_ID);
-        hw = HomeworkManager.get(getActivity()).getHomework(homeworkId);
+        homeworkManager = HomeworkManager.get(getActivity());
+        hw = homeworkManager.getHomework(homeworkId);
         tasks = hw.getTasks();
         getActivity().setTitle(hw.getName());
     }
@@ -87,6 +91,9 @@ public class HomeworkDetailsFragment extends Fragment {
                     " " + hLeft + " " + h);
         }
 
+        completionField = (TextView) v.findViewById(R.id.hwork_completion);
+        completionField.setText(hw.getPercentage() + "%");
+
         fieldsLayout = (LinearLayout) v.findViewById(R.id.fields_layout);
         taskFieldList = new ArrayList<>();
         for (Task t : tasks) {
@@ -96,7 +103,7 @@ public class HomeworkDetailsFragment extends Fragment {
         if (tasks.size() == 0) {
             Task t = new Task();
             t.setName(hw.getName());
-            tasks.add(t);
+            homeworkManager.addTask(t, hw);
             addTaskEditText(inflater, t);
         }
 
@@ -114,11 +121,14 @@ public class HomeworkDetailsFragment extends Fragment {
 
         final Task t = task;
         CheckBox taskCompleted = (CheckBox) taskListItem.findViewById(R.id.task_completed);
+        taskCompleted.setChecked(t.isCompleted());
         taskCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 t.setCompleted(isChecked);
-                //
+                completionField.setText(hw.getPercentage() + "%");
+                Log.i("COMPLETAMENTO", Integer.toString(hw.getPercentage()));
+                homeworkManager.updateTask(t, hw);
                 // hw.setPercentage(t.);
             }
         });

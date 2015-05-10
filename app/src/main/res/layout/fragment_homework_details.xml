@@ -72,6 +72,14 @@
                 style="@style/field" />
 
             <TextView
+                android:text="@string/completion_label"
+                style="@style/field_label" />
+            <TextView
+                android:id="@+id/hwork_completion"
+                android:text="@string/completion_label"
+                style="@style/field" />
+
+            <TextView
                 android:text="@string/tasks_label"
                 style="@style/field_label" />
 

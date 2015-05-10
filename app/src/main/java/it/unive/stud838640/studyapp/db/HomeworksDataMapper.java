@@ -25,10 +25,9 @@ public class HomeworksDataMapper implements BaseColumns{
     public static final String COLUMN_NAME_NAME = "name";
     public static final String COLUMN_NAME_DESCRIPTION = "description";
     public static final String COLUMN_NAME_EXPIRY_DATE = "expiry_date";
-    public static final String COLUMN_NAME_PERCENTAGE = "completed";
     public static final String COLUMN_NAME_SUBJECT_ID = "subject";
     public static final String[] COLUMNS = { "_ID", COLUMN_NAME_NAME,
-            COLUMN_NAME_DESCRIPTION, COLUMN_NAME_EXPIRY_DATE, COLUMN_NAME_PERCENTAGE,
+            COLUMN_NAME_DESCRIPTION, COLUMN_NAME_EXPIRY_DATE,
             COLUMN_NAME_SUBJECT_ID};
 
     public static final String SQL_CREATE_TABLE =
@@ -37,7 +36,6 @@ public class HomeworksDataMapper implements BaseColumns{
                     COLUMN_NAME_NAME + " TEXT, " +
                     COLUMN_NAME_DESCRIPTION + " TEXT, " +
                     COLUMN_NAME_EXPIRY_DATE + " INTEGER, " +
-                    COLUMN_NAME_PERCENTAGE + " INTEGER, " +
                     COLUMN_NAME_SUBJECT_ID + " INTEGER, " +
                     "FOREIGN KEY (" + COLUMN_NAME_SUBJECT_ID + ") REFERENCES " +
                     SubjectsDataMapper.TABLE_NAME + "(" + SubjectsDataMapper._ID + "));";
@@ -103,7 +101,6 @@ public class HomeworksDataMapper implements BaseColumns{
         values.put(COLUMN_NAME_NAME, homework.getName());
         values.put(COLUMN_NAME_DESCRIPTION, homework.getDescription());
         values.put(COLUMN_NAME_EXPIRY_DATE, homework.getExpiryDate().getTime());
-        values.put(COLUMN_NAME_PERCENTAGE, homework.getPercentage());
         values.put(COLUMN_NAME_SUBJECT_ID, homework.getSubject().getId());
         return values;
     }
@@ -115,7 +112,6 @@ public class HomeworksDataMapper implements BaseColumns{
         hw.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DESCRIPTION)));
         long date = (cursor.getLong(cursor.getColumnIndex(COLUMN_NAME_EXPIRY_DATE)));
         hw.setExpiryDate(new Date(date));
-        hw.setPercentage(cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_PERCENTAGE)));
         long subjectId = (cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUBJECT_ID)));
         hw.setSubject(SubjectManager.get(context).getSubject(subjectId));
         List<Task> tasks = tasksDataMapper.getTasksByHomework(hw);

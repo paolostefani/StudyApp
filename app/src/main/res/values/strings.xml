@@ -50,4 +50,5 @@
         <item>Materie</item>
     </string-array>
     <string name="add_task">Aggiungi un task..</string>
+    <string name="completion_label">Completamento</string>
 </resources>

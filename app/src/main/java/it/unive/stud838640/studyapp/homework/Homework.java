@@ -18,7 +18,6 @@ public class Homework {
     private String name, description;
     private Subject subject;
     private Date expiryDate;
-    private int percentage;
     private List<Task> tasks;
 
     public Homework() {
@@ -82,12 +81,14 @@ public class Homework {
         return dh;
     }
 
-    public void setPercentage(int percentage) {
-        this.percentage = percentage;
-    }
-
     public int getPercentage() {
-        return percentage;
+        int tasksCompletedCount = 0;
+        for (Task t : getTasks()) {
+            if (t.isCompleted())
+                tasksCompletedCount++;
+        }
+        float percentage = ((float) tasksCompletedCount / getTasks().size()) * 100;
+        return Math.round(percentage);
     }
 
     public List<Task> getTasks() {
