@@ -92,7 +92,7 @@ public class HomeworkDetailsFragment extends Fragment {
         }
 
         completionField = (TextView) v.findViewById(R.id.hwork_completion);
-        completionField.setText(hw.getPercentage() + "%");
+        setCompletionField();
 
         fieldsLayout = (LinearLayout) v.findViewById(R.id.fields_layout);
         taskFieldList = new ArrayList<>();
@@ -108,6 +108,14 @@ public class HomeworkDetailsFragment extends Fragment {
         }
 
         return v;
+    }
+
+    private void setCompletionField() {
+        if (hw.getPercentage() == 100)
+            completionField.setTextColor(Color.parseColor("#00c853"));
+        else
+            completionField.setTextColor(Color.BLACK);
+        completionField.setText(hw.getPercentage() + "%");
     }
 
     private TextView addTaskEditText(LayoutInflater inflater, Task task) {
@@ -126,7 +134,7 @@ public class HomeworkDetailsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 t.setCompleted(isChecked);
-                completionField.setText(hw.getPercentage() + "%");
+                setCompletionField();
                 Log.i("COMPLETAMENTO", Integer.toString(hw.getPercentage()));
                 homeworkManager.updateTask(t, hw);
                 // hw.setPercentage(t.);

@@ -51,4 +51,5 @@
     </string-array>
     <string name="add_task">Aggiungi un task..</string>
     <string name="completion_label">Completamento</string>
+    <string name="completed">Completato</string>
 </resources>
