@@ -2,6 +2,7 @@ package it.unive.stud838640.studyapp.homework;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -218,6 +220,11 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
                 }
             });*/
 
+            ProgressBar hwCompletionBar = (ProgressBar) convertView
+                    .findViewById(R.id.hwork_completion_bar);
+            hwCompletionBar.setProgress(hw.getPercentage());
+            hwCompletionBar.getProgressDrawable()
+                    .setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
             return convertView;
         }
 
