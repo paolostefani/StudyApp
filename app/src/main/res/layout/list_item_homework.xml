@@ -49,5 +49,19 @@
         android:elevation="1dp"
         android:layout_marginBottom="20dp" />
 
+    <CheckBox
+        android:id="@+id/hwork_completion_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:elevation="1dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:visibility="visible"
+        android:button="@drawable/homework_checkbox"/>
+
 
 </FrameLayout>

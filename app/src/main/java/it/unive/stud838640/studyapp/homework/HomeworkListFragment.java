@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -225,6 +226,14 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             hwCompletionBar.setProgress(hw.getPercentage());
             hwCompletionBar.getProgressDrawable()
                     .setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
+            CheckBox hwCompletionCheckBox = (CheckBox) convertView
+                    .findViewById(R.id.hwork_completion_checkBox);
+
+            hwCompletionCheckBox.setChecked(hw.isCompleted());
+            hwCompletionCheckBox
+                    .setVisibility(hw.isCompleted() ? View.VISIBLE : View.INVISIBLE);
+
             return convertView;
         }
 

@@ -91,6 +91,10 @@ public class Homework {
         return Math.round(percentage);
     }
 
+    public boolean isCompleted() {
+        return getPercentage() == 100;
+    }
+
     public List<Task> getTasks() {
         return Collections.unmodifiableList(tasks);
     }
