@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true"
-        android:drawable="@drawable/ic_check_circle_grey600_24dp"/>
-    <item android:state_pressed="true"
-        android:drawable="@drawable/homework_checked" />
-    <item android:drawable="@drawable/ic_check_circle_grey600_24dp" />
+        android:drawable="@drawable/checked_36_ww"/>
+    <item android:state_checked="false"
+        android:drawable="@drawable/unchecked_36_w"/>
 </selector>

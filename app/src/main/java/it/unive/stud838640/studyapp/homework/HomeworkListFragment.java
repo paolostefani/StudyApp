@@ -226,6 +226,7 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             hwCompletionBar.setProgress(hw.getPercentage());
             hwCompletionBar.getProgressDrawable()
                     .setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            hwCompletionBar.setVisibility(hw.isCompleted() ? View.INVISIBLE : View.VISIBLE);
 
             CheckBox hwCompletionCheckBox = (CheckBox) convertView
                     .findViewById(R.id.hwork_completion_checkBox);
