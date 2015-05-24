@@ -92,7 +92,7 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_item_delete_hwork:
-                        for (int i = 0; i < hwAdapter.getCount(); i++) {
+                        for (int i = hwAdapter.getCount(); i >= 0; i--) {
                             if (hwGridView.isItemChecked(i))
                                 homeworkManager.removeHomework(hwAdapter.getItem(i));
                         }

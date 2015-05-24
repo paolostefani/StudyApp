@@ -2,8 +2,14 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/StudyAppActionBar</item>
     </style>
+
+    <style name="StudyAppActionBar"
+        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#ff6666</item>
+    </style>
+
 
     <style name="HomeworkButton">
         <item name="android:layout_width">100dp</item>

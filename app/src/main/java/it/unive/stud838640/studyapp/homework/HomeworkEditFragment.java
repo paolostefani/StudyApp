@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,7 +49,7 @@ public class HomeworkEditFragment extends Fragment {
     private SubjectManager subjectManager;
     private Date expiryDate, exDateDate, exDateTime;
     private TextView addTaskField;
-    private List<Task> tasks;
+    private List<Task> tasks, tasksToRemove;
     private List<EditText> taskFieldList;
     private LinearLayout fieldsLayout;
     private boolean isHomeworkNew;
@@ -69,6 +70,7 @@ public class HomeworkEditFragment extends Fragment {
         subjectManager = SubjectManager.get(getActivity());
         long homeworkId = getArguments().getLong(EXTRA_HOMEWORK_ID);
         homework = homeworkManager.getHomework(homeworkId);
+        tasksToRemove = new ArrayList<>();
     }
 
 
@@ -128,7 +130,7 @@ public class HomeworkEditFragment extends Fragment {
             exDateTime = expiryDate;
             expiryDateField.setText(getDateText(expiryDate));
             expiryTimeField.setText(getTimeText(expiryDate));
-            tasks = homework.getTasks();
+            tasks = new ArrayList<>(homework.getTasks());
         }
         else {
             isHomeworkNew = true;
@@ -157,10 +159,29 @@ public class HomeworkEditFragment extends Fragment {
     private EditText addTaskEditText(LayoutInflater inflater, String taskName) {
         if (taskFieldList == null)
             taskFieldList = new ArrayList<>();
-        View taskListItem = inflater.inflate(R.layout.list_item_edit_task, null);
-        EditText et = (EditText) taskListItem.findViewById(R.id.task_name);
+        final View taskListItem = inflater.inflate(R.layout.list_item_edit_task, null);
+
+        final EditText et = (EditText) taskListItem.findViewById(R.id.task_name);
         et.setText(taskName);
         taskFieldList.add(et);
+
+        ImageView rt = (ImageView) taskListItem.findViewById(R.id.remove_task);
+        rt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Task t = tasks.get(taskFieldList.indexOf(et));
+                    tasks.remove(t);
+                    tasksToRemove.add(t);
+                }
+                catch (IndexOutOfBoundsException ex) {
+
+                }
+                taskFieldList.remove(et);
+                fieldsLayout.removeView(taskListItem);
+            }
+        });
+
         fieldsLayout.addView(taskListItem);
         return et;
     }
@@ -256,6 +277,10 @@ public class HomeworkEditFragment extends Fragment {
                 Task t = new Task();
                 t.setName(taskFieldList.get(i).getText().toString());
                 homeworkManager.addTask(t, homework);
+            }
+            int tasksToRemoveSize = tasksToRemove.size();
+            for (int i = 0; i < tasksToRemoveSize; i++) {
+                homeworkManager.removeTask(tasksToRemove.get(i), homework);
             }
         }
     }

@@ -10,6 +10,14 @@
         android:text="Task"
         android:inputType="text"
         android:maxLength="30"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
         style="@style/field"/>
+    <ImageView
+        android:id="@+id/remove_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_remove_circle_outline_black_24dp"/>
 
 </LinearLayout>
