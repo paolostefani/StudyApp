@@ -52,4 +52,8 @@
     <string name="add_task">Aggiungi un task..</string>
     <string name="completion_label">Completamento</string>
     <string name="completed">Completato</string>
+    <string name="at_least_one_subject">Impossibile eliminare tutta la lista:
+        deve esistere sempre almeno una materia da associare agli Homework!</string>
+    <string name="subject_associated_to_homework">Impossibile eliminare le materie
+        ancora associate ad uno o più Homework!</string>
 </resources>

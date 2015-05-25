@@ -67,6 +67,8 @@ public class SubjectDialogFragment extends DialogFragment {
             bgColorButton.setColor(Color.parseColor(subjectColor));
         } else {
             isSubjectNew = true;
+            subjectColor = "#ef5350";
+            bgColorButton.setColor(Color.parseColor(subjectColor));
         }
 
         return new AlertDialog.Builder(getActivity())

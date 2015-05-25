@@ -1,9 +1,9 @@
 package it.unive.stud838640.studyapp.subject;
 
-import android.support.v4.app.ListFragment;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,10 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import it.unive.stud838640.studyapp.R;
+import it.unive.stud838640.studyapp.homework.Homework;
+import it.unive.stud838640.studyapp.homework.HomeworkManager;
 
 /**
  * Created by paolo on 07/04/2015.
@@ -29,6 +32,8 @@ public class SubjectListFragment extends ListFragment {
     private static int SUBJECT_TARGET = 0;
     private SubjectManager subjectManager;
     private SubjectAdapter subjectAdapter;
+    private HomeworkManager homeworkManager;
+    private boolean areAnySubjectsAssociated;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class SubjectListFragment extends ListFragment {
         subjectManager = SubjectManager.get(getActivity());
         subjectAdapter = new SubjectAdapter(subjectManager.getSubjects());
         setListAdapter(subjectAdapter);
+        homeworkManager = HomeworkManager.get(getActivity());
     }
 
     @Override
@@ -64,7 +70,7 @@ public class SubjectListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        ListView listView = (ListView) v.findViewById(android.R.id.list);
+        final ListView listView = (ListView) v.findViewById(android.R.id.list);
 
         // Contextual Action Bar implementation
         listView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -90,9 +96,25 @@ public class SubjectListFragment extends ListFragment {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_item_delete_hwork:
-                        for (int i = 0; i < subjectAdapter.getCount(); i++) {
-                            if (getListView().isItemChecked(i))
-                                subjectManager.removeSubject(subjectAdapter.getItem(i));
+                        for (int i = subjectAdapter.getCount(); i >= 0; i--) {
+                            if (getListView().isItemChecked(i)) {
+                                if (subjectAdapter.getCount() == 1) {
+                                    Toast toast = Toast.makeText(getActivity(),
+                                            getResources().getString(R.string.at_least_one_subject),
+                                            Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else {
+                                    if (!checkHomeworkAssociation(subjectAdapter.getItem(i)))
+                                        subjectManager.removeSubject(subjectAdapter.getItem(i));
+                                }
+                            }
+                        }
+                        if (areAnySubjectsAssociated) {
+                            areAnySubjectsAssociated = false;
+                            Toast toast = Toast.makeText(getActivity(),
+                                    getResources().getString(R.string.subject_associated_to_homework),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
                         }
                         mode.finish();
                         subjectAdapter.notifyDataSetChanged();
@@ -105,6 +127,16 @@ public class SubjectListFragment extends ListFragment {
             @Override
             public void onDestroyActionMode(ActionMode mode) {
 
+            }
+
+            private boolean checkHomeworkAssociation(Subject s) {
+                for (Homework hw : homeworkManager.getHomeworks()) {
+                    if (hw.getSubject().equals(s)) {
+                        areAnySubjectsAssociated = true;
+                        return true;
+                    }
+                }
+                return false;
             }
         });
         return v;
