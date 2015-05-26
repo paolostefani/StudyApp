@@ -157,7 +157,7 @@ public class HomeworkDetailsFragment extends Fragment {
             case R.id.menu_item_edit:
                 Fragment editFragment = HomeworkEditFragment.newInstance(hw.getId());
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame, editFragment);
+                transaction.replace(R.id.fragment_container, editFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
                 return true;
