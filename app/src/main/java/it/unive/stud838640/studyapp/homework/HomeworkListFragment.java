@@ -200,7 +200,18 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             else {
                 String d = getResources().getString(R.string.d_day);
                 String h = getResources().getString(R.string.h_hours);
-                hworkTimeLeft.setText(dLeft + d + " " + hLeft + h);
+                String dLeftString = "";
+                String hLeftString = "";
+                if (dLeft != 0) {
+                    dLeftString = dLeft + d;
+                    if (hLeft == 0)
+                        hLeftString = "";
+                    else
+                        hLeftString = " " + hLeft + h;
+                }
+                else
+                    hLeftString = hLeft + h;
+                hworkTimeLeft.setText(dLeftString + hLeftString);
             }
 
 /*            hworkButton.setOnClickListener(new View.OnClickListener() {

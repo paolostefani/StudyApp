@@ -254,8 +254,16 @@ public class HomeworkEditFragment extends Fragment {
     }
 
     private void saveHomework(Homework hw, boolean isNew) {
-        hw.setName(nameField.getText().toString());
+        String name = nameField.getText().toString();
+        String homeworkString = getResources().getString(R.string.homework);
+        int hwIndex = isNew ? homeworkManager.getHomeworks().size() + 1
+                : homeworkManager.getHomeworks().size();
+        String defaultName = homeworkString + " " + (hwIndex);
+        hw.setName(name.equals("") ? defaultName : name);
+
         hw.setDescription(descriptionField.getText().toString());
+        if (selectedSubject == null)
+            selectedSubject = subjectManager.getSubjects().get(0);
         hw.setSubject(selectedSubject);
         expiryDate = getSetExpiryDate(exDateDate, exDateTime);
         hw.setExpiryDate(expiryDate);
@@ -263,19 +271,19 @@ public class HomeworkEditFragment extends Fragment {
             homeworkManager.addHomework(homework);
             for (int i = 0; i < taskFieldList.size(); i++) {
                 Task t = new Task();
-                t.setName(taskFieldList.get(i).getText().toString());
+                setTaskName(t, taskFieldList.get(i).getText().toString(), i);
                 homeworkManager.addTask(t, homework);
             }
         }
         else {
             homeworkManager.updateHomework(homework);
             for (int i = 0; i < tasks.size(); i++) {
-                tasks.get(i).setName(taskFieldList.get(i).getText().toString());
+                setTaskName(tasks.get(i), taskFieldList.get(i).getText().toString(), i);
                 homeworkManager.updateTask(tasks.get(i), homework);
             }
             for (int i = tasks.size(); i < taskFieldList.size(); i++) {
                 Task t = new Task();
-                t.setName(taskFieldList.get(i).getText().toString());
+                setTaskName(t, taskFieldList.get(i).getText().toString(), i);
                 homeworkManager.addTask(t, homework);
             }
             int tasksToRemoveSize = tasksToRemove.size();
@@ -283,6 +291,12 @@ public class HomeworkEditFragment extends Fragment {
                 homeworkManager.removeTask(tasksToRemove.get(i), homework);
             }
         }
+    }
+
+    private void setTaskName(Task t, String name, int taskIndex) {
+        String taskString = getResources().getString(R.string.task);
+        String defaultName = taskString + " " + (taskIndex + 1);
+        t.setName(name.equals("") ? defaultName : name);
     }
 
     private Date getSetExpiryDate(Date date, Date time) {

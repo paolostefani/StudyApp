@@ -79,6 +79,14 @@ public class SubjectDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String name = nameField.getText().toString();
+                                String subjectString = getResources()
+                                        .getString(R.string.subject);
+                                int subjectIndex = isSubjectNew
+                                        ? subjectManager.getSubjects().size() + 1
+                                        : subjectManager.getSubjects().size();
+                                String defaultName = subjectString
+                                        + " " + (subjectIndex);
+                                name = (name.equals("") ? defaultName : name);
                                 if (isSubjectNew)
                                     subject = new Subject("","");
                                 subject.setName(name);

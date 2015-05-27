@@ -73,6 +73,10 @@ public class Homework {
         float daysF = (float) timeLeftMilli / (float) DAY_MILLI;
         int days = (int) daysF;
         int hours = Math.round((daysF - days) * 24);
+        if (hours == 24) {
+            days++;
+            hours = 0;
+        }
         days = days < 0 ? 0 : days;
         hours = hours < 0 ? 0 : hours;
 //        String dleft = (days > 0) ? days + " days and " : "";

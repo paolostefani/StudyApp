@@ -87,8 +87,18 @@ public class HomeworkDetailsFragment extends Fragment {
             String h = hLeft > 1 ? getResources().getString(R.string.hours)
                     : getResources().getString(R.string.hour);
             String and = getResources().getString(R.string.and);
-            hworkTimeLeft.setText(dLeft + " " + d + " " + and +
-                    " " + hLeft + " " + h);
+            String dLeftString = "";
+            String hLeftString = "";
+            if (dLeft != 0) {
+                dLeftString = dLeft + " " + d;
+                if (hLeft == 0)
+                    hLeftString = "";
+                else
+                    hLeftString = " " + and + " " + hLeft + " " + h;
+            }
+            else
+                hLeftString = hLeft + " " + h;
+            hworkTimeLeft.setText(dLeftString + hLeftString);
         }
 
         completionField = (TextView) v.findViewById(R.id.hwork_completion);
