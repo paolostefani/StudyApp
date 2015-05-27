@@ -83,7 +83,7 @@ public class SubjectListFragment extends ListFragment {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.contextual_menu_fragment_homework_list, menu);
+                inflater.inflate(R.menu.contextual_menu_fragment_subject_list, menu);
                 return true;
             }
 
@@ -95,7 +95,7 @@ public class SubjectListFragment extends ListFragment {
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.menu_item_delete_hwork:
+                    case R.id.menu_item_delete_subject:
                         for (int i = subjectAdapter.getCount(); i >= 0; i--) {
                             if (getListView().isItemChecked(i)) {
                                 if (subjectAdapter.getCount() == 1) {

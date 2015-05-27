@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_item_new_subject"
         android:icon="@drawable/ic_add_white_36dp"
-        android:title="@string/new_homework"
+        android:title="@string/new_subject"
         android:showAsAction="ifRoom|withText" />
 </menu>

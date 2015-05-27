@@ -38,11 +38,13 @@
         adipiscing elit. Aliquam efficitur nisi sit amet ultricies
         tincidunt.</string>
     <string name="new_homework">Nuovo Homework</string>
+    <string name="new_subject">Nuova Materia</string>
     <string name="_new">Nuovo</string>
     <string name="save">Salva</string>
     <string name="edit">Modifica</string>
     <string name="cancel">Annulla</string>
-    <string name="delete">Elimina Homework</string>
+    <string name="delete_homework">Elimina Homework</string>
+    <string name="delete_subject">Elimina Subject</string>
     <string name="select_subject">Scegli una materia..</string>
     <string name="expired">Scaduto</string>
     <string name="color_label">Colore</string>
