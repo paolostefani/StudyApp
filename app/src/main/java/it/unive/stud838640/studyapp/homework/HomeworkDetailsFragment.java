@@ -107,14 +107,14 @@ public class HomeworkDetailsFragment extends Fragment {
         fieldsLayout = (LinearLayout) v.findViewById(R.id.fields_layout);
         taskFieldList = new ArrayList<>();
         for (Task t : tasks) {
-            addTaskEditText(inflater, t);
+            addTaskItem(inflater, t);
         }
 
         if (tasks.size() == 0) {
             Task t = new Task();
             t.setName(hw.getName());
             homeworkManager.addTask(t, hw);
-            addTaskEditText(inflater, t);
+            addTaskItem(inflater, t);
         }
 
         return v;
@@ -128,7 +128,7 @@ public class HomeworkDetailsFragment extends Fragment {
         completionField.setText(hw.getPercentage() + "%");
     }
 
-    private TextView addTaskEditText(LayoutInflater inflater, Task task) {
+    private TextView addTaskItem(LayoutInflater inflater, Task task) {
         if (taskFieldList == null)
             taskFieldList = new ArrayList<>();
         View taskListItem = inflater.inflate(R.layout.list_item_task, null);

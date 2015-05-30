@@ -12,6 +12,7 @@
         android:maxLength="30"
         android:layout_width="wrap_content"
         android:layout_weight="1"
+        android:saveEnabled="false"
         style="@style/field"/>
     <ImageView
         android:id="@+id/remove_task"

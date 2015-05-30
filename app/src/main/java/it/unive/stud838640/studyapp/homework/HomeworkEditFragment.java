@@ -29,9 +29,6 @@ import it.unive.stud838640.studyapp.R;
 import it.unive.stud838640.studyapp.subject.Subject;
 import it.unive.stud838640.studyapp.subject.SubjectManager;
 
-/**
- * Created by paolo on 16/02/2015.
-*/
 public class HomeworkEditFragment extends Fragment {
     public static final String EXTRA_HOMEWORK_ID =
             "it.unive.stud838640.studyapp.homework_id";
@@ -53,6 +50,7 @@ public class HomeworkEditFragment extends Fragment {
     private List<EditText> taskFieldList;
     private LinearLayout fieldsLayout;
     private boolean isHomeworkNew;
+    private boolean isStateSaved;
 
     public static HomeworkEditFragment newInstance(long homeworkId) {
         Bundle args = new Bundle();
@@ -65,6 +63,9 @@ public class HomeworkEditFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null)
+            isStateSaved = savedInstanceState.getBoolean("stateSaved");
+        setRetainInstance(true);
         setHasOptionsMenu(true);
         homeworkManager = HomeworkManager.get(getActivity());
         subjectManager = SubjectManager.get(getActivity());
@@ -73,14 +74,24 @@ public class HomeworkEditFragment extends Fragment {
         tasksToRemove = new ArrayList<>();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (tasks != null) {
+            int tasksSize = tasks.size();
+            for (int i = tasksSize; i < taskFieldList.size(); i++) {
+                Task t = new Task();
+                t.setName(taskFieldList.get(i).getText().toString());
+                tasks.add(t);
+            }
+        }
+        outState.putBoolean("stateSaved", isStateSaved);
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_homework_edit, container, false);
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-//            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         fragmentManager = getActivity().getFragmentManager();
 
         nameField = (EditText) v.findViewById(R.id.hwork_name);
@@ -130,11 +141,13 @@ public class HomeworkEditFragment extends Fragment {
             exDateTime = expiryDate;
             expiryDateField.setText(getDateText(expiryDate));
             expiryTimeField.setText(getTimeText(expiryDate));
-            tasks = new ArrayList<>(homework.getTasks());
+            if (!isStateSaved)
+                tasks = new ArrayList<>(homework.getTasks());
         }
         else {
             isHomeworkNew = true;
-            tasks = new ArrayList<>();
+            if (!isStateSaved)
+                tasks = new ArrayList<>();
         }
 
         fieldsLayout = (LinearLayout) v.findViewById(R.id.fields_layout);
@@ -150,6 +163,7 @@ public class HomeworkEditFragment extends Fragment {
                 EditText et = addTaskEditText(inflater, "");
                 et.setHint(getActivity().getResources()
                         .getString(R.string.task_label) + " " + taskFieldList.size());
+                isStateSaved = true;
             }
         });
 
@@ -159,8 +173,8 @@ public class HomeworkEditFragment extends Fragment {
     private EditText addTaskEditText(LayoutInflater inflater, String taskName) {
         if (taskFieldList == null)
             taskFieldList = new ArrayList<>();
-        final View taskListItem = inflater.inflate(R.layout.list_item_edit_task, null);
 
+        final View taskListItem = inflater.inflate(R.layout.list_item_edit_task, null);
         final EditText et = (EditText) taskListItem.findViewById(R.id.task_name);
         et.setText(taskName);
         taskFieldList.add(et);
@@ -169,14 +183,9 @@ public class HomeworkEditFragment extends Fragment {
         rt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Task t = tasks.get(taskFieldList.indexOf(et));
-                    tasks.remove(t);
-                    tasksToRemove.add(t);
-                }
-                catch (IndexOutOfBoundsException ex) {
-
-                }
+                Task t = tasks.get(taskFieldList.indexOf(et));
+                tasks.remove(t);
+                tasksToRemove.add(t);
                 taskFieldList.remove(et);
                 fieldsLayout.removeView(taskListItem);
             }
@@ -226,6 +235,7 @@ public class HomeworkEditFragment extends Fragment {
         if (SystemClock.elapsedRealtime() - lastClickTime < 1000)
             return false;
         lastClickTime = SystemClock.elapsedRealtime();
+        isStateSaved = false;
         switch (item.getItemId()) {
             case R.id.menu_item_cancel:
                 if (getFragmentManager().getBackStackEntryCount() == 0)
@@ -277,11 +287,11 @@ public class HomeworkEditFragment extends Fragment {
         }
         else {
             homeworkManager.updateHomework(homework);
-            for (int i = 0; i < tasks.size(); i++) {
+            for (int i = 0; i < homework.getTasks().size(); i++) {
                 setTaskName(tasks.get(i), taskFieldList.get(i).getText().toString(), i);
                 homeworkManager.updateTask(tasks.get(i), homework);
             }
-            for (int i = tasks.size(); i < taskFieldList.size(); i++) {
+            for (int i = homework.getTasks().size(); i < taskFieldList.size(); i++) {
                 Task t = new Task();
                 setTaskName(t, taskFieldList.get(i).getText().toString(), i);
                 homeworkManager.addTask(t, homework);

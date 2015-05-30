@@ -28,9 +28,6 @@ import java.util.List;
 import it.unive.stud838640.studyapp.R;
 import it.unive.stud838640.studyapp.Updateable;
 
-/**
- * Created by paolo on 18/02/15.
- */
 public class HomeworkListFragment extends android.support.v4.app.Fragment
         implements Updateable {
     public static final String EXTRA_HOMEWORK_ACTION =
@@ -52,15 +49,17 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_homework_grid, container, false);
-        hwGridView = (GridView) v.findViewById(R.id.hwork_gridview);
+
         homeworks = homeworkManager.getHomeworks();
+        hwGridView = (GridView) v.findViewById(R.id.hwork_gridview);
+        View emptyView = v.findViewById(R.id.empty_list_text);
+        hwGridView.setEmptyView(emptyView);
         hwAdapter = new HomeworkAdapter(homeworks);
         hwGridView.setAdapter(hwAdapter);
         hwGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("ITEM CLICK", "ARGH!!!");
-                Homework hw = (Homework) hwAdapter.getItem(position);
+                Homework hw = hwAdapter.getItem(position);
                 Intent i = new Intent(getActivity(), HomeworkActivity.class);
                 i.putExtra(EXTRA_HOMEWORK_ACTION, "showdetails");
                 i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
@@ -110,12 +109,14 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             }
         });
 
+
+
         // Periodic update Homework list thread
         uiCallBack = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                //hwAdapter.notifyDataSetChanged();
-                //Log.i("aaa", "BAU!!!");
+                hwAdapter.notifyDataSetChanged();
+                Log.i("aaa", "BAU!!!");
             }
         };
         threadUpdateTimeLeft = new UpdateTimeLeft();
@@ -147,10 +148,6 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
     public void onResume() {
         super.onResume();
         hwAdapter.swapItems(HomeworkManager.get(getActivity()).getHomeworks());
-
-        //hwAdapter.notifyDataSetChanged();
-        Log.i("aaa", "BAU!!!");
-        //hwGridView.invalidateViews();
     }
 
     @Override
@@ -214,24 +211,6 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
                 hworkTimeLeft.setText(dLeftString + hLeftString);
             }
 
-/*            hworkButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), HomeworkActivity.class);
-                    i.putExtra(EXTRA_HOMEWORK_ACTION, "showdetails");
-                    i.putExtra(HomeworkDetailsFragment.EXTRA_HOMEWORK_ID, hw.getId());
-                    startActivity(i);
-                }
-            });
-
-            hworkButton.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Log.i("LONG CLICK", "ARGH!!!");
-                    return true;
-                }
-            });*/
-
             ProgressBar hwCompletionBar = (ProgressBar) convertView
                     .findViewById(R.id.hwork_completion_bar);
             hwCompletionBar.setProgress(hw.getPercentage());
@@ -261,7 +240,7 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             while (true) {
                 uiCallBack.sendEmptyMessage(0);
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(60000);
                 } catch (InterruptedException e) {
                 }
                 ;

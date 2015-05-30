@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/hwork_gridview"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnWidth="120dp"
-    android:gravity="center"
-    android:layout_gravity="center_horizontal"
-    android:numColumns="auto_fit"
-    android:stretchMode="spacingWidthUniform"
-    android:listSelector="@android:color/transparent" />
+    android:orientation="vertical">
+
+    <GridView
+        android:id="@+id/hwork_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:numColumns="auto_fit"
+        android:stretchMode="spacingWidthUniform"
+        android:listSelector="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/empty_list_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_one_homework"
+        android:textSize="24sp"
+        android:textColor="#ff6666"
+        android:gravity="center"
+        android:visibility="gone"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="50dp"/>
+
+</LinearLayout>

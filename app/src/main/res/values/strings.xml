@@ -23,7 +23,7 @@
     <string name="d_day">g</string>
     <string name="day">giorno</string>
     <string name="days">giorni</string>
-    <string name="h_hours">o</string>
+    <string name="h_hours">h</string>
     <string name="hour">ora</string>
     <string name="hours">ore</string>
     <string name="and">e</string>
@@ -60,4 +60,6 @@
         deve esistere sempre almeno una materia da associare agli Homework!</string>
     <string name="subject_associated_to_homework">Impossibile eliminare le materie
         ancora associate ad uno o più Homework!</string>
+    <string name="no_one_homework">Per creare un Homework usa
+        il pulsante + in alto a destra!</string>
 </resources>
