@@ -1,8 +1,5 @@
 package it.unive.stud838640.studyapp.homework;
 
-/**
- * Created by paolo on 15/02/15.
- */
 public class Task {
     private long id;
     private String name, description;

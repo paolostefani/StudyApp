@@ -8,6 +8,7 @@
     <style name="StudyAppActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">#ff6666</item>
+        <item name="android:icon">@drawable/actionbar_icon</item>
     </style>
 
 

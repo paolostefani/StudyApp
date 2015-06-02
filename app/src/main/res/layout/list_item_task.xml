@@ -11,6 +11,8 @@
         android:layout_alignParentRight="true"
         android:saveEnabled="false"
         android:gravity="center"
+        android:button="@drawable/generic_checkbox"
+        android:layout_margin="5dp"
         style="@style/field"/>
 
     <TextView

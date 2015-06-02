@@ -3,12 +3,11 @@ package it.unive.stud838640.studyapp.subject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -17,9 +16,6 @@ import android.widget.GridView;
 
 import it.unive.stud838640.studyapp.R;
 
-/**
- * Created by paolo on 11/04/15.
- */
 public class SubjectColorDialogFragment extends DialogFragment {
     public static final String EXTRA_COLOR =
             "it.unive.stud838640.studyapp.subjectColor";
@@ -37,13 +33,13 @@ public class SubjectColorDialogFragment extends DialogFragment {
         Intent i = new Intent();
         i.putExtra(EXTRA_COLOR, color);
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, i);
-        Log.i("Select: ", color);
         this.dismiss();
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         subjectManager = SubjectManager.get(getActivity());
+
         View v = getActivity().getLayoutInflater()
                 .inflate(R.layout.dialog_color, null);
         GridView colorGridView = (GridView) v.findViewById(R.id.color_gridview);

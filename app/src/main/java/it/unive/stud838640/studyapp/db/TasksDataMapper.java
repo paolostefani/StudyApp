@@ -12,9 +12,6 @@ import java.util.List;
 import it.unive.stud838640.studyapp.homework.Homework;
 import it.unive.stud838640.studyapp.homework.Task;
 
-/**
- * Created by paolo on 28/03/15.
- */
 public class TasksDataMapper implements BaseColumns{
 
     /**************** Table schema ****************/

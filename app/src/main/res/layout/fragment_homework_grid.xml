@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
     <GridView
@@ -17,15 +18,14 @@
 
     <TextView
         android:id="@+id/empty_list_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:text="@string/no_one_homework"
         android:textSize="24sp"
-        android:textColor="#ff6666"
+        android:textColor="#ffffff"
         android:gravity="center"
         android:visibility="gone"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="50dp"/>
+        android:padding="20dp"
+        android:background="@drawable/generic_shape"/>
 
 </LinearLayout>

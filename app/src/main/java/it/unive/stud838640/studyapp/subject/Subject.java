@@ -1,8 +1,5 @@
 package it.unive.stud838640.studyapp.subject;
 
-/**
- * Created by paolo on 16/04/2015.
- */
 public class Subject {
     private long id;
     private String name, color;

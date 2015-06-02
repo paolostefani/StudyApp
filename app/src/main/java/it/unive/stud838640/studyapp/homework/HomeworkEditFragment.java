@@ -188,6 +188,7 @@ public class HomeworkEditFragment extends Fragment {
                 tasksToRemove.add(t);
                 taskFieldList.remove(et);
                 fieldsLayout.removeView(taskListItem);
+                isStateSaved = true;
             }
         });
 
@@ -274,9 +275,12 @@ public class HomeworkEditFragment extends Fragment {
         hw.setDescription(descriptionField.getText().toString());
         if (selectedSubject == null)
             selectedSubject = subjectManager.getSubjects().get(0);
+
         hw.setSubject(selectedSubject);
         expiryDate = getSetExpiryDate(exDateDate, exDateTime);
+
         hw.setExpiryDate(expiryDate);
+
         if (isNew) {
             homeworkManager.addHomework(homework);
             for (int i = 0; i < taskFieldList.size(); i++) {
@@ -287,7 +291,7 @@ public class HomeworkEditFragment extends Fragment {
         }
         else {
             homeworkManager.updateHomework(homework);
-            for (int i = 0; i < homework.getTasks().size(); i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 setTaskName(tasks.get(i), taskFieldList.get(i).getText().toString(), i);
                 homeworkManager.updateTask(tasks.get(i), homework);
             }

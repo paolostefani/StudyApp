@@ -24,9 +24,6 @@ import it.unive.stud838640.studyapp.R;
 import it.unive.stud838640.studyapp.homework.Homework;
 import it.unive.stud838640.studyapp.homework.HomeworkManager;
 
-/**
- * Created by paolo on 07/04/2015.
- */
 public class SubjectListFragment extends ListFragment {
     private static final String DIALOG_SUBJECT = "subject";
     private static int SUBJECT_TARGET = 0;
@@ -139,6 +136,7 @@ public class SubjectListFragment extends ListFragment {
                 return false;
             }
         });
+
         return v;
     }
 

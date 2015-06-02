@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -116,7 +115,6 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             @Override
             public void handleMessage(Message msg) {
                 hwAdapter.notifyDataSetChanged();
-                Log.i("aaa", "BAU!!!");
             }
         };
         threadUpdateTimeLeft = new UpdateTimeLeft();
@@ -179,7 +177,6 @@ public class HomeworkListFragment extends android.support.v4.app.Fragment
             final Homework hw = homeworks.get(position);
 
             TextView hworkButton = (TextView) convertView.findViewById(R.id.hwork_button);
-            //hworkButton.setText(hw.getId() + "");
             GradientDrawable bgShape = (GradientDrawable) hworkButton.getBackground();
             String color = hw.getSubject().getColor();
             bgShape.setColor(Color.parseColor(color));

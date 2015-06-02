@@ -14,9 +14,6 @@ import it.unive.stud838640.studyapp.R;
 import it.unive.stud838640.studyapp.subject.Subject;
 import it.unive.stud838640.studyapp.subject.SubjectManager;
 
-/**
- * Created by paolo on 11/03/2015.
- */
 public class SubjectsListDialogFragment extends DialogFragment {
     public static final String EXTRA_ID =
             "it.unive.stud838640.studyapp.subjectId";

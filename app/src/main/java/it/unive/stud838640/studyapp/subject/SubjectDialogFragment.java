@@ -15,9 +15,6 @@ import android.widget.EditText;
 
 import it.unive.stud838640.studyapp.R;
 
-/**
- * Created by paolo on 10/04/15.
- */
 public class SubjectDialogFragment extends DialogFragment {
     public static final String EXTRA_SUBJECT_ID =
             "it.unive.stud838640.studyapp.subject_id";
@@ -40,6 +37,7 @@ public class SubjectDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         subjectManager = SubjectManager.get(getActivity());
+
         long subjectId = getArguments().getLong(EXTRA_SUBJECT_ID);
         subject = subjectManager.getSubject(subjectId);
         View v = getActivity().getLayoutInflater()
@@ -65,7 +63,8 @@ public class SubjectDialogFragment extends DialogFragment {
             nameField.setText(subject.getName());
             subjectColor = subject.getColor();
             bgColorButton.setColor(Color.parseColor(subjectColor));
-        } else {
+        }
+        else {
             isSubjectNew = true;
             subjectColor = "#ef5350";
             bgColorButton.setColor(Color.parseColor(subjectColor));

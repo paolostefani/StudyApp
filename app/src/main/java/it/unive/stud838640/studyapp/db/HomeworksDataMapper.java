@@ -14,9 +14,6 @@ import it.unive.stud838640.studyapp.homework.Homework;
 import it.unive.stud838640.studyapp.homework.Task;
 import it.unive.stud838640.studyapp.subject.SubjectManager;
 
-/**
- * Created by paolo on 28/03/15.
- */
 public class HomeworksDataMapper implements BaseColumns{
 
     /**************** Table schema ****************/

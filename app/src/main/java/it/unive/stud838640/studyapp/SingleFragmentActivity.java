@@ -5,9 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 
-/**
- * Created by paolo on 18/02/15.
- */
 public abstract class SingleFragmentActivity extends Activity {
     protected abstract Fragment createFragment();
 

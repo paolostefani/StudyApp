@@ -8,9 +8,6 @@ import java.util.List;
 
 import it.unive.stud838640.studyapp.subject.Subject;
 
-/**
- * Created by paolo on 13/02/15.
- */
 public class Homework {
     private final int HOUR_MILLI = 1000 * 3600;
     private final int DAY_MILLI = HOUR_MILLI * 24;
@@ -79,8 +76,6 @@ public class Homework {
         }
         days = days < 0 ? 0 : days;
         hours = hours < 0 ? 0 : hours;
-//        String dleft = (days > 0) ? days + " days and " : "";
-//        timeLeft = days + "," + hours;
         int[] dh = {days, hours};
         return dh;
     }

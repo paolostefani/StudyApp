@@ -6,14 +6,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import it.unive.stud838640.studyapp.homework.HomeworkListFragment;
 import it.unive.stud838640.studyapp.subject.SubjectListFragment;
 
-/**
- * Created by paolo on 26/04/15.
- */
 public class MainActivity extends FragmentActivity {
 
     @Override
@@ -36,7 +32,6 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 viewPager.getAdapter().notifyDataSetChanged();
-                Log.i("ONPAGESELECTED", "AI");
             }
 
             @Override
@@ -85,6 +80,7 @@ public class MainActivity extends FragmentActivity {
                 if (f != null)
                     f.update();
             }
+
             return super.getItemPosition(object);
         }
     }

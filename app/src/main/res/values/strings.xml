@@ -60,6 +60,6 @@
         deve esistere sempre almeno una materia da associare agli Homework!</string>
     <string name="subject_associated_to_homework">Impossibile eliminare le materie
         ancora associate ad uno o più Homework!</string>
-    <string name="no_one_homework">Per creare un Homework usa
-        il pulsante + in alto a destra!</string>
+    <string name="no_one_homework">Aggiungi un Homework premendo
+        "+" in alto a destra!</string>
 </resources>

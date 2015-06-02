@@ -8,9 +8,6 @@ import java.util.List;
 import it.unive.stud838640.studyapp.db.HomeworksDataMapper;
 import it.unive.stud838640.studyapp.db.TasksDataMapper;
 
-/**
- * Created by paolo on 18/02/2015.
- */
 public class HomeworkManager {
     private static HomeworkManager homeworkManager;
     private List<Homework> homeworks;

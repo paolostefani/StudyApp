@@ -11,9 +11,6 @@ import java.util.List;
 
 import it.unive.stud838640.studyapp.subject.Subject;
 
-/**
- * Created by paolo on 28/03/15.
- */
 public class SubjectsDataMapper implements BaseColumns{
 
     /**************** Table schema ****************/
